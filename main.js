@@ -1,7 +1,13 @@
-docum = require('./test.js');
-JSoutput = require('./JSoutput.js');
-JSrun = require('./JSrun.js');
 
+
+window.doc = require('./test.js');
+
+var JSrun = require('./JSrun.js');
+
+document.getElementById('run').addEventListener('click', function() {
+  console.log('clicked run')
+  JSrun()
+})
 
 // circuit = docum.componentDefinition('DUAIDHSAIDOSA');
 //

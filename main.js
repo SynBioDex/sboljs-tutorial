@@ -1,6 +1,9 @@
 
+SBOLDocument = require('sboljs');
 
-window.doc = require('./test.js');
+window.doc = new SBOLDocument();
+
+console.log(window.doc)
 
 var JSrun = require('./JSrun.js');
 
@@ -9,8 +12,12 @@ document.getElementById('run').addEventListener('click', function() {
   JSrun()
 })
 
-// circuit = docum.componentDefinition('DUAIDHSAIDOSA');
+// x = window.doc
 //
-// circuit.displayId = 'testid';
+// x_cd = x.componentDefinition('JFIODJFIDS')
 //
-// console.log(circuit)
+// x_cd.persistentIdentity = "FJIDOJFIODJOFI"
+//
+// x_cd.version = '1.0'
+//
+// x_cd.addType('Protein')

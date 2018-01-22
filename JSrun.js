@@ -1,13 +1,13 @@
 // JSoutput = require('./JSoutput.js');
 
 stringify = require('json-stringify-safe')
+var $ = require('jquery');
 
 module.exports = function() {
 
     var str;
 
-    var outnode = document.getElementById("JSoutput");
-    outnode.value = "";
+    $("#JSoutput").val('');
 
     d = new Date().getTime();
 

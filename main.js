@@ -1,16 +1,42 @@
 
 SBOLDocument = require('sboljs');
+var $ = require('jquery');
+
 
 window.doc = new SBOLDocument();
 
-console.log(window.doc)
+console.log(window.doc);
 
 var JSrun = require('./JSrun.js');
 
 document.getElementById('run').addEventListener('click', function() {
   console.log('clicked run')
   JSrun()
+});
+
+$("#resetDoc").click(function(){
+  window.doc = new SBOLDocument();
+  $("#JSoutput").val('');
+
+});
+
+$(".chap").click(function(){
+
+  var chap = this.id.substr(-1);
+
+  alert(chap);
+
+
 })
+
+//
+// $(document).ready(function() {
+//
+//   $('pre code').each(function(i, block) {
+//     hljs.highlightBlock(block);
+//   });
+// });
+
 
 // x = window.doc
 //

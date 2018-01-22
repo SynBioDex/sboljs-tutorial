@@ -12,7 +12,8 @@ module.exports = function() {
     d = new Date().getTime();
 
     try {
-        eval(document.getElementById("JSprogram").value)
+        eval(myCodeMirror1.getValue())
+        eval()
     } catch(e) {
         str = e.name+" at line "+(e.lineNumber-56)+": "+e.message;
     }
@@ -20,6 +21,8 @@ module.exports = function() {
 
 // ok but probably dont just dump the X+ML there, instead go through doc and print it nicely ok :-D
 
-      document.getElementById("JSoutput").value = doc.serializeXML()
+      // document.getElementById("JSoutput").value = doc.serializeXML()
+
+      myCodeMirror2.setValue(doc.serializeXML());
 
 };

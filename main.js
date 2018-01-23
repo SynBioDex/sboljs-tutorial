@@ -1,7 +1,9 @@
 
 SBOLDocument = require('sboljs');
 var $ = require('jquery');
+var terminals = require('./terminals');
 
+var hljs = require('highlight.js');
 
 window.doc = new SBOLDocument();
 
@@ -16,7 +18,7 @@ document.getElementById('run').addEventListener('click', function() {
 
 $("#resetDoc").click(function(){
   window.doc = new SBOLDocument();
-  $("#JSoutput").val('');
+  terminals.myCodeMirror2.setValue('')
 
 });
 
@@ -26,16 +28,31 @@ $(".chap").click(function(){
 
   alert(chap);
 
+})
+
+$("#openbutton").click(function(){
+
+  document.getElementById("mySidenav").style.width = "250px";
+
 
 })
 
+
+$("#closebutton").click(function(){
+
+  document.getElementById("mySidenav").style.width = "0";
+
+
+})
+
+
 //
-// $(document).ready(function() {
-//
-//   $('pre code').each(function(i, block) {
-//     hljs.highlightBlock(block);
-//   });
-// });
+$(document).ready(function() {
+
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
 
 
 // x = window.doc

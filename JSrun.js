@@ -1,7 +1,6 @@
-// JSoutput = require('./JSoutput.js');
-
 stringify = require('json-stringify-safe')
 var $ = require('jquery');
+var terminals = require('./terminals');
 
 module.exports = function() {
 
@@ -12,7 +11,7 @@ module.exports = function() {
     d = new Date().getTime();
 
     try {
-        eval(myCodeMirror1.getValue())
+        eval(terminals.myCodeMirror1.getValue())
         eval()
     } catch(e) {
         str = e.name+" at line "+(e.lineNumber-56)+": "+e.message;
@@ -23,6 +22,6 @@ module.exports = function() {
 
       // document.getElementById("JSoutput").value = doc.serializeXML()
 
-      myCodeMirror2.setValue(doc.serializeXML());
+      terminals.myCodeMirror2.setValue(doc.serializeXML());
 
 };

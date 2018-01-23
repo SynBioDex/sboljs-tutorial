@@ -25,7 +25,7 @@ $("#resetDoc").click(function(){
 $(".chap").click(function(){
 
   var chap = this.id.substr(-1);
-
+  
   readChapter("./Chapters/Chapter" + chap + ".txt", function() {
 
       highlight();

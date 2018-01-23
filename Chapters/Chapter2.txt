@@ -1,33 +1,7 @@
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
-var z = 584305;
+/*
+
+Second step in the tutorial is blablabla
+
+*/
+
+var y = 3;

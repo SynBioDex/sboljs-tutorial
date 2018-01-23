@@ -1,4 +1,3 @@
-
 SBOLDocument = require('sboljs');
 var $ = require('jquery');
 var terminals = require('./terminals');

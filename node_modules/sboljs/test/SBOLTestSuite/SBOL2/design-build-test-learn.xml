@@ -115,6 +115,7 @@
     <sbol:version>1.0.0</sbol:version>
     <prov:wasDerivedFrom rdf:resource="http://sys-bio.org/Implementation/build/1.0.0"/>
     <prov:wasGeneratedBy rdf:resource="http://sys-bio.org/Activity/raw_data_generation/1.0.0"/>
+    <sbol:source rdf:resource="file:raw_data.fcs"/>
   </sbol:Attachment>
   <sbol:Implementation rdf:about="http://sys-bio.org/Implementation/build/1.0.0">
     <sbol:displayId>build</sbol:displayId>

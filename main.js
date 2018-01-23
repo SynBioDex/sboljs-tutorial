@@ -2,6 +2,7 @@
 SBOLDocument = require('sboljs');
 var $ = require('jquery');
 var terminals = require('./terminals');
+var readChapter = require('./readChapter')
 
 var hljs = require('highlight.js');
 
@@ -32,8 +33,7 @@ $(".chap").click(function(){
 
 $("#openbutton").click(function(){
 
-  document.getElementById("mySidenav").style.width = "250px";
-
+  $("#mySidenav").css('width', '250px');
 
 })
 
@@ -46,14 +46,25 @@ $("#closebutton").click(function(){
 })
 
 
-//
-$(document).ready(function() {
+function highlight(){
 
   $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
+
+}
+
+readChapter("./Chapter2.txt", function() {
+
+    highlight();
+
 });
 
+
+
+// readChapter("./Chapter2.txt");
+//
+// highlight();
 
 // x = window.doc
 //

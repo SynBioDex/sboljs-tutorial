@@ -26,13 +26,17 @@ $(".chap").click(function(){
 
   var chap = this.id.substr(-1);
 
-  alert(chap);
+  readChapter("./Chapters/Chapter" + chap + ".txt", function() {
+
+      highlight();
+
+  });
 
 })
 
 $("#openbutton").click(function(){
 
-  $("#mySidenav").css('width', '250px');
+  $("#mySidenav").css('width', '5%');
 
 })
 
@@ -53,11 +57,7 @@ function highlight(){
 
 }
 
-readChapter("./Chapters/Chapter2.txt", function() {
 
-    highlight();
-
-});
 
 
 

@@ -1,4 +1,3 @@
-stringify = require('json-stringify-safe')
 var $ = require('jquery');
 var terminals = require('./terminals');
 

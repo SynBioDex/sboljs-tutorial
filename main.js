@@ -54,7 +54,7 @@ function highlight(){
 
 }
 
-readChapter("./Chapter2.txt", function() {
+readChapter("./Chapters/Chapter2.txt", function() {
 
     highlight();
 

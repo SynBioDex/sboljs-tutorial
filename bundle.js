@@ -11,10 +11,11 @@ module.exports = function() {
     d = new Date().getTime();
 
     try {
-        eval(terminals.myCodeMirror1.getValue())
-        eval()
+        console.log(eval(terminals.myCodeMirror1.getValue()))
+        // eval()
     } catch(e) {
         str = e.name+" at line "+(e.lineNumber-56)+": "+e.message;
+        alert(str)
     }
 
 

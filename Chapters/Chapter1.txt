@@ -1,15 +1,73 @@
-let SBOLDocument = require(’sboljs’);
-//let filesystem = require(’fs’);
-//let createUri = require(’./lib/createUri’);
-//let cdTypes = require(’./lib/componentDefinitionTypes’);
-//let so = require(’./lib/sequenceOntology’);
-//let sbo = require(’./lib/systemsBiologyOntology’);
-//let encodings = require(’./lib/encodings’);
-// Create the document
-let document = new SBOLDocument();
+// Chapter 1: Creating an SBOL Document and TopLevel objects
 
-// Set up namespaces
+//filesystem = require(’fs’);
+//createUri = require(’./lib/createUri’);
+//cdTypes = require(’./lib/componentDefinitionTypes’);
+//so = require(’./lib/sequenceOntology’);
+//sbo = require(’./lib/systemsBiologyOntology’);
+//encodings = require(’./lib/encodings’);
+
+// Create the document
+window.doc = new SBOLDocument();
+var document = window.doc;
 
 // Set some constants
-let uriPrefix = "http://sbols.org/CRISPR_Example/";
-let version = "1.0.0";
+uriPrefix = "http://sbols.org/CRISPR_Example/";
+version = "1.0.0";
+
+// Temporary URI before getting the createUri module that's missing
+URI = "ABCD1234";
+
+
+// Add top-level Component Definitions
+cas9_generic_cd = document.componentDefinition(URI);
+grna_generic_cd = document.componentDefinition(URI);
+cas9_grna_complex_cd = document.componentDefinition(URI);
+target_gene_cd = document.componentDefinition(URI);
+target_cd = document.componentDefinition(URI);
+
+// Add Display IDs to component definitions
+cas9_generic_cd.displayId = "cas9_generic";
+grna_generic_cd.displayId = "gRNA_generic";
+cas9_grna_complex_cd.displayId = "cas9_gRNA_complex";
+target_gene_cd.displayId = "target_gene";
+target_cd.displayId = "target";
+
+
+// Add persistent identities to component definitions
+cas9_generic_cd.persistentIdentity = URI;
+grna_generic_cd.persistentIdentity = URI;
+cas9_grna_complex_cd.persistentIdentity = URI;
+target_gene_cd.persistentIdentity = URI;
+target_cd.persistentIdentity = URI;
+
+
+// Add versions to component definitions
+cas9_generic_cd.version = version;
+grna_generic_cd.version = version;
+cas9_grna_complex_cd.version = version;
+target_gene_cd.version = version;
+target_cd.version = version;
+
+// Add types to component definitions
+cas9_generic_cd.addType("PROTEIN");
+grna_generic_cd.addType("RNA");
+cas9_grna_complex_cd.addType("COMPLEX");
+target_gene_cd.addType("DNA");
+target_cd.addType("PROTEIN");
+
+// Add roles to component definitions
+grna_generic_cd.addRole("SGRNA");
+target_gene_cd.addRole("PROMOTER");
+
+// Add top-level module definition
+let crispr_template_module = document.moduleDefinition(URI);
+
+ // Add module definition display ID
+ crispr_template_module.displayId = "CRISPR_Template";
+
+// Add module definition persistent identity
+crispr_template_module.persistentIdentity = URI;
+
+// Add module definition version
+crispr_template_module.version = version;

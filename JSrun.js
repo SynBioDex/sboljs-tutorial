@@ -11,9 +11,10 @@ module.exports = function() {
 
     try {
         eval(terminals.myCodeMirror1.getValue())
-        eval()
+        // eval()
     } catch(e) {
         str = e.name+" at line "+(e.lineNumber-56)+": "+e.message;
+        alert(str)
     }
 
 

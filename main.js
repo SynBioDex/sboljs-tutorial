@@ -25,7 +25,7 @@ $("#resetDoc").click(function(){
 $(".chap").click(function(){
 
   var chap = this.id.substr(-1);
-  
+
   readChapter("./Chapters/Chapter" + chap + ".txt", function() {
 
       highlight();
@@ -56,21 +56,3 @@ function highlight(){
   });
 
 }
-
-
-
-
-
-// readChapter("./Chapter2.txt");
-//
-// highlight();
-
-// x = window.doc
-//
-// x_cd = x.componentDefinition('JFIODJFIDS')
-//
-// x_cd.persistentIdentity = "FJIDOJFIODJOFI"
-//
-// x_cd.version = '1.0'
-//
-// x_cd.addType('Protein')

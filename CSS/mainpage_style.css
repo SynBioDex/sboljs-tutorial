@@ -20,8 +20,22 @@
 
 }
 
+#table{
+
+  float:right;
+  height: 50%;
+  max-height: 50%;
+
+}
+
 hr{
   border-top: 1px solid #8c8b8b;
+
+}
+
+tr {
+
+  height: 2%;
 
 }
 
@@ -107,18 +121,25 @@ textarea {
     color: #818181;
 }
 
+#main{
 
+    display: -webkit-inline-box;
+
+}
 #guide{
 
-  width: 100%;
-  height: 25%;
+  max-width: 25%;
+  width:25%;
+  height: inherit;
+  max-height: 52%;
+  display: inline-block;
+  border: 2px solid black;
 
 }
 
 .hljs{
 
-  max-height: 65%;
-  border: 2px solid black;
+  max-height: 50%;
   background: #d9d9d9;
 
 }
@@ -136,5 +157,6 @@ textarea {
 .CodeMirror{
 
   background: #d9d9d9;
+  height: 100%;
 
 }

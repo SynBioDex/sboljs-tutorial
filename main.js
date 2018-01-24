@@ -26,9 +26,23 @@ $(".chap").click(function(){
 
   var chap = this.id.substr(-1);
 
-  readChapter("./Chapters/Chapter" + chap + ".txt", function() {
+  var file = "";
 
-      highlight();
+  if (chap == "w"){
+
+    file = "./Chapters/Overview.txt";
+
+  }
+
+  else{
+
+    file = "./Chapters/Chapter" + chap + ".txt"
+
+  }
+
+  readChapter(file, function() {
+
+    highlight();
 
   });
 
@@ -56,3 +70,5 @@ function highlight(){
   });
 
 }
+
+highlight();

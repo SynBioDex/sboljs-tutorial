@@ -21,7 +21,7 @@ hue-6-2: #e6c07b
 .hljs {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
+  padding-left: 0.5em;
   background: #d9d9d9;
 }
 
@@ -70,7 +70,7 @@ hue-6-2: #e6c07b
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-  color: #d19a66;
+  color: #a11;
 }
 
 .hljs-symbol,

@@ -1,8 +1,9 @@
 #header{
 
-  margin: auto;
-  width: 30%;
+  /*margin: auto;
+  width: 50%;*/
   font-size: 26;
+  text-align: center;
 
 }
 
@@ -13,18 +14,56 @@
 }
 
 #chapterdiv{
-  margin: auto;
-  width: 50%;
+
   text-align: center;
 
 
 }
+#main{
+
+  display: -webkit-inline-box;
+  padding: 3%;
+}
+
+
+
+.chap {
+    padding-left: 10%;
+    outline:none;
+    border: none;
+    background-color: Transparent;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+    cursor:pointer;
+    display: inline;
+    font-size: 20px;
+}
+
+.chap:hover {
+    color: #818181;
+}
+
+
+#guide{
+
+  max-width: 50%;
+  width:45%;
+  height: inherit;
+  /*max-height: 52%;*/
+  display: inline-block;
+  border:1px solid #8c8b8b
+  /*border-style:groove;*/
+}
+
 
 #table{
 
   float:right;
   height: 50%;
-  max-height: 50%;
+  max-height: 100%;
 
 }
 
@@ -35,24 +74,37 @@ hr{
 
 tr {
 
-  height: 2%;
+  /*height: 2%;*/
+  border:1px solid #8c8b8b
 
 }
 
 td {
   background:white;
   vertical-align:top;
-  border:2px
-  solid black;
-  padding:2px 10px
+  border:1px solid #8c8b8b;
+  border-style:groove;
+
+  /*padding:2px 10px;*/
+
 }
+
+.program{
+
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+
+}
+
 pre {
   margin:0
 }
 table {
   border-collapse:collapse;
-  table-layout:fixed
-
+  table-layout:fixed;
+  max-height:20%;
+  /*overflow: scroll;*/
 }
 body {
   background:white;
@@ -61,19 +113,19 @@ body {
 textarea {
   font-family:Lucida console
 }
-
+/*
 .sidenav {
     height: 5%;
     width: 0;
     position: fixed;
     z-index: 1;
-    /*top: 25%;*/
+    top: 25%;
     left: 10%;
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    /*padding-top: 60px;*/
-}
+    padding-top: 60px;
+}*/
 
 /*.sidenav a {
     padding: 8px 8px 8px 32px;
@@ -102,45 +154,14 @@ textarea {
 }*/
 
 
-.chap {
-    padding: 8px 7% 10px 40px;
-    outline:none;
-    border: none;
-    background-color: Transparent;
-    text-decoration: none;
-    font-size: 25px;
-    color: black;
-    display: block;
-    transition: 0.3s;
-    cursor:pointer;
-    display: inline;
-    font-size: 20px;
-}
 
-.chap:hover {
-    color: #818181;
-}
 
-#main{
-
-    display: -webkit-inline-box;
-
-}
-#guide{
-
-  max-width: 25%;
-  width:25%;
-  height: inherit;
-  max-height: 52%;
-  display: inline-block;
-  border: 2px solid black;
-
-}
 
 .hljs{
 
-  max-height: 50%;
+  /*max-height: 50%;*/
   background: #d9d9d9;
+  padding: 0;
 
 }
 
@@ -158,5 +179,7 @@ textarea {
 
   background: #d9d9d9;
   height: 100%;
+  /*max-height: 100%;*/
+  overflow: scroll;
 
 }

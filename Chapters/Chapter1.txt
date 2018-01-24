@@ -1,7 +1,15 @@
-/*
+let SBOLDocument = require(’sboljs’);
+//let filesystem = require(’fs’);
+//let createUri = require(’./lib/createUri’);
+//let cdTypes = require(’./lib/componentDefinitionTypes’);
+//let so = require(’./lib/sequenceOntology’);
+//let sbo = require(’./lib/systemsBiologyOntology’);
+//let encodings = require(’./lib/encodings’);
+// Create the document
+let document = new SBOLDocument();
 
-First step in the tutorial is blablabla
+// Set up namespaces
 
-*/
-
-var x = 2;
+// Set some constants
+let uriPrefix = "http://sbols.org/CRISPR_Example/";
+let version = "1.0.0";

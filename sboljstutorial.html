@@ -11,23 +11,38 @@
 <div id="header">
   <img id='SBOLlogo' src="SBOLlogo.png">
   <span>SBOL-JS Interactive Tutorial</span>
+
+
+  <div id='chapterdiv'>
+  <button id='overview' class="chap">Overview</button>
+  <button id='chap1' class="chap">Chapter 1</button>
+  <button id='chap2' class="chap">Chapter 2</button>
+  <button id='chap3' class="chap">Chapter 3</button>
+  <button id='chap4' class="chap">Chapter 4</button>
+  </div>
+  <hr>
 </div>
 
-<div id='chapterdiv'>
-<button id='chap1' class="chap">Chapter 1</button>
-<button id='chap2' class="chap">Chapter 2</button>
-<button id='chap3' class="chap">Chapter 3</button>
-<button id='chap4' class="chap">Chapter 4</button>
-</div>
-<hr>
+
 
 <div id='main'>
 
 <div id ="guide">
 
-  <pre><code id="guide_chap" class="js hljs javascript">
-var x = 2;
-  </code></pre>
+<pre><code id="guide_chap" class="js hljs javascript">/*  Welcome to the SBOL-JS Interactive Tutorial!
+
+  This interface has for purpose teaching you how to use <a href="https://github.com/SynBioDex/sboljs">the Javascript libraries for SBOL</a>.
+
+  As a test case, the chapters on this page will contain the instructions for the
+  creation of the following CRISPR ciruit:
+
+  <img id='crisprimg' src="crispr.png">
+
+  These instructions can be found with more detail <a href="http://sbolstandard.org/wp-content/uploads/2015/01/sboljs_tutorial.pdf">here</a>.
+  Simply click on whichever chapter you want and then use the terminal to follow instructions!
+
+*/
+</code></pre>
 
 </div>
 
@@ -40,10 +55,12 @@ var x = 2;
 <b>Output</b> &nbsp; &nbsp;
 Timing: <span id="JStiming">0.001</span> s
 </td></tr>
-<tr><td width="50%" style="padding:1px">
+<tr><td class="program">
 
 <textarea id="JSprogram" style="width:100%; font-family: monospace; font-size: 16; font-weight: bold;">
 // Do this
+
+window.doc = new SBOLDocument;
 
 var x = window.doc
 
@@ -56,7 +73,7 @@ x_cd.version = '1.0'
 x_cd.addType('Protein')
 </textarea>
 </td>
-<td width="50%" style="padding:1px">
+<td class="program" width="50%" style="padding:1px">
 <textarea id="JSoutput" style="height:5in; width:100%; font-family: monospace; font-size: 16; font-weight: bold;"></textarea></td>
 </tr>
 </tbody></table>

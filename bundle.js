@@ -10972,9 +10972,23 @@ $(".chap").click(function(){
 
   var chap = this.id.substr(-1);
 
-  readChapter("./Chapters/Chapter" + chap + ".txt", function() {
+  var file = "";
 
-      highlight();
+  if (chap == "w"){
+
+    file = "./Chapters/Overview.txt";
+
+  }
+
+  else{
+
+    file = "./Chapters/Chapter" + chap + ".txt"
+
+  }
+
+  readChapter(file, function() {
+
+    highlight();
 
   });
 
@@ -11002,6 +11016,8 @@ function highlight(){
   });
 
 }
+
+highlight();
 
 },{"./JSrun.js":1,"./readChapter":380,"./terminals":381,"highlight.js":7,"jquery":184,"sboljs":221}],6:[function(require,module,exports){
 /*

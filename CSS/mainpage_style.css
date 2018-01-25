@@ -26,6 +26,18 @@
 }
 
 
+.CodeMirror-placeholder{
+
+  color: rgba(237, 141, 15, 1) !important;
+
+}
+
+.CodeMirror-activeline-background{
+
+  background: rgba(88, 78, 75, 0.72) !important;
+
+}
+
 
 .chap {
     padding-left: 10%;
@@ -69,7 +81,7 @@
 
 #crisprimg{
 
-  width: 70%;
+  width: 70% !important;
 
 }
 
@@ -181,9 +193,16 @@ textarea {
 
 }
 
-.cm-s-default .cm-def {
-    color: black;
+.cm-s-default .cm-def{
+
+  color: black;
 }
+
+.cm-variable{
+
+  color: black !important;
+}
+
 
 #guide_chap2{
 

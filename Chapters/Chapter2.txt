@@ -43,7 +43,7 @@ crispr_template_module.addFunctionalComponent(target_gene_fc);
 crispr_template_module.addFunctionalComponent(target_fc);
 
 // Create complex formation reaction
-let cas9complex_formation_interaction = document.interaction(URI);
+cas9complex_formation_interaction = document.interaction(URI);
 
 // Add complex formation reaction display ID
 cas9complex_formation_interaction.displayId = "cas9_complex_formation";
@@ -58,9 +58,9 @@ cas9complex_formation_interaction.version = version;
 cas9complex_formation_interaction.addType("NON_COVALENT_BINDING");
 
 // Create complex formation interaction participations
-let cas9_generic_participation = document.participation(URI)
-let grna_generic_participation = document.participation(URI)
-let cas9_grna_complex_participation = document.participation(URI)
+cas9_generic_participation = document.participation(URI)
+grna_generic_participation = document.participation(URI)
+cas9_grna_complex_participation = document.participation(URI)
 
 // Add complex formation interaction participations display IDs
 cas9_generic_participation.displayId = "cas9_generic";
@@ -93,7 +93,7 @@ cas9complex_formation_interaction.addParticipation(grna_generic_participation);
 cas9complex_formation_interaction.addParticipation(cas9_grna_complex_participation);
 
 // Create target production interaction
-let eyfp_production_interaction = document.interaction(URI)
+eyfp_production_interaction = document.interaction(URI)
 
 // Add target production interation display ID
 eyfp_production_interaction.displayId = "target_production";

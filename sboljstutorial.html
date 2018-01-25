@@ -9,23 +9,25 @@
 <body>
 
 <div id="header">
+
+
   <img id='SBOLlogo' src="SBOLlogo.png">
   <span>SBOL-JS Introductory Tutorial</span>
 
-
   <div id='chapterdiv'>
+    <!-- <div>
+      <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
+    </div> -->
+  <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
   <button id='overview' class="chap">Overview</button>
   <button id='chap1' class="chap">Chapter 1</button>
   <button id='chap2' class="chap">Chapter 2</button>
   <button id='chap3' class="chap">Chapter 3</button>
-  <button id='chap4' class="chap">Chapter 4</button>
+  <!-- <button id='chap4' class="chap">Chapter 4</button> -->
   </div>
   <hr>
 </div>
 
-<div>
-  <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
-</div>
 
 <div id='main'>
 
@@ -51,14 +53,14 @@
   use the terminal on the right to follow instructions!
 
 */
-
 </code></pre>
 
 </div>
 
 
 <table id="table" width="55%">
-<tbody><tr><td><b>Type JavaScript</b>
+<tbody><tr><td>
+<b>Click F11 in the terminal for Fullscreen</b>
 <button id ="resetDoc">Reset Document </button>
 </td><td>
 <input id="run" type="button" value="Serialize into XML"> &nbsp; &nbsp;
@@ -67,20 +69,7 @@ Timing: <span id="JStiming">0.001</span> s
 </td></tr>
 <tr><td class="program">
 
-<textarea id="JSprogram" style="width:100%; font-family: monospace; font-size: 16; font-weight: bold;">
-// Do this
-
-window.doc = new SBOLDocument;
-
-var x = window.doc
-
-x_cd = x.componentDefinition('JFIODJFIDS')
-
-x_cd.persistentIdentity = "FJIDOJFIODJOFI"
-
-x_cd.version = '1.0'
-
-x_cd.addType('Protein')
+<textarea id="JSprogram" style="width:100%; font-family: monospace; font-size: 16; font-weight: bold;" placeholder="Write SBOL-JS instructions in this Javascript terminal...">
 </textarea>
 </td>
 <td class="program" width="50%" style="padding:1px">

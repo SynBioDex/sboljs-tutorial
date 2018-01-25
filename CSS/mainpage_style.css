@@ -25,6 +25,17 @@
   padding: 3%;
 }
 
+#toggleimg{
+
+  font-size: 80%;
+
+}
+
+.terminal-buts{
+
+  font-size: 80%;
+}
+
 
 .CodeMirror-placeholder{
 
@@ -74,8 +85,8 @@
 #table{
 
   float:right;
-  height: 60.5%;
-  max-height:60.5%;
+  height: 65%;
+  max-height:65%;
 
 }
 
@@ -214,6 +225,7 @@ textarea {
 
   background: #d9d9d9;
   height: 100%;
+  font-size: 120%;
   /*max-height: 100%;*/
   overflow: scroll;
 

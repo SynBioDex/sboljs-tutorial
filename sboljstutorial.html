@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="codemirror-5.33.0/lib/codemirror.css">
 <link rel="stylesheet" href="CSS/mainpage_style.css">
 <link rel="stylesheet" href="CSS/highlight_style.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SBOL-JS Introductory Tutorial</title>
 </head>
 <body>
@@ -15,15 +18,13 @@
   <span>SBOL-JS Introductory Tutorial</span>
 
   <div id='chapterdiv'>
-    <!-- <div>
-      <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
-    </div> -->
-  <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
+
+  <button id="toggleimg" class="pure-button"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> Toggle Draggable Circuit Image</button>
   <button id='overview' class="chap">Overview</button>
   <button id='chap1' class="chap">Chapter 1</button>
   <button id='chap2' class="chap">Chapter 2</button>
   <button id='chap3' class="chap">Chapter 3</button>
-  <!-- <button id='chap4' class="chap">Chapter 4</button> -->
+
   </div>
   <hr>
 </div>
@@ -60,12 +61,10 @@
 
 <table id="table" width="55%">
 <tbody><tr><td>
-<b>Click F11 in the terminal for Fullscreen</b>
-<button id ="resetDoc">Reset Document </button>
+Click F11 in the terminal for Fullscreen
 </td><td>
-<input id="run" type="button" value="Serialize into XML"> &nbsp; &nbsp;
-<b>Output</b> &nbsp; &nbsp;
-Timing: <span id="JStiming">0.001</span> s
+<button id="run" class="pure-button"><i class="fa fa-file-code-o" aria-hidden="true"></i> Serialize into XML</button>
+<button id ="resetDoc" class="terminal-buts pure-button"><i class="fa fa-window-restore" aria-hidden="true"></i> Reset Document </button>
 </td></tr>
 <tr><td class="program">
 

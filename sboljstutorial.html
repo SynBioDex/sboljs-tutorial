@@ -4,13 +4,13 @@
 <link rel="stylesheet" href="codemirror-5.33.0/lib/codemirror.css">
 <link rel="stylesheet" href="CSS/mainpage_style.css">
 <link rel="stylesheet" href="CSS/highlight_style.css">
-<title>SBOL-JS Interactive Tutorial</title>
+<title>SBOL-JS Introductory Tutorial</title>
 </head>
 <body>
 
 <div id="header">
   <img id='SBOLlogo' src="SBOLlogo.png">
-  <span>SBOL-JS Interactive Tutorial</span>
+  <span>SBOL-JS Introductory Tutorial</span>
 
 
   <div id='chapterdiv'>
@@ -23,13 +23,20 @@
   <hr>
 </div>
 
-
+<div>
+  <button id="toggleimg"> Toggle Draggable Circuit Image! </button>
+</div>
 
 <div id='main'>
 
+
+<div id='hovercrisprimg' draggable="true">
+<img src="crispr.png">
+</div>
+
 <div id ="guide">
 
-<pre><code id="guide_chap" class="js hljs javascript">/*  Welcome to the SBOL-JS Interactive Tutorial!
+<pre><code id="guide_chap" class="js hljs javascript">/*  Welcome to the SBOL-JS Introductory Tutorial!
 
   This interface is for learning how to use the Javascript
   libraries for SBOL: <a href="https://github.com/SynBioDex/sboljs">SBOL-JS</a>.
@@ -41,10 +48,9 @@
 
   These instructions can be found with more detail <a href="http://sbolstandard.org/wp-content/uploads/2015/01/sboljs_tutorial.pdf">here</a>.
   Simply click on whichever chapter you want and then
-  use the terminal to follow instructions!
+  use the terminal on the right to follow instructions!
 
 */
-
 </code></pre>
 
 </div>
@@ -54,7 +60,7 @@
 <tbody><tr><td><b>Type JavaScript</b>
 <button id ="resetDoc">Reset Document </button>
 </td><td>
-<input id="run" type="button" value="Run (Ctrl-m)"> &nbsp; &nbsp;
+<input id="run" type="button" value="Serialize into XML"> &nbsp; &nbsp;
 <b>Output</b> &nbsp; &nbsp;
 Timing: <span id="JStiming">0.001</span> s
 </td></tr>

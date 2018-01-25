@@ -1,5 +1,7 @@
 SBOLDocument = require('sboljs');
 var $ = require('jquery');
+jQuery = require('jquery');
+require('jquery-ui-bundle');
 var terminals = require('./terminals');
 var readChapter = require('./readChapter')
 
@@ -71,4 +73,26 @@ function highlight(){
 
 }
 
+
+$("#toggleimg").click(function(){
+
+  if ($("#hovercrisprimg").css('display') == "none"){
+
+    $("#hovercrisprimg").css('display', 'inline');
+
+  }
+
+  else{
+
+    $("#hovercrisprimg").css('display', 'none');
+
+
+  }
+
+
+})
+
+
 highlight();
+
+jQuery("#hovercrisprimg").draggable();

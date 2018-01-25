@@ -69,7 +69,15 @@
 
 #crisprimg{
 
-  width: 90%;
+  width: 70%;
+
+}
+
+#hovercrisprimg{
+
+  position: absolute;
+  z-index: 3;
+  display: none;
 
 }
 

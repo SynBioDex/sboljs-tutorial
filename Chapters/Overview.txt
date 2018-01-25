@@ -1,4 +1,4 @@
-/*  Welcome to the SBOL-JS Interactive Tutorial!
+/*  Welcome to the SBOL-JS Introductory Tutorial!
 
   This interface is for learning how to use the Javascript
   libraries for SBOL: <a href="https://github.com/SynBioDex/sboljs">SBOL-JS</a>.

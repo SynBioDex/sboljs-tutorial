@@ -105,6 +105,31 @@
   top: 30%;
 }
 
+.pure-button{
+  background-color: white !important;
+  transition: 0.3s;
+
+
+}
+
+.pure-button:hover{
+  background: white !important;
+
+  color: #818181;
+
+}
+
+#resetDoc{
+  float: right;
+
+}
+
+#fullscreen{
+  padding-left: 1%;
+  padding-top: 1%;
+
+}
+
 hr{
   border-top: 1px solid #8c8b8b;
 

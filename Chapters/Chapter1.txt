@@ -61,10 +61,10 @@ grna_generic_cd.addRole("SGRNA");
 target_gene_cd.addRole("PROMOTER");
 
 // Add top-level module definition
-let crispr_template_module = document.moduleDefinition(URI);
+crispr_template_module = document.moduleDefinition(URI);
 
- // Add module definition display ID
- crispr_template_module.displayId = "CRISPR_Template";
+// Add module definition display ID
+crispr_template_module.displayId = "CRISPR_Template";
 
 // Add module definition persistent identity
 crispr_template_module.persistentIdentity = URI;

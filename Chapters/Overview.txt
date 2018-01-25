@@ -9,7 +9,7 @@
   <img id='crisprimg' src="crispr.png">
 
   These instructions can be found with more detail <a href="http://sbolstandard.org/wp-content/uploads/2015/01/sboljs_tutorial.pdf">here</a>.
-  Simply click on whichever chapter you want and then
+  Simply click on Chapter 1 to start with, and then
   use the terminal on the right to follow instructions!
 
 */

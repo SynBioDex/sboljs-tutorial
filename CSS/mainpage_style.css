@@ -10,6 +10,8 @@
 #SBOLlogo{
 
   vertical-align: middle;
+  height:15%;
+  width:15%;
 
 }
 
@@ -28,6 +30,7 @@
 #toggleimg{
 
   font-size: 80%;
+  color: white;
 
 }
 
@@ -37,11 +40,11 @@
 }
 
 
-.CodeMirror-placeholder{
+/*.CodeMirror-placeholder{
 
   color: rgba(237, 141, 15, 1) !important;
 
-}
+}*/
 
 .CodeMirror-activeline-background{
 
@@ -51,18 +54,20 @@
 
 
 .chap {
-    padding-left: 10%;
+    padding-top: 2%;
+    padding-left: 7%;
+    padding-right: 7%;
     outline:none;
     border: none;
     background-color: Transparent;
     text-decoration: none;
     font-size: 25px;
-    color: black;
+    color: white;
     display: block;
     transition: 0.3s;
     cursor:pointer;
     display: inline;
-    font-size: 20px;
+    font-size: 100%;
 }
 
 .chap:hover {
@@ -106,16 +111,16 @@
 }
 
 .pure-button{
-  background-color: white !important;
+  background-color: transparent !important;
   transition: 0.3s;
 
 
 }
 
 .pure-button:hover{
-  background: white !important;
+  background: transparent !important;
 
-  color: #818181;
+  color: #818181 !important;
 
 }
 
@@ -171,8 +176,9 @@ table {
   /*overflow: scroll;*/
 }
 body {
-  background:white;
+  background:rgb(78, 81, 83);
   font-family: Helvetica;
+  color: white;
 }
 textarea {
   font-family:Lucida console
@@ -228,7 +234,7 @@ textarea {
   padding: 0;
 
 }
-
+/*
 .cm-s-default .cm-def{
 
   color: black;
@@ -237,7 +243,7 @@ textarea {
 .cm-variable{
 
   color: black !important;
-}
+}*/
 
 
 #guide_chap2{
@@ -248,7 +254,7 @@ textarea {
 
 .CodeMirror{
 
-  background: #d9d9d9;
+  /*background: #d9d9d9;*/
   height: 100%;
   font-size: 120%;
   /*max-height: 100%;*/

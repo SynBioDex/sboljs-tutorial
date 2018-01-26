@@ -1,102 +1,70 @@
 /*
-
-Atom One Dark by Daniel Gamage
-Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
-
-base:    #282c34
-mono-1:  #abb2bf
-mono-2:  #818896
-mono-3:  #5c6370
-hue-1:   #56b6c2
-hue-2:   #61aeee
-hue-3:   #c678dd
-hue-4:   #98c379
-hue-5:   #e06c75
-hue-5-2: #be5046
-hue-6:   #d19a66
-hue-6-2: #e6c07b
-
+Monokai style - ported by Luigi Maselli - http://grigio.org
 */
 
 .hljs {
   display: block;
   overflow-x: auto;
-  padding-left: 0.5em;
-  background: #d9d9d9;
+  padding: 0.5em;
+  background: #272822; color: #ddd;
 }
 
-.hljs-comment,
-.hljs-quote {
-  color: #a50;
-  font-style: italic;
-}
-
-.hljs-doctag,
+.hljs-tag,
 .hljs-keyword,
-.hljs-formula {
-  color: #708;
-}
-
-.hljs-section,
-.hljs-name,
 .hljs-selector-tag,
-.hljs-deletion,
-.hljs-subst {
-  color: #e06c75;
+.hljs-literal,
+.hljs-strong,
+.hljs-name {
+  color: #f92672;
 }
 
-.hljs-literal {
-  color: #56b6c2;
+.hljs-code {
+  color: #66d9ef;
+}
+
+.hljs-class .hljs-title {
+  color: white;
+}
+
+.hljs-attribute,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-link {
+  color: #bf79db;
 }
 
 .hljs-string,
-.hljs-regexp,
-.hljs-addition,
-.hljs-attribute,
-.hljs-meta-string {
-  color: #a11;
-}
-
-.hljs-built_in,
-.hljs-class .hljs-title {
-  color: black;
-}
-
-.hljs-attr,
-.hljs-variable,
-.hljs-template-variable,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-section,
+.hljs-emphasis,
 .hljs-type,
-.hljs-selector-class,
+.hljs-built_in,
+.hljs-builtin-name,
 .hljs-selector-attr,
 .hljs-selector-pseudo,
-.hljs-number {
-  color: #a11;
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #a6e22e;
 }
 
-.hljs-symbol,
-.hljs-bullet,
-.hljs-link,
-.hljs-meta,
-.hljs-selector-id,
-.hljs-title {
-  color: #61aeee;
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
 }
 
-.hljs-emphasis {
-  font-style: italic;
-}
-
-.hljs-strong {
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-selector-id {
   font-weight: bold;
-}
-
-.hljs-link {
-  text-decoration: underline;
-}
-
-.CodeMirror-fullscreen {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  height: auto;
-  z-index: 9;
 }

@@ -82233,6 +82233,7 @@ require("./codemirror-5.33.0/addon/selection/active-line.js")
 
 var myCodeMirror1 = CodeMirror.fromTextArea(document.getElementById("JSprogram"), {
   mode: "javascript",
+  theme: "monokai",
   lineNumbers: true,
   styleActiveLine: true,
   extraKeys: {
@@ -82248,6 +82249,7 @@ var myCodeMirror1 = CodeMirror.fromTextArea(document.getElementById("JSprogram")
 
 var myCodeMirror2 = CodeMirror.fromTextArea(document.getElementById("JSoutput"), {
   mode:  "xml",
+  theme: "monokai",
   readOnly: true
 });
 

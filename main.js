@@ -1,4 +1,6 @@
 SBOLDocument = require('sboljs');
+createUri = require('./createUri');
+cdTypes = require('./componentDefinitionTypes');
 var $ = require('jquery');
 jQuery = require('jquery');
 require('jquery-ui-bundle');
@@ -12,6 +14,8 @@ window.doc = new SBOLDocument();
 console.log(window.doc);
 
 var JSrun = require('./JSrun.js');
+
+
 
 document.getElementById('run').addEventListener('click', function() {
   console.log('clicked run')
@@ -89,9 +93,7 @@ $("#toggleimg").click(function(){
 
   }
 
-
 })
-
 
 highlight();
 

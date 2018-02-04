@@ -27,7 +27,7 @@ module.exports = function() {
 
 };
 
-},{"./terminals":384,"jquery":191}],2:[function(require,module,exports){
+},{"./terminals":387,"jquery":190}],2:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -11126,7 +11126,52 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 });
 
 },{"../../lib/codemirror":5}],8:[function(require,module,exports){
+protein = "http://www.biopax.org/release/biopax-level3.owl#Protein";
+dna = "http://www.biopax.org/release/biopax-level3.owl#DnaRegion";
+rna = "http://www.biopax.org/release/biopax-level3.owl#RnaRegion";
+small_molecule = "http://www.biopax.org/release/biopax-level3.owl#SmallMolecule";
+complex = "http://www.biopax.org/release/biopax-level3.owl#Complex";
+linear = "http://identifiers.org/so/SO:0000987";
+circular = "http://identifiers.org/so/SO:0000988";
+single_stranded = "http://identifiers.org/so/SO:0000984";
+double_stranded = "http://identifiers.org/so/SO:0000985";
+
+module.exports = {
+
+  PROTEIN : protein,
+  DNA : dna,
+  RNA : rna,
+  SMALL_MOLECULE : small_molecule,
+  COMPLEX : complex,
+  LINEAR : linear,
+  CIRCULAR : circular,
+  SINGLE_STRANDED : single_stranded,
+  DOUBLE_STRANDED : double_stranded
+
+};
+
+},{}],9:[function(require,module,exports){
+module.exports = function(prefix, entity, version = ""){
+
+  if (version == ""){
+    str = prefix + entity;
+
+  }
+
+  else{
+
+    str = prefix + entity + "/" + version;
+
+  }
+
+  console.log(str);
+  return str;
+};
+
+},{}],10:[function(require,module,exports){
 SBOLDocument = require('sboljs');
+createUri = require('./createUri');
+cdTypes = require('./componentDefinitionTypes');
 var $ = require('jquery');
 jQuery = require('jquery');
 require('jquery-ui-bundle');
@@ -11140,6 +11185,8 @@ window.doc = new SBOLDocument();
 console.log(window.doc);
 
 var JSrun = require('./JSrun.js');
+
+
 
 document.getElementById('run').addEventListener('click', function() {
   console.log('clicked run')
@@ -11217,126 +11264,13 @@ $("#toggleimg").click(function(){
 
   }
 
-
 })
-
 
 highlight();
 
 jQuery("#hovercrisprimg").draggable();
 
-},{"./JSrun.js":1,"./readChapter":383,"./terminals":384,"highlight.js":11,"jquery":191,"jquery-ui-bundle":190,"sboljs":248}],9:[function(require,module,exports){
-(function (Buffer){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
-  }
-  return objectToString(arg) === '[object Array]';
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-}).call(this,{"isBuffer":require("../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":490}],10:[function(require,module,exports){
+},{"./JSrun.js":1,"./componentDefinitionTypes":8,"./createUri":9,"./readChapter":386,"./terminals":387,"highlight.js":12,"jquery":190,"jquery-ui-bundle":189,"sboljs":227}],11:[function(require,module,exports){
 /*
 Syntax highlighting with language autodetection.
 https://highlightjs.org/
@@ -12154,7 +12088,7 @@ https://highlightjs.org/
   return hljs;
 }));
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var hljs = require('./highlight');
 
 hljs.registerLanguage('1c', require('./languages/1c'));
@@ -12335,7 +12269,7 @@ hljs.registerLanguage('xquery', require('./languages/xquery'));
 hljs.registerLanguage('zephir', require('./languages/zephir'));
 
 module.exports = hljs;
-},{"./highlight":10,"./languages/1c":12,"./languages/abnf":13,"./languages/accesslog":14,"./languages/actionscript":15,"./languages/ada":16,"./languages/apache":17,"./languages/applescript":18,"./languages/arduino":19,"./languages/armasm":20,"./languages/asciidoc":21,"./languages/aspectj":22,"./languages/autohotkey":23,"./languages/autoit":24,"./languages/avrasm":25,"./languages/awk":26,"./languages/axapta":27,"./languages/bash":28,"./languages/basic":29,"./languages/bnf":30,"./languages/brainfuck":31,"./languages/cal":32,"./languages/capnproto":33,"./languages/ceylon":34,"./languages/clean":35,"./languages/clojure":37,"./languages/clojure-repl":36,"./languages/cmake":38,"./languages/coffeescript":39,"./languages/coq":40,"./languages/cos":41,"./languages/cpp":42,"./languages/crmsh":43,"./languages/crystal":44,"./languages/cs":45,"./languages/csp":46,"./languages/css":47,"./languages/d":48,"./languages/dart":49,"./languages/delphi":50,"./languages/diff":51,"./languages/django":52,"./languages/dns":53,"./languages/dockerfile":54,"./languages/dos":55,"./languages/dsconfig":56,"./languages/dts":57,"./languages/dust":58,"./languages/ebnf":59,"./languages/elixir":60,"./languages/elm":61,"./languages/erb":62,"./languages/erlang":64,"./languages/erlang-repl":63,"./languages/excel":65,"./languages/fix":66,"./languages/flix":67,"./languages/fortran":68,"./languages/fsharp":69,"./languages/gams":70,"./languages/gauss":71,"./languages/gcode":72,"./languages/gherkin":73,"./languages/glsl":74,"./languages/go":75,"./languages/golo":76,"./languages/gradle":77,"./languages/groovy":78,"./languages/haml":79,"./languages/handlebars":80,"./languages/haskell":81,"./languages/haxe":82,"./languages/hsp":83,"./languages/htmlbars":84,"./languages/http":85,"./languages/hy":86,"./languages/inform7":87,"./languages/ini":88,"./languages/irpf90":89,"./languages/java":90,"./languages/javascript":91,"./languages/jboss-cli":92,"./languages/json":93,"./languages/julia":95,"./languages/julia-repl":94,"./languages/kotlin":96,"./languages/lasso":97,"./languages/ldif":98,"./languages/leaf":99,"./languages/less":100,"./languages/lisp":101,"./languages/livecodeserver":102,"./languages/livescript":103,"./languages/llvm":104,"./languages/lsl":105,"./languages/lua":106,"./languages/makefile":107,"./languages/markdown":108,"./languages/mathematica":109,"./languages/matlab":110,"./languages/maxima":111,"./languages/mel":112,"./languages/mercury":113,"./languages/mipsasm":114,"./languages/mizar":115,"./languages/mojolicious":116,"./languages/monkey":117,"./languages/moonscript":118,"./languages/n1ql":119,"./languages/nginx":120,"./languages/nimrod":121,"./languages/nix":122,"./languages/nsis":123,"./languages/objectivec":124,"./languages/ocaml":125,"./languages/openscad":126,"./languages/oxygene":127,"./languages/parser3":128,"./languages/perl":129,"./languages/pf":130,"./languages/php":131,"./languages/pony":132,"./languages/powershell":133,"./languages/processing":134,"./languages/profile":135,"./languages/prolog":136,"./languages/protobuf":137,"./languages/puppet":138,"./languages/purebasic":139,"./languages/python":140,"./languages/q":141,"./languages/qml":142,"./languages/r":143,"./languages/rib":144,"./languages/roboconf":145,"./languages/routeros":146,"./languages/rsl":147,"./languages/ruby":148,"./languages/ruleslanguage":149,"./languages/rust":150,"./languages/scala":151,"./languages/scheme":152,"./languages/scilab":153,"./languages/scss":154,"./languages/shell":155,"./languages/smali":156,"./languages/smalltalk":157,"./languages/sml":158,"./languages/sqf":159,"./languages/sql":160,"./languages/stan":161,"./languages/stata":162,"./languages/step21":163,"./languages/stylus":164,"./languages/subunit":165,"./languages/swift":166,"./languages/taggerscript":167,"./languages/tap":168,"./languages/tcl":169,"./languages/tex":170,"./languages/thrift":171,"./languages/tp":172,"./languages/twig":173,"./languages/typescript":174,"./languages/vala":175,"./languages/vbnet":176,"./languages/vbscript":178,"./languages/vbscript-html":177,"./languages/verilog":179,"./languages/vhdl":180,"./languages/vim":181,"./languages/x86asm":182,"./languages/xl":183,"./languages/xml":184,"./languages/xquery":185,"./languages/yaml":186,"./languages/zephir":187}],12:[function(require,module,exports){
+},{"./highlight":11,"./languages/1c":13,"./languages/abnf":14,"./languages/accesslog":15,"./languages/actionscript":16,"./languages/ada":17,"./languages/apache":18,"./languages/applescript":19,"./languages/arduino":20,"./languages/armasm":21,"./languages/asciidoc":22,"./languages/aspectj":23,"./languages/autohotkey":24,"./languages/autoit":25,"./languages/avrasm":26,"./languages/awk":27,"./languages/axapta":28,"./languages/bash":29,"./languages/basic":30,"./languages/bnf":31,"./languages/brainfuck":32,"./languages/cal":33,"./languages/capnproto":34,"./languages/ceylon":35,"./languages/clean":36,"./languages/clojure":38,"./languages/clojure-repl":37,"./languages/cmake":39,"./languages/coffeescript":40,"./languages/coq":41,"./languages/cos":42,"./languages/cpp":43,"./languages/crmsh":44,"./languages/crystal":45,"./languages/cs":46,"./languages/csp":47,"./languages/css":48,"./languages/d":49,"./languages/dart":50,"./languages/delphi":51,"./languages/diff":52,"./languages/django":53,"./languages/dns":54,"./languages/dockerfile":55,"./languages/dos":56,"./languages/dsconfig":57,"./languages/dts":58,"./languages/dust":59,"./languages/ebnf":60,"./languages/elixir":61,"./languages/elm":62,"./languages/erb":63,"./languages/erlang":65,"./languages/erlang-repl":64,"./languages/excel":66,"./languages/fix":67,"./languages/flix":68,"./languages/fortran":69,"./languages/fsharp":70,"./languages/gams":71,"./languages/gauss":72,"./languages/gcode":73,"./languages/gherkin":74,"./languages/glsl":75,"./languages/go":76,"./languages/golo":77,"./languages/gradle":78,"./languages/groovy":79,"./languages/haml":80,"./languages/handlebars":81,"./languages/haskell":82,"./languages/haxe":83,"./languages/hsp":84,"./languages/htmlbars":85,"./languages/http":86,"./languages/hy":87,"./languages/inform7":88,"./languages/ini":89,"./languages/irpf90":90,"./languages/java":91,"./languages/javascript":92,"./languages/jboss-cli":93,"./languages/json":94,"./languages/julia":96,"./languages/julia-repl":95,"./languages/kotlin":97,"./languages/lasso":98,"./languages/ldif":99,"./languages/leaf":100,"./languages/less":101,"./languages/lisp":102,"./languages/livecodeserver":103,"./languages/livescript":104,"./languages/llvm":105,"./languages/lsl":106,"./languages/lua":107,"./languages/makefile":108,"./languages/markdown":109,"./languages/mathematica":110,"./languages/matlab":111,"./languages/maxima":112,"./languages/mel":113,"./languages/mercury":114,"./languages/mipsasm":115,"./languages/mizar":116,"./languages/mojolicious":117,"./languages/monkey":118,"./languages/moonscript":119,"./languages/n1ql":120,"./languages/nginx":121,"./languages/nimrod":122,"./languages/nix":123,"./languages/nsis":124,"./languages/objectivec":125,"./languages/ocaml":126,"./languages/openscad":127,"./languages/oxygene":128,"./languages/parser3":129,"./languages/perl":130,"./languages/pf":131,"./languages/php":132,"./languages/pony":133,"./languages/powershell":134,"./languages/processing":135,"./languages/profile":136,"./languages/prolog":137,"./languages/protobuf":138,"./languages/puppet":139,"./languages/purebasic":140,"./languages/python":141,"./languages/q":142,"./languages/qml":143,"./languages/r":144,"./languages/rib":145,"./languages/roboconf":146,"./languages/routeros":147,"./languages/rsl":148,"./languages/ruby":149,"./languages/ruleslanguage":150,"./languages/rust":151,"./languages/scala":152,"./languages/scheme":153,"./languages/scilab":154,"./languages/scss":155,"./languages/shell":156,"./languages/smali":157,"./languages/smalltalk":158,"./languages/sml":159,"./languages/sqf":160,"./languages/sql":161,"./languages/stan":162,"./languages/stata":163,"./languages/step21":164,"./languages/stylus":165,"./languages/subunit":166,"./languages/swift":167,"./languages/taggerscript":168,"./languages/tap":169,"./languages/tcl":170,"./languages/tex":171,"./languages/thrift":172,"./languages/tp":173,"./languages/twig":174,"./languages/typescript":175,"./languages/vala":176,"./languages/vbnet":177,"./languages/vbscript":179,"./languages/vbscript-html":178,"./languages/verilog":180,"./languages/vhdl":181,"./languages/vim":182,"./languages/x86asm":183,"./languages/xl":184,"./languages/xml":185,"./languages/xquery":186,"./languages/yaml":187,"./languages/zephir":188}],13:[function(require,module,exports){
 module.exports = function(hljs){
 
   // общий паттерн для определения идентификаторов
@@ -12845,7 +12779,7 @@ module.exports = function(hljs){
     ]  
   }
 };
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = function(hljs) {
     var regexes = {
         ruleDeclaration: "^[a-zA-Z][a-zA-Z0-9-]*",
@@ -12916,7 +12850,7 @@ module.exports = function(hljs) {
       ]
     };
 };
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -12954,7 +12888,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -13028,7 +12962,7 @@ module.exports = function(hljs) {
     illegal: /#/
   };
 };
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = // We try to support full Ada2012
 //
 // We highlight all appearances of types, keywords, literals (string, char, number, bool)
@@ -13201,7 +13135,7 @@ function(hljs) {
         ]
     };
 };
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {className: 'number', begin: '[\\$%]\\d+'};
   return {
@@ -13247,7 +13181,7 @@ module.exports = function(hljs) {
     illegal: /\S/
   };
 };
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: ''});
   var PARAMS = {
@@ -13333,7 +13267,7 @@ module.exports = function(hljs) {
     illegal: '//|->|=>|\\[\\['
   };
 };
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = function(hljs) {
   var CPP = hljs.getLanguage('cpp').exports;
 	return {
@@ -13433,7 +13367,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = function(hljs) {
     //local labels: %?[FB]?[AT]?\d{1,2}\w+
   return {
@@ -13525,7 +13459,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['adoc'],
@@ -13713,7 +13647,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = function (hljs) {
   var KEYWORDS =
     'false synchronized int abstract float private char boolean static null if const ' +
@@ -13858,7 +13792,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = function(hljs) {
   var BACKTICK_ESCAPE = {
     begin: '`[\\s\\S]'
@@ -13917,7 +13851,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 module.exports = function(hljs) {
     var KEYWORDS = 'ByRef Case Const ContinueCase ContinueLoop ' +
         'Default Dim Do Else ElseIf EndFunc EndIf EndSelect ' +
@@ -14053,7 +13987,7 @@ module.exports = function(hljs) {
         ]
     }
 };
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -14115,7 +14049,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable',
@@ -14168,7 +14102,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: 'false int abstract private char boolean static null if for true ' +
@@ -14199,7 +14133,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -14274,7 +14208,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -14325,7 +14259,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 module.exports = function(hljs){
   return {
     contains: [
@@ -14354,7 +14288,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = function(hljs){
   var LITERAL = {
     className: 'literal',
@@ -14391,7 +14325,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     'div mod in and or not xor asserterror begin case do downto else end exit for if of repeat then to ' +
@@ -14471,7 +14405,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['capnp'],
@@ -14520,7 +14454,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = function(hljs) {
   // 2.3. Identifiers and keywords
   var KEYWORDS =
@@ -14587,7 +14521,7 @@ module.exports = function(hljs) {
     ].concat(EXPRESSIONS)
   };
 };
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['clean','icl','dcl'],
@@ -14612,7 +14546,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -14627,7 +14561,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = function(hljs) {
   var keywords = {
     'builtin-name':
@@ -14723,7 +14657,7 @@ module.exports = function(hljs) {
     contains: [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 };
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['cmake.in'],
@@ -14761,7 +14695,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -14907,7 +14841,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -14974,7 +14908,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 module.exports = function cos (hljs) {
 
   var STRINGS = {
@@ -15098,7 +15032,7 @@ module.exports = function cos (hljs) {
     ]
   };
 };
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 module.exports = function(hljs) {
   var CPP_PRIMITIVE_TYPES = {
     className: 'keyword',
@@ -15273,7 +15207,7 @@ module.exports = function(hljs) {
     }
   };
 };
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 module.exports = function(hljs) {
   var RESOURCES = 'primitive rsc_template';
 
@@ -15367,7 +15301,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUM_SUFFIX = '(_[uif](8|16|32|64))?';
   var CRYSTAL_IDENT_RE = '[a-zA-Z_]\\w*[!?=]?';
@@ -15561,7 +15495,7 @@ module.exports = function(hljs) {
     contains: CRYSTAL_DEFAULT_CONTAINS
   };
 };
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -15738,7 +15672,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: false,
@@ -15760,7 +15694,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z-][a-zA-Z0-9_-]*';
   var RULE = {
@@ -15865,7 +15799,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 module.exports = /**
  * Known issues:
  *
@@ -16123,7 +16057,7 @@ function(hljs) {
     ]
   };
 };
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 module.exports = function (hljs) {
   var SUBST = {
     className: 'subst',
@@ -16224,7 +16158,7 @@ module.exports = function (hljs) {
     ]
   }
 };
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     'exports register file shl array record property for mod while set ally label uses raise not ' +
@@ -16293,7 +16227,7 @@ module.exports = function(hljs) {
     ].concat(COMMENT_MODES)
   };
 };
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['patch'],
@@ -16333,7 +16267,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],52:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 module.exports = function(hljs) {
   var FILTER = {
     begin: /\|[A-Za-z]+:?/,
@@ -16397,7 +16331,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['bind', 'zone'],
@@ -16426,7 +16360,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['docker'],
@@ -16448,7 +16382,7 @@ module.exports = function(hljs) {
     illegal: '</'
   }
 };
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = hljs.COMMENT(
     /^\s*@?rem\b/, /$/,
@@ -16500,7 +16434,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 module.exports = function(hljs) {
   var QUOTED_PROPERTY = {
     className: 'string',
@@ -16547,7 +16481,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRINGS = {
     className: 'string',
@@ -16671,7 +16605,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 module.exports = function(hljs) {
   var EXPRESSION_KEYWORDS = 'if eq ne lt lte gt gte select default math sep';
   return {
@@ -16703,7 +16637,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 module.exports = function(hljs) {
     var commentMode = hljs.COMMENT(/\(\*/, /\*\)/);
 
@@ -16736,7 +16670,7 @@ module.exports = function(hljs) {
         ]
     };
 };
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 module.exports = function(hljs) {
   var ELIXIR_IDENT_RE = '[a-zA-Z_][a-zA-Z0-9_]*(\\!|\\?)?';
   var ELIXIR_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
@@ -16833,7 +16767,7 @@ module.exports = function(hljs) {
     contains: ELIXIR_DEFAULT_CONTAINS
   };
 };
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = {
     variants: [
@@ -16917,7 +16851,7 @@ module.exports = function(hljs) {
     illegal: /;/
   };
 };
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -16932,7 +16866,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -16978,7 +16912,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 module.exports = function(hljs) {
   var BASIC_ATOM_RE = '[a-z\'][a-zA-Z0-9_\']*';
   var FUNCTION_NAME_RE = '(' + BASIC_ATOM_RE + ':' + BASIC_ATOM_RE + '|' + BASIC_ATOM_RE + ')';
@@ -17124,7 +17058,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['xlsx', 'xls'],
@@ -17172,7 +17106,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -17201,7 +17135,7 @@ module.exports = function(hljs) {
     case_insensitive: true
   };
 };
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 module.exports = function (hljs) {
 
     var CHAR = {
@@ -17246,7 +17180,7 @@ module.exports = function (hljs) {
         ]
     };
 };
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -17317,7 +17251,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 module.exports = function(hljs) {
   var TYPEPARAM = {
     begin: '<', end: '>',
@@ -17376,7 +17310,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 module.exports = function (hljs) {
   var KEYWORDS = {
     'keyword':
@@ -17530,7 +17464,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword: 'and bool break call callexe checkinterrupt clear clearg closeall cls comlog compile ' +
@@ -17754,7 +17688,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 module.exports = function(hljs) {
     var GCODE_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
     var GCODE_CLOSE_RE = '\\%';
@@ -17821,7 +17755,7 @@ module.exports = function(hljs) {
         ].concat(GCODE_CODE)
     };
 };
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 module.exports = function (hljs) {
   return {
     aliases: ['feature'],
@@ -17858,7 +17792,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -17975,7 +17909,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 module.exports = function(hljs) {
   var GO_KEYWORDS = {
     keyword:
@@ -18029,7 +17963,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 module.exports = function(hljs) {
     return {
       keywords: {
@@ -18052,7 +17986,7 @@ module.exports = function(hljs) {
       ]
     }
 };
-},{}],77:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -18087,7 +18021,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],78:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 module.exports = function(hljs) {
     return {
         keywords: {
@@ -18181,7 +18115,7 @@ module.exports = function(hljs) {
         illegal: /#|<\//
     }
 };
-},{}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 module.exports = // TODO support filter tags like :javascript, support inline HTML
 function(hljs) {
   return {
@@ -18288,7 +18222,7 @@ function(hljs) {
     ]
   };
 };
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_INS = {'builtin-name': 'each in with if else unless bindattr action collection debugger log outlet template unbound view yield'};
   return {
@@ -18322,7 +18256,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = {
     variants: [
@@ -18444,7 +18378,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -18556,7 +18490,7 @@ module.exports = function(hljs) {
     illegal: /<\//
   };
 };
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -18602,7 +18536,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_INS = 'action collection component concat debugger each each-in else get hash if input link-to loc log mut outlet partial query-params render textarea unbound unless with yield view';
 
@@ -18673,7 +18607,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],85:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 module.exports = function(hljs) {
   var VERSION = 'HTTP/[0-9\\.]+';
   return {
@@ -18714,7 +18648,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],86:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 module.exports = function(hljs) {
   var keywords = {
     'builtin-name':
@@ -18816,7 +18750,7 @@ module.exports = function(hljs) {
     contains: [SHEBANG, LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 };
-},{}],87:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 module.exports = function(hljs) {
   var START_BRACKET = '\\[';
   var END_BRACKET = '\\]';
@@ -18873,7 +18807,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = {
     className: "string",
@@ -18939,7 +18873,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -19015,7 +18949,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 module.exports = function(hljs) {
   var JAVA_IDENT_RE = '[\u00C0-\u02B8a-zA-Z_$][\u00C0-\u02B8a-zA-Z_$0-9]*';
   var GENERIC_IDENT_RE = JAVA_IDENT_RE + '(<' + JAVA_IDENT_RE + '(\\s*,\\s*' + JAVA_IDENT_RE + ')*>)?';
@@ -19123,7 +19057,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[A-Za-z$_][0-9A-Za-z$_]*';
   var KEYWORDS = {
@@ -19294,7 +19228,7 @@ module.exports = function(hljs) {
     illegal: /#(?!!)/
   };
 };
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 module.exports = function (hljs) {
   var PARAM = {
     begin: /[\w-]+ *=/, returnBegin: true,
@@ -19341,7 +19275,7 @@ module.exports = function (hljs) {
     ]
   }
 };
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 module.exports = function(hljs) {
   var LITERALS = {literal: 'true false null'};
   var TYPES = [
@@ -19378,7 +19312,7 @@ module.exports = function(hljs) {
     illegal: '\\S'
   };
 };
-},{}],94:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -19402,7 +19336,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],95:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 module.exports = function(hljs) {
   // Since there are numerous special names in Julia, it is too much trouble
   // to maintain them by hand. Hence these names (i.e. keywords, literals and
@@ -19564,7 +19498,7 @@ module.exports = function(hljs) {
 
   return DEFAULT;
 };
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -19738,7 +19672,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 module.exports = function(hljs) {
   var LASSO_IDENT_RE = '[a-zA-Z_][\\w.]*';
   var LASSO_ANGLE_RE = '<\\?(lasso(script)?|=)';
@@ -19901,7 +19835,7 @@ module.exports = function(hljs) {
     ].concat(LASSO_CODE)
   };
 };
-},{}],98:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -19924,7 +19858,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],99:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 module.exports = function (hljs) {
   return {
     contains: [
@@ -19964,7 +19898,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE        = '[\\w-]+'; // yes, Less identifiers may begin with a digit
   var INTERP_IDENT_RE = '(' + IDENT_RE + '|@{' + IDENT_RE + '})';
@@ -20104,7 +20038,7 @@ module.exports = function(hljs) {
     contains: RULES
   };
 };
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 module.exports = function(hljs) {
   var LISP_IDENT_RE = '[a-zA-Z_\\-\\+\\*\\/\\<\\=\\>\\&\\#][a-zA-Z0-9_\\-\\+\\*\\/\\<\\=\\>\\&\\#!]*';
   var MEC_RE = '\\|[^]*?\\|';
@@ -20207,7 +20141,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     begin: '\\b[gtps][A-Z]+[A-Za-z0-9_\\-]*\\b|\\$_[A-Z]+',
@@ -20364,7 +20298,7 @@ module.exports = function(hljs) {
     illegal: ';$|^\\[|^=|&|{'
   };
 };
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -20513,7 +20447,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 module.exports = function(hljs) {
   var identifier = '([-a-zA-Z$._][\\w\\-$.]*)';
   return {
@@ -20602,7 +20536,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],105:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 module.exports = function(hljs) {
 
     var LSL_STRING_ESCAPE_CHARS = {
@@ -20685,7 +20619,7 @@ module.exports = function(hljs) {
         ]
     };
 };
-},{}],106:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 module.exports = function(hljs) {
   var OPENING_LONG_BRACKET = '\\[=*\\[';
   var CLOSING_LONG_BRACKET = '\\]=*\\]';
@@ -20751,7 +20685,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 module.exports = function(hljs) {
   /* Variables: simple (eg $(var)) and special (eg $@) */
   var VARIABLE = {
@@ -20832,7 +20766,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['md', 'mkdown', 'mkd'],
@@ -20940,7 +20874,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['mma'],
@@ -20998,7 +20932,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],110:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMON_CONTAINS = [
     hljs.C_NUMBER_MODE,
@@ -21086,7 +21020,7 @@ module.exports = function(hljs) {
     ].concat(COMMON_CONTAINS)
   };
 };
-},{}],111:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = 'if then else elseif for thru do while unless step in and or not';
   var LITERALS = 'true false unknown inf minf ind und %e %i %pi %phi %gamma';
@@ -21492,7 +21426,7 @@ module.exports = function(hljs) {
     illegal: /@/
   }
 };
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -21717,7 +21651,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -21799,7 +21733,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 module.exports = function(hljs) {
     //local labels: %?[FB]?[AT]?\d{1,2}\w+
   return {
@@ -21885,7 +21819,7 @@ module.exports = function(hljs) {
     illegal: '\/'
   };
 };
-},{}],115:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -21904,7 +21838,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],116:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -21929,7 +21863,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],117:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {
     className: 'number', relevance: 0,
@@ -22004,7 +21938,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],118:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -22116,7 +22050,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],119:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -22185,7 +22119,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],120:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -22278,7 +22212,7 @@ module.exports = function(hljs) {
     illegal: '[^\\s\\}]'
   };
 };
-},{}],121:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['nim'],
@@ -22333,7 +22267,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],122:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 module.exports = function(hljs) {
   var NIX_KEYWORDS = {
     keyword:
@@ -22382,7 +22316,7 @@ module.exports = function(hljs) {
     contains: EXPRESSIONS
   };
 };
-},{}],123:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 module.exports = function(hljs) {
   var CONSTANTS = {
     className: 'variable',
@@ -22488,7 +22422,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],124:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 module.exports = function(hljs) {
   var API_CLASS = {
     className: 'built_in',
@@ -22579,7 +22513,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 module.exports = function(hljs) {
   /* missing support for heredoc-like string (OCaml 4.0.2+) */
   return {
@@ -22650,7 +22584,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],126:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 module.exports = function(hljs) {
 	var SPECIAL_VARS = {
 		className: 'keyword',
@@ -22707,7 +22641,7 @@ module.exports = function(hljs) {
 		]
 	}
 };
-},{}],127:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 module.exports = function(hljs) {
   var OXYGENE_KEYWORDS = 'abstract add and array as asc aspect assembly async begin break block by case class concat const copy constructor continue '+
     'create default delegate desc distinct div do downto dynamic each else empty end ensure enum equals event except exit extension external false '+
@@ -22777,7 +22711,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],128:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 module.exports = function(hljs) {
   var CURLY_SUBCOMMENT = hljs.COMMENT(
     '{',
@@ -22825,7 +22759,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],129:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 module.exports = function(hljs) {
   var PERL_KEYWORDS = 'getpwent getservent quotemeta msgrcv scalar kill dbmclose undef lc ' +
     'ma syswrite tr send umask sysopen shmwrite vec qx utime local oct semctl localtime ' +
@@ -22982,7 +22916,7 @@ module.exports = function(hljs) {
     contains: PERL_DEFAULT_CONTAINS
   };
 };
-},{}],130:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 module.exports = function(hljs) {
   var MACRO = {
     className: 'variable',
@@ -23034,7 +22968,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],131:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     begin: '\\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'
@@ -23161,7 +23095,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],132:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -23252,7 +23186,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],133:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 module.exports = function(hljs) {
   var BACKTICK_ESCAPE = {
     begin: '`[\\s\\S]',
@@ -23333,7 +23267,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],134:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -23381,7 +23315,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],135:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -23411,7 +23345,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],136:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var ATOM = {
@@ -23499,7 +23433,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],137:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -23535,7 +23469,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],138:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var PUPPET_KEYWORDS = {
@@ -23650,7 +23584,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],139:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 module.exports = // Base deafult colors in PB IDE: background: #FFFFDF; foreground: #000000;
 
 function(hljs) {
@@ -23708,7 +23642,7 @@ function(hljs) {
     ]
   };
 };
-},{}],140:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -23824,7 +23758,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],141:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 module.exports = function(hljs) {
   var Q_KEYWORDS = {
   keyword:
@@ -23847,7 +23781,7 @@ module.exports = function(hljs) {
      ]
   };
 };
-},{}],142:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
       keyword:
@@ -24016,7 +23950,7 @@ module.exports = function(hljs) {
     illegal: /#/
   };
 };
-},{}],143:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*';
 
@@ -24086,7 +24020,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],144:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -24113,7 +24047,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],145:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENTIFIER = '[a-zA-Z-_][^\\n{]+\\{';
 
@@ -24180,7 +24114,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],146:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 module.exports = // Colors from RouterOS terminal:
 //   green        - #0E9A00
 //   teal         - #0C9A9A
@@ -24339,7 +24273,7 @@ function(hljs) {
     ]
   };
 };
-},{}],147:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -24375,7 +24309,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],148:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 module.exports = function(hljs) {
   var RUBY_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
   var RUBY_KEYWORDS = {
@@ -24552,7 +24486,7 @@ module.exports = function(hljs) {
     contains: COMMENT_MODES.concat(IRB_DEFAULT).concat(RUBY_DEFAULT_CONTAINS)
   };
 };
-},{}],149:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -24613,7 +24547,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],150:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUM_SUFFIX = '([ui](8|16|32|64|128|size)|f(32|64))\?';
   var KEYWORDS =
@@ -24721,7 +24655,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],151:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var ANNOTATION = { className: 'meta', begin: '@[A-Za-z]+' };
@@ -24836,7 +24770,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],152:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 module.exports = function(hljs) {
   var SCHEME_IDENT_RE = '[^\\(\\)\\[\\]\\{\\}",\'`;#|\\\\\\s]+';
   var SCHEME_SIMPLE_NUMBER_RE = '(\\-|\\+)?\\d+([./]\\d+)?';
@@ -24980,7 +24914,7 @@ module.exports = function(hljs) {
     contains: [SHEBANG, NUMBER, STRING, QUOTED_IDENT, QUOTED_LIST, LIST].concat(COMMENT_MODES)
   };
 };
-},{}],153:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMON_CONTAINS = [
@@ -25034,7 +24968,7 @@ module.exports = function(hljs) {
     ].concat(COMMON_CONTAINS)
   };
 };
-},{}],154:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z-][a-zA-Z0-9_-]*';
   var VARIABLE = {
@@ -25132,7 +25066,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],155:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['console'],
@@ -25147,7 +25081,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],156:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 module.exports = function(hljs) {
   var smali_instr_low_prio = ['add', 'and', 'cmp', 'cmpg', 'cmpl', 'const', 'div', 'double', 'float', 'goto', 'if', 'int', 'long', 'move', 'mul', 'neg', 'new', 'nop', 'not', 'or', 'rem', 'return', 'shl', 'shr', 'sput', 'sub', 'throw', 'ushr', 'xor'];
   var smali_instr_high_prio = ['aget', 'aput', 'array', 'check', 'execute', 'fill', 'filled', 'goto/16', 'goto/32', 'iget', 'instance', 'invoke', 'iput', 'monitor', 'packed', 'sget', 'sparse'];
@@ -25203,7 +25137,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],157:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR_IDENT_RE = '[a-z][a-zA-Z0-9_]*';
   var CHAR = {
@@ -25253,7 +25187,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],158:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['ml'],
@@ -25319,7 +25253,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],159:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 module.exports = function(hljs) {
   var CPP = hljs.getLanguage('cpp').exports;
 
@@ -25690,7 +25624,7 @@ module.exports = function(hljs) {
     illegal: /#/
   };
 };
-},{}],160:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT_MODE = hljs.COMMENT('--', '$');
   return {
@@ -25850,7 +25784,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],161:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -25933,7 +25867,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],162:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['do', 'ado'],
@@ -25971,7 +25905,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],163:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 module.exports = function(hljs) {
   var STEP21_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
   var STEP21_KEYWORDS = {
@@ -26018,7 +25952,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],164:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var VARIABLE = {
@@ -26472,7 +26406,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],165:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 module.exports = function(hljs) {
   var DETAILS = {
     className: 'string',
@@ -26506,7 +26440,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],166:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 module.exports = function(hljs) {
   var SWIFT_KEYWORDS = {
       keyword: '__COLUMN__ __FILE__ __FUNCTION__ __LINE__ as as! as? associativity ' +
@@ -26623,7 +26557,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],167:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMENT = {
@@ -26667,7 +26601,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],168:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -26703,7 +26637,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],169:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['tk'],
@@ -26764,7 +26698,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],170:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMAND = {
     className: 'tag',
@@ -26826,7 +26760,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],171:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_IN_TYPES = 'bool byte i16 i32 i64 double string binary';
   return {
@@ -26861,7 +26795,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],172:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 module.exports = function(hljs) {
   var TPID = {
     className: 'number',
@@ -26945,7 +26879,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],173:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -27011,7 +26945,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],174:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -27167,7 +27101,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],175:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -27217,7 +27151,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vb'],
@@ -27273,7 +27207,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],177:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -27285,7 +27219,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],178:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vbs'],
@@ -27324,7 +27258,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],179:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 module.exports = function(hljs) {
   var SV_KEYWORDS = {
     keyword:
@@ -27423,7 +27357,7 @@ module.exports = function(hljs) {
     ]
   }; // return
 };
-},{}],180:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 module.exports = function(hljs) {
   // Regular expression for VHDL numeric literals.
 
@@ -27484,7 +27418,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     lexemes: /[!#@\w]+/,
@@ -27590,7 +27524,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],182:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -27726,7 +27660,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],183:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILTIN_MODULES =
     'ObjectLoader Animate MovieCredits Slides Filters Shading Materials LensFlare Mapping VLCAudioVideo ' +
@@ -27799,7 +27733,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],184:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 module.exports = function(hljs) {
   var XML_IDENT_RE = '[A-Za-z0-9\\._:-]+';
   var TAG_INTERNALS = {
@@ -27902,7 +27836,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],185:[function(require,module,exports){
+},{}],186:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = 'for let if while then else return where group by xquery encoding version' +
     'module namespace boundary-space preserve strip default collation base-uri ordering' +
@@ -27973,7 +27907,7 @@ module.exports = function(hljs) {
     contains: CONTAINS
   };
 };
-},{}],186:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 module.exports = function(hljs) {
   var LITERALS = 'true false yes no null';
 
@@ -28061,7 +27995,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],187:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = {
     className: 'string',
@@ -28168,39 +28102,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],188:[function(require,module,exports){
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  };
-} else {
-  // old school shim for old browsers
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
-  }
-}
-
 },{}],189:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-},{}],190:[function(require,module,exports){
 /*! jQuery UI - v1.12.1 - 2017-03-19
 * http://jqueryui.com
 * Includes: widget.js, position.js, data.js, disable-selection.js, focusable.js, form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js, scroll-parent.js, tabbable.js, unique-id.js, widgets/draggable.js, widgets/droppable.js, widgets/resizable.js, widgets/selectable.js, widgets/sortable.js, widgets/accordion.js, widgets/autocomplete.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/datepicker.js, widgets/dialog.js, widgets/menu.js, widgets/mouse.js, widgets/progressbar.js, widgets/selectmenu.js, widgets/slider.js, widgets/spinner.js, widgets/tabs.js, widgets/tooltip.js, effect.js, effects/effect-blind.js, effects/effect-bounce.js, effects/effect-clip.js, effects/effect-drop.js, effects/effect-explode.js, effects/effect-fade.js, effects/effect-fold.js, effects/effect-highlight.js, effects/effect-puff.js, effects/effect-pulsate.js, effects/effect-scale.js, effects/effect-shake.js, effects/effect-size.js, effects/effect-slide.js, effects/effect-transfer.js
@@ -46907,7 +46809,7 @@ var effectsEffectTransfer = effect;
 
 
 }));
-},{}],191:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
@@ -57273,408 +57175,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],192:[function(require,module,exports){
-(function (process){
-'use strict';
-
-if (!process.version ||
-    process.version.indexOf('v0.') === 0 ||
-    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
-  module.exports = nextTick;
-} else {
-  module.exports = process.nextTick;
-}
-
-function nextTick(fn, arg1, arg2, arg3) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('"callback" argument must be a function');
-  }
-  var len = arguments.length;
-  var args, i;
-  switch (len) {
-  case 0:
-  case 1:
-    return process.nextTick(fn);
-  case 2:
-    return process.nextTick(function afterTickOne() {
-      fn.call(null, arg1);
-    });
-  case 3:
-    return process.nextTick(function afterTickTwo() {
-      fn.call(null, arg1, arg2);
-    });
-  case 4:
-    return process.nextTick(function afterTickThree() {
-      fn.call(null, arg1, arg2, arg3);
-    });
-  default:
-    args = new Array(len - 1);
-    i = 0;
-    while (i < args.length) {
-      args[i++] = arguments[i];
-    }
-    return process.nextTick(function afterTick() {
-      fn.apply(null, args);
-    });
-  }
-}
-
-}).call(this,require('_process'))
-},{"_process":508}],193:[function(require,module,exports){
-'use strict'
-
-var DataFactory = require('./lib/data-factory')
-
-module.exports = DataFactory
-
-},{"./lib/data-factory":195}],194:[function(require,module,exports){
-'use strict'
-
-function BlankNode (id) {
-  this.value = id || ('b' + (++BlankNode.nextId))
-}
-
-BlankNode.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
-}
-
-BlankNode.prototype.termType = 'BlankNode'
-
-BlankNode.nextId = 0
-
-module.exports = BlankNode
-
-},{}],195:[function(require,module,exports){
-'use strict'
-
-var BlankNode = require('./blank-node')
-var DefaultGraph = require('./default-graph')
-var Literal = require('./literal')
-var NamedNode = require('./named-node')
-var Quad = require('./quad')
-var Variable = require('./variable')
-
-function DataFactory () {}
-
-DataFactory.namedNode = function (value) {
-  return new NamedNode(value)
-}
-
-DataFactory.blankNode = function (value) {
-  return new BlankNode(value)
-}
-
-DataFactory.literal = function (value, languageOrDatatype) {
-  if (typeof languageOrDatatype === 'string') {
-    if (languageOrDatatype.indexOf(':') === -1) {
-      return new Literal(value, languageOrDatatype)
-    } else {
-      return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
-    }
-  } else {
-    return new Literal(value, null, languageOrDatatype)
-  }
-}
-
-DataFactory.defaultGraph = function () {
-  return DataFactory.defaultGraphInstance
-}
-
-DataFactory.variable = function (value) {
-  return new Variable(value)
-}
-
-DataFactory.triple = function (subject, predicate, object) {
-  return DataFactory.quad(subject, predicate, object)
-}
-
-DataFactory.quad = function (subject, predicate, object, graph) {
-  return new Quad(subject, predicate, object, graph || DataFactory.defaultGraphInstance)
-}
-
-DataFactory.defaultGraphInstance = new DefaultGraph()
-
-module.exports = DataFactory
-
-},{"./blank-node":194,"./default-graph":196,"./literal":197,"./named-node":198,"./quad":199,"./variable":200}],196:[function(require,module,exports){
-'use strict'
-
-function DefaultGraph () {
-  this.value = ''
-}
-
-DefaultGraph.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
-}
-
-DefaultGraph.prototype.termType = 'DefaultGraph'
-
-module.exports = DefaultGraph
-
-},{}],197:[function(require,module,exports){
-'use strict'
-
-var NamedNode = require('./named-node')
-
-function Literal (value, language, datatype) {
-  this.value = value
-
-  if (language) {
-    this.language = language
-    this.datatype = Literal.langStringDatatype
-  } else if (datatype) {
-    this.datatype = datatype
-  }
-}
-
-Literal.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value &&
-    other.language === this.language && other.datatype.equals(this.datatype)
-}
-
-Literal.prototype.termType = 'Literal'
-Literal.prototype.language = ''
-Literal.prototype.datatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
-
-Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
-
-module.exports = Literal
-
-},{"./named-node":198}],198:[function(require,module,exports){
-'use strict'
-
-function NamedNode (iri) {
-  this.value = iri
-}
-
-NamedNode.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
-}
-
-NamedNode.prototype.termType = 'NamedNode'
-
-module.exports = NamedNode
-
-},{}],199:[function(require,module,exports){
-'use strict'
-
-var DefaultGraph = require('./default-graph')
-
-function Quad (subject, predicate, object, graph) {
-  this.subject = subject
-  this.predicate = predicate
-  this.object = object
-
-  if (graph) {
-    this.graph = graph
-  }
-}
-
-Quad.prototype.equals = function (other) {
-  return other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
-    other.object.equals(this.object) && other.graph.equals(this.graph)
-}
-
-Quad.prototype.graph = new DefaultGraph()
-
-module.exports = Quad
-
-},{"./default-graph":196}],200:[function(require,module,exports){
-'use strict'
-
-function Variable (name) {
-  this.value = name
-}
-
-Variable.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
-}
-
-Variable.prototype.termType = 'Variable'
-
-module.exports = Variable
-
-},{}],201:[function(require,module,exports){
-const Readable = require('readable-stream')
-
-class SimpleDataset {
-  constructor (quads, factory) {
-    this._quads = []
-
-    if (factory && factory.dataset) {
-      this._datasetFactory = factory.dataset
-    } else {
-      this._datasetFactory = (quads) => {
-        return new SimpleDataset(quads, this._datasetFactory)
-      }
-    }
-
-    if (quads) {
-      this.addAll(quads)
-    }
-  }
-
-  get length () {
-    return this._quads.length
-  }
-
-  add (quad) {
-    if (!this.includes(quad)) {
-      this._quads.push(quad)
-    }
-
-    return this
-  }
-
-  addAll (quads) {
-    quads.forEach((quad) => {
-      this.add(quad)
-    })
-
-    return this
-  }
-
-  clone () {
-    return this._datasetFactory(this._quads)
-  }
-
-  difference (other) {
-    return this._datasetFactory(this.filter((quad) => {
-      return !other.includes(quad)
-    }))
-  }
-
-  every (callback) {
-    return this._quads.every((quad) => {
-      return callback(quad, this)
-    })
-  }
-
-  filter (callback) {
-    return this._datasetFactory(this._quads.filter((quad) => {
-      return callback(quad, this)
-    }))
-  }
-
-  forEach (callback) {
-    this._quads.forEach((quad) => {
-      callback(quad, this)
-    })
-  }
-
-  import (stream) {
-    return new Promise((resolve, reject) => {
-      stream.once('end', () => {
-        resolve(this)
-      })
-
-      stream.once('error', reject)
-
-      stream.on('data', (quad) => {
-        this.add(quad)
-      })
-    })
-  }
-
-  includes (quad) {
-    return this.some((other) => {
-      return other.equals(quad)
-    })
-  }
-
-  intersection (other) {
-    return this._datasetFactory(this.filter((quad) => {
-      return other.includes(quad)
-    }))
-  }
-
-  map (callback) {
-    return this._datasetFactory(this._quads.map((quad) => {
-      return callback(quad, this)
-    }))
-  }
-
-  mapToArray (callback) {
-    return this._quads.map((quad) => {
-      return callback(quad, this)
-    })
-  }
-
-  match (subject, predicate, object, graph) {
-    return this._datasetFactory(this.filter((quad) => {
-      if (subject && !quad.subject.equals(subject)) {
-        return false
-      }
-
-      if (predicate && !quad.predicate.equals(predicate)) {
-        return false
-      }
-
-      if (object && !quad.object.equals(object)) {
-        return false
-      }
-
-      if (graph && !quad.graph.equals(graph)) {
-        return false
-      }
-
-      return true
-    }))
-  }
-
-  merge (other) {
-    return (this._datasetFactory(this._quads)).addAll(other)
-  }
-
-  remove (quad) {
-    let index = this._quads.findIndex((other) => {
-      return other.equals(quad)
-    })
-
-    if (index !== -1) {
-      this._quads.splice(index, 1)
-    }
-
-    return this
-  }
-
-  removeMatches (subject, predicate, object, graph) {
-    this.match(subject, predicate, object, graph).forEach((quad) => {
-      this.remove(quad)
-    })
-
-    return this
-  }
-
-  some (callback) {
-    return this._quads.some((quad) => {
-      return callback(quad, this)
-    })
-  }
-
-  toArray () {
-    return this._quads.slice()
-  }
-
-  toStream () {
-    let stream = new Readable({
-      objectMode: true,
-      read: () => {
-        this.forEach((quad) => {
-          stream.push(quad)
-        })
-
-        stream.push(null)
-      }
-    })
-
-    return stream
-  }
-}
-
-module.exports = SimpleDataset
-
-},{"readable-stream":223}],202:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 function mixin (rdf) {
   rdf.PrefixMap = function (prefixes) {
     this.addAll(prefixes)
@@ -57935,7 +57436,7 @@ function mixin (rdf) {
 
 module.exports = mixin
 
-},{}],203:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 function Parsers (parsers) {
   var self = this
 
@@ -58004,7 +57505,7 @@ Parsers.prototype.stream = function (mediaType, inputStream, base, filter) {
 
 module.exports = Parsers
 
-},{}],204:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 function Serializers (serializers) {
   var self = this
 
@@ -58054,7 +57555,7 @@ Serializers.prototype.stream = function (mediaType, inputStream, base, filter) {
 
 module.exports = Serializers
 
-},{}],205:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 /* global XMLHttpRequest */
 var utils = {}
 
@@ -58118,7 +57619,7 @@ utils.mixin = function (rdf) {
 
 module.exports = utils.mixin
 
-},{}],206:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 var http = require('http')
 var https = require('https')
 var url = require('url')
@@ -58190,7 +57691,7 @@ utils.mixin = function (rdf) {
 
 module.exports = utils.mixin
 
-},{"http":545,"https":486,"url":551}],207:[function(require,module,exports){
+},{"http":548,"https":489,"url":554}],196:[function(require,module,exports){
 var utils = {}
 
 /*
@@ -58373,7 +57874,7 @@ utils.mixin = function (rdf) {
 
 module.exports = utils.mixin
 
-},{}],208:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 (function (process){
 /* global window */
 var rdf = require('rdf-graph-array')
@@ -58447,7 +57948,7 @@ mixin(rdf)
 module.exports = rdf
 
 }).call(this,require('_process'))
-},{"./lib/environment":202,"./lib/parsers":203,"./lib/serializers":204,"./lib/utils":207,"./lib/utils-browser":205,"./lib/utils-node":206,"_process":508,"rdf-graph-array":210,"rdf-store-inmemory":214}],209:[function(require,module,exports){
+},{"./lib/environment":191,"./lib/parsers":192,"./lib/serializers":193,"./lib/utils":196,"./lib/utils-browser":194,"./lib/utils-node":195,"_process":511,"rdf-graph-array":199,"rdf-store-inmemory":203}],198:[function(require,module,exports){
 var normalize = require('rdf-normalize')
 
 var rdf = {}
@@ -58634,7 +58135,7 @@ rdf.AbstractGraph.prototype.toString = function () {
 
 module.exports = rdf
 
-},{"rdf-normalize":211}],210:[function(require,module,exports){
+},{"rdf-normalize":200}],199:[function(require,module,exports){
 var rdf = require('rdf-graph-abstract')
 var util = require('util')
 
@@ -58883,7 +58384,7 @@ rdf.Graph.index = function (quad) {
 
 module.exports = rdf
 
-},{"rdf-graph-abstract":209,"util":556}],211:[function(require,module,exports){
+},{"rdf-graph-abstract":198,"util":559}],200:[function(require,module,exports){
 var jsonldNormalize = require('./jsonld-normalize')
 
 function createPlainNode (node) {
@@ -58943,7 +58444,7 @@ function normalize (graph) {
 
 module.exports = normalize
 
-},{"./jsonld-normalize":212}],212:[function(require,module,exports){
+},{"./jsonld-normalize":201}],201:[function(require,module,exports){
 /**
  * A JavaScript implementation of the JSON-LD API.
  *
@@ -59686,7 +59187,7 @@ function normalize (dataset) {
 
 module.exports = normalize
 
-},{"crypto":443}],213:[function(require,module,exports){
+},{"crypto":446}],202:[function(require,module,exports){
 function AbstractStore () {
 }
 
@@ -59762,7 +59263,7 @@ AbstractStore.prototype.removeMatches = function (subject, predicate, object, ir
 
 module.exports = AbstractStore
 
-},{}],214:[function(require,module,exports){
+},{}],203:[function(require,module,exports){
 var util = require('util')
 var AbstractStore = require('rdf-store-abstract')
 
@@ -59848,7 +59349,9989 @@ InMemoryStore.prototype.graph = function (iri, callback) {
 
 module.exports = InMemoryStore
 
-},{"rdf-ext":208,"rdf-store-abstract":213,"util":556}],215:[function(require,module,exports){
+},{"rdf-ext":197,"rdf-store-abstract":202,"util":559}],204:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+	util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Attachment reference.
+ */
+class Attachment extends Identified
+{
+    constructor(sbolDocument, uri) {
+		
+        super(sbolDocument, uri);
+		
+        this._source = URI();
+        this._format = URI();
+        this._size = -1;
+		this._hash = '';
+    }
+	
+    /**
+     * Set the source URI for this Attachment.
+     * @param {string|URI} [source]
+     */
+    set source(source) {
+        this._source = URI(source);
+    }
+
+    /**
+     * Retrieve the source URI for this Attachment.
+     * @returns {URI} [source]
+     */
+    get source() {
+        return this._source;
+    }
+
+    /**
+     * Set the format for this Attachment.
+     * @param {string|URI} [format]
+     */
+    set format(format) {
+        this._format = URI(format);
+    }
+
+    /**
+     * Retrieve the format for this Attachment.
+     * @returns {URI} [format]
+     */
+    get format() {
+        return this._format;
+    }
+
+    /**
+     * Set the size for this Attachment.
+     * @param {Long} [size]
+     */
+    set size(size) {
+        this._size = size;
+    }
+
+    /**
+     * Retrieve the size for this Attachment.
+     * @returns {Long} [size]
+     */
+    get size() {
+        return this._size;
+    }
+
+	/**
+     * Set the hash for this Attachment.
+     * @param {String} [hash]
+     */
+    set hash(hash) {
+        this._hash = hash;
+    }
+
+    /**
+     * Retrieve the hash for this Attachment.
+     * @returns {String} [hash]
+     */
+    get hash() {
+        return this._hash;
+    }
+}
+
+module.exports = Attachment;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],205:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var Identified = require('./Identified');
+
+var util = require('./util')
+
+/**
+ * Class to represent an SBOL2 Collection.
+ */
+class Collection extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._members = []
+    }
+
+    /**
+     * Add a member to this Collection.
+     * @param {string|URI|Identified} [member]
+     */
+    addMember(member) {
+        this._members.push(util.uriOrObject(member));
+    }
+
+    /**
+     * Retrieve the list of members assigned to this Collection.  There
+     * may be URIs present in this list if the member(s) have not yet been
+     * resolved.
+     *
+     * @returns {Identified[]}
+     */
+    get members() {
+        return this._members.slice(0);
+    }
+
+    /**
+     * Attempt to resolve the members assigned to this Collection by URI.
+     */
+    link() {
+		// Call super link to link members of Top Level (Identified)
+		super.link();
+		
+        this._members = this._sbolDocument.lookupURIs(this._members);
+    }
+}
+
+module.exports = Collection;
+
+
+
+
+
+
+},{"./Identified":213,"./util":308}],206:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent a Combinatorial Derivation (SEP 007)
+ */
+class CombinatorialDerivation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._strategy = URI();
+        this._template = URI();
+        this._variableComponents = [];
+    }
+
+    /**
+     * Set the template for this CombinatorialDerivation.
+     * @param {string|URI|ComponentDefinition} [definition]
+     */
+    set template(definition) {
+        this._template = util.uriOrObject(definition);
+    }
+
+    /**
+     * Retrieve the template for this derivation.  Returns either a
+     * URI or a ComponentDefinition, depending on whether the URI has been
+     * resolved by link().
+     *
+     * @returns {URI|ComponentDefinition}
+     */
+    get template() {
+        return this._template;
+    }
+
+    /**
+     * Set the strategy property for this CombinatorialDerivation.
+     * @param {string|URI} [strategy]
+     */
+    set strategy(strategy) {
+        this._strategy = URI(strategy);
+    }
+
+    /**
+     * Retrieve the strategy property for this CombinatorialDerivation.
+     * @returns {URI} [strategy]
+     */
+    get strategy() {
+        return this._strategy;
+    }
+
+    /**
+     * Add a VariableComponent to this CombinatorialDerivation
+     * @param {string|URI|ComponentDefinition} [variableComponent]
+     */
+    addVariableComponent(variableComponent) {
+        this._variableComponents.push(variableComponent)
+    }
+
+    get variableComponents() {
+        return this._variableComponents.slice();
+    }
+
+    /**
+     * Attempt to resolve the URI of the template and variableComponents.
+     */
+    link() {
+        this._template = this._sbolDocument.lookupURI(this._template);
+        this._variableComponents = this._sbolDocument.lookupURIs(this._variableComponents);
+    }
+}
+
+module.exports = CombinatorialDerivation;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],207:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 component instantiation.
+ */
+class Component extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._definition = URI();
+        this._access = URI('http://sbols.org/v2#public');
+        this._roles = []
+        this._roleIntegration = URI()
+        this._mappings = []
+    }
+
+    /**
+     * Set the ComponentDefinition for this Component.
+     * @param {string|URI|ComponentDefinition} [definition]
+     */
+    set definition(definition) {
+        this._definition = util.uriOrObject(definition);
+    }
+
+    /**
+     * Retrieve the ComponentDefinition for this Component.  Returns either a
+     * URI or a ComponentDefinition, depending on whether the URI has been
+     * resolved by link().
+     *
+     * @returns {URI|ComponentDefinition}
+     */
+    get definition() {
+        return this._definition;
+    }
+
+    /**
+     * Set the access property for this Component.
+     * @param {string|URI} [access]
+     */
+    set access(access) {
+        this._access = URI(access);
+    }
+
+    /**
+     * Assign a role to this Component.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+    /**
+     * Retrieve the list of roles assigned to this Component.
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    /**
+     * Set the role integration for this Component.
+     * @param {string|URI} [roleIntegration]
+     */
+    set roleIntegration(roleIntegration) {
+        this._roleIntegration = util.uriOrObject(roleIntegration);
+    }
+
+    /**
+     * Retrieve the role integration for this Component.
+     * @returns {URI}
+     */
+    get roleIntegration() {
+        return this._roleIntegration;
+    }
+
+    /**
+     * Retrieve the access property for this Component.
+     * @returns {URI} [access]
+     */
+    get access() {
+        return this._access;
+    }
+
+    /**
+     * Add a MapsTo to this Component.
+     * @param {string|URI|MapsTo} [mapping]
+     */
+    addMapping(mapping) {
+        this._mappings.push(util.uriOrObject(mapping));
+    }
+
+    get mappings() {
+        return this._mappings.slice(0)
+    }
+
+    /**
+     * Attempt to resolve the URI of the definition.
+     */
+    link() {
+        this._definition = this._sbolDocument.lookupURI(this._definition);
+    }
+}
+
+module.exports = Component;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],208:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 ComponentDefinition.
+ */
+class ComponentDefinition extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._types = [];
+        this._roles = [];
+        this._components = [];
+        this._sequenceAnnotations = [];
+        this._sequenceConstraints = [];
+        this._sequences = [];
+    }
+
+    /**
+     * Assign a type to this ComponentDefinition.
+     * @param {string|URI} [type]
+     */
+    addType(type) {
+        this._types.push(URI(type));
+    }
+
+    /**
+     * Add a Component to this ComponentDefinition.
+     * @param {string|URI|Component} [component]
+     */
+    addComponent(component) {
+        this._components.push(util.uriOrObject(component));
+    }
+
+    /**
+     * Assign a role to this ComponentDefinition.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+    /**
+     * Add a SequenceAnnotation to this ComponentDefinition.
+     * @param {string|URI|SequenceAnnotation} [sequenceAnnotation]
+     */
+    addSequenceAnnotation(sequenceAnnotation) {
+        this._sequenceAnnotations.push(util.uriOrObject(sequenceAnnotation));
+    }
+
+    /**
+     * Add a SequenceConstraint to this ComponentDefinition.
+     * @param {string|URI|SequenceConstraint} [sequenceConstraint]
+     */
+    addSequenceConstraint(sequenceConstraint) {
+        this._sequenceConstraints.push(util.uriOrObject(sequenceConstraint));
+    }
+
+    /**
+     * Add a Sequence to this ComponentDefinition.
+     * @param {string|URI|Sequence} [sequence]
+     */
+    addSequence(sequence) {
+        this._sequences.push(util.uriOrObject(sequence));
+    }
+
+    /**
+     * Retrieve the list of types assigned to this ComponentDefinition.
+     * @returns {URI[]}
+     */
+    get types() {
+        return this._types.slice(0);
+    }
+
+    /**
+     * Retrieve the list of Components for this ComponentDefinition.
+     * There may be URIs present in this list if the component(s) have not
+     * yet been resolved.
+     *
+     * @returns {Component[]}
+     */
+    get components() {
+        return this._components.slice(0);
+    }
+
+    /**
+     * Retrieve the list of SequenceAnnotations for this ComponentDefinition.
+     * There may be URIs present in this list if the sequenceAnnotation(s)
+     * have not yet been resolved.
+     *
+     * @returns {SequenceAnnotation[]}
+     */
+    get sequenceAnnotations() {
+        return this._sequenceAnnotations.slice(0);
+    }
+
+    /**
+     * Retrieve the list of SequenceConstraints for this ComponentDefinition.
+     * There may be URIs present in this list if the sequenceConstraint(s)
+     * have not yet been resolved.
+     *
+     * @returns {SequenceConstraint[]}
+     */
+    get sequenceConstraints() {
+        return this._sequenceConstraints.slice(0);
+    }
+
+    /**
+     * Retrieve the list of Sequences for this ComponentDefinition.
+     * There may be URIs present in this list if the sequence(s) have not yet
+     * been resolved.
+     *
+     * @returns {Sequence[]}
+     */
+    get sequences() {
+        return this._sequences.slice(0);
+    }
+
+    /**
+     * Retrieve the list of roles assigned to this ComponentDefinition.
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    /**
+     * Attempt to resolve the Components, SequenceAnnotations,
+     * SequenceConstraints, and Sequences assigned to this ComponentDefinition
+     * by URI.
+     */
+    link() {
+		// Call super link to link members of Top Level (Identified)
+		super.link();
+
+        this._components = this._sbolDocument.lookupURIs(this._components);
+
+        this._sequenceAnnotations = this._sbolDocument.lookupURIs(this._sequenceAnnotations).sort(function(a, b) {
+
+            if(a instanceof URI || b instanceof URI)
+                return 0;
+
+            if(a.ranges.length === 0 || b.ranges.length === 0)
+                return 0;
+
+            return a.ranges[0].start - b.ranges[0].start;
+        });
+
+        this._sequenceConstraints = this._sbolDocument.lookupURIs(this._sequenceConstraints);
+        this._sequences = this._sbolDocument.lookupURIs(this._sequences);
+    }
+}
+
+module.exports = ComponentDefinition;
+
+
+
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],209:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Cut location.
+ *
+ * A Cut location specifies a location _between_ two nucleotides.
+ */
+class Cut extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._at = 0;
+        this._orientation = URI();
+    }
+
+    /**
+     * Set the at property for this Cut.
+     * @param {Integer} [at]
+     */
+    set at(at) {
+        this._at = at;
+    }
+
+    /**
+     * Retrieve the at property for this Cut.
+     * @returns {Integer}
+     */
+    get at() {
+        return this._at;
+    }
+
+    /**
+     * Set the orientation property for this Cut.
+     * @param {string|URI} [orientation]
+     */
+    set orientation(orientation) {
+        this._orientation = util.uriOrObject(orientation);
+    }
+
+    /**
+     * Retrieve the orientation property for this Cut.
+     * @returns {URI}
+     */
+    get orientation() {
+        return this._orientation;
+    }
+}
+
+module.exports = Cut;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],210:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 functional component instantiation.
+ *
+ * Functional components are instantiations of ComponentDefinitions that
+ * live inside ModuleDefinitions.
+ */
+class FunctionalComponent extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._definition = URI();
+        this._access = URI('http://sbols.org/v2#public');
+        this._direction = URI('http://sbols.org/v2#inout');
+        this._mappings = []
+    }
+
+    /**
+     * Set the ComponentDefinition for this FunctionalComponent.
+     * @param {string|URI|ComponentDefinition} [definition]
+     */
+    set definition(definition) {
+        this._definition = util.uriOrObject(definition);
+    }
+
+    /**
+     * Retrieve the ComponentDefinition for this FunctionalComponent.  Returns
+     * either a URI or a ComponentDefinition, depending on whether the URI has
+     * been resolved by link().
+     *
+     * @returns {URI|ComponentDefinition}
+     */
+    get definition() {
+        return this._definition;
+    }
+
+    /**
+     * Set the access property for this FunctionalComponent.
+     * @param {string|URI} [access]
+     */
+    set access(access) {
+        this._access = URI(access);
+    }
+
+    /**
+     * Retrieve the access property for this FunctionalComponent.
+     * @returns {URI} [access]
+     */
+    get access() {
+        return this._access;
+    }
+
+    /**
+     * Set the direction property for this FunctionalComponent.
+     * @param {string|URI} [direction]
+     */
+    set direction(direction) {
+        this._direction = URI(direction);
+    }
+
+    /**
+     * Retrieve the direction property for this FunctionalComponent.
+     * @returns {URI} [direction]
+     */
+    get direction() {
+        return this._direction;
+    }
+
+    /**
+     * Add a MapsTo to this Component.
+     * @param {string|URI|MapsTo} [mapping]
+     */
+    addMapping(mapping) {
+        this._mappings.push(util.uriOrObject(mapping));
+    }
+
+    get mappings() {
+        return this._mappings.slice(0)
+    }
+
+    /**
+     * Attempt to resolve the URI of the definition.
+     */
+    link() {
+        this._definition = this._sbolDocument.lookupURI(this._definition);
+    }
+}
+
+module.exports = FunctionalComponent;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],211:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 GenericLocation.
+ */
+class GenericLocation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._orientation = URI();
+    }
+
+    /**
+     * Set the orientation property for this Cut.
+     * @param {string|URI} [orientation]
+     */
+    set orientation(orientation) {
+        this._orientation = util.uriOrObject(orientation);
+    }
+
+    /**
+     * Retrieve the orientation property for this Cut.
+     * @returns {URI}
+     */
+    get orientation() {
+        return this._orientation;
+    }
+}
+
+module.exports = GenericLocation;
+
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],212:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Sequence.
+ */
+class GenericTopLevel extends Identified
+{
+    constructor(sbolDocument, uri, rdfType) {
+
+        super(sbolDocument, uri);
+
+        this._rdfType = rdfType;
+    }
+
+    /**
+     * Retrieve the rdfType for this genericTopLevel.
+     * @returns {URI} [rdfType]
+     */
+    get rdfType() {
+        return this._rdfType;
+    }
+}
+
+module.exports = GenericTopLevel;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],213:[function(require,module,exports){
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    util = require('./util');
+
+const compareMavenVersions = require('./compareMavenVersions')
+
+/**
+ * Base class for all Identified SBOL2 objects.
+ */
+class Identified {
+    constructor(sbolDocument, uri) {
+
+        this._sbolDocument = sbolDocument;
+        this._displayId = '';
+        this._uri = URI();
+        this._persistentIdentity = URI();
+        this._version = '';
+        this._wasDerivedFrom = URI();
+        this._wasGeneratedBy = URI();
+        this._name = '';
+        this._description = '';
+        this._annotations = [];
+		this._attachments = [];
+
+        if (uri !== undefined)
+            this.uri = uri;
+    }
+
+    /**
+     * Set the URI of this Identified.
+     * @param {string|URI} [uri]
+     */
+    set uri(uri) {
+        this._sbolDocument.unmapURI(this._uri, this);
+        this._uri = URI(uri);
+        this._sbolDocument.mapURI(this._uri, this);
+    }
+
+    /**
+     * Retrieve the URI of this Identified.
+     * @returns {URI}
+     */
+    get uri() {
+        return this._uri;
+    }
+
+    /**
+     * Set the display ID of this Identified.
+     * @param {string|URI} [displayId]
+     */
+    set displayId(displayId) {
+        this._displayId = displayId;
+    }
+
+    /**
+     * Retrieve the display ID of this Identified.
+     * @returns {string}
+     */
+    get displayId() {
+        return this._displayId;
+    }
+
+    /**
+     * Set the version of this Identified.
+     * @param {string|URI} [version]
+     */
+    set version(version) {
+        this._version = version;
+        
+        if (this._persistentIdentity && this._persistentIdentity != '') {
+            
+            var oldObject = this._sbolDocument.lookupURI(this._persistentIdentity);
+            
+            if (oldObject.version) {
+                if (compareMavenVersions(this._version, oldObject.version) > 0) {
+                    this._sbolDocument.mapURI(this._persistentIdentity, this);
+                }
+            } else {
+                this._sbolDocument.mapURI(this._persistentIdentity, this);
+            }
+        }
+    }
+
+    /**
+     * Retrieve the version of this Identified.
+     * @returns {string}
+     */
+    get version() {
+        return this._version;
+    }
+
+    /**
+     * Set the wasDerivedFrom property of this Identified.
+     * @param {string|URI} [wasDerivedFrom]
+     */
+    set wasDerivedFrom(wasDerivedFrom) {
+        this._wasDerivedFrom = URI(wasDerivedFrom);
+    }
+
+    /**
+     * Retrieve the wasDerivedFrom property of this Identified.
+     * @returns {URI}
+     */
+    get wasDerivedFrom() {
+        return this._wasDerivedFrom;
+    }
+
+    /**
+     * Set the wasGeneratedBy property of this Identified.
+     * @param {string|URI} [wasGeneratedBy]
+     */
+    set wasGeneratedBy(wasGeneratedBy) {
+        this._wasGeneratedBy = URI(wasGeneratedBy);
+    }
+
+    /**
+     * Retrieve the wasGeneratedBy property of this Identified.
+     * @returns {URI}
+     */
+    get wasGeneratedBy() {
+        return this._wasGeneratedBy;
+    }
+
+    /**
+     * Set the name of this Identified.
+     * @param {string|URI} [name]
+     */
+    set name(name) {
+        this._name = name;
+    }
+
+    /**
+     * Retrieve the name of this Identified.
+     * @returns {string}
+     */
+    get name() {
+        return this._name;
+    }
+
+    /**
+     * Set the description of this Identified.
+     * @param {string|URI} [description]
+     */
+    set description(description) {
+        this._description = description;
+    }
+
+    /**
+     * Retrieve the description of this Identified.
+     * @returns {string}
+     */
+    get description() {
+        return this._description;
+    }
+
+    /**
+     * Set the persistentIdentity of this Identified.
+     * @param {string|URI} [persistentIdentity]
+     */
+    set persistentIdentity(persistentIdentity) {
+        var oldObject = this._sbolDocument.lookupURI(persistentIdentity);
+
+        if (oldObject.version) {
+            if (this._version && compareMavenVersions(this._version, oldObject.version) > 0) {
+                this._sbolDocument.unmapURI(this._persistentIdentity, this);
+                this._persistentIdentity = URI(persistentIdentity);
+                this._sbolDocument.mapURI(this._persistentIdentity, this);
+            } else {
+                this._sbolDocument.unmapURI(this._persistentIdentity, this);
+                this._persistentIdentity = URI(persistentIdentity);
+            }
+        } else {
+            this._sbolDocument.unmapURI(this._persistentIdentity, this);
+            this._persistentIdentity = URI(persistentIdentity);
+            this._sbolDocument.mapURI(this._persistentIdentity, this);
+        }
+    }
+
+    /**
+     * Retrieve the persistentIdentity of this Identified.
+     * @returns {URI}
+     */
+    get persistentIdentity() {
+        return this._persistentIdentity;
+    }
+
+    /**
+     * Add a string annotation to this Identified.
+     * @param {string} [name] - The URI of the annotation
+     * @param {string} [value] - The annotation value
+     */
+    addStringAnnotation(name, value) {
+        this._annotations.push({
+            type: 'string',
+            name: name,
+            value: value
+        });
+    }
+
+    /**
+     * Add a URI annotation to this Identified.
+     * @param {string} [name] - The URI of the annotation
+     * @param {string} [value] - The annotation value
+     */
+    addUriAnnotation(name, value) {
+        this._annotations.push({
+            type: 'uri',
+            name: name,
+            value: value
+        });
+
+        if (name !== 'http://wiki.synbiohub.org/wiki/Terms/synbiohub#rootCollection' &&
+            name !== 'http://wiki.synbiohub.org/wiki/Terms/synbiohub#isMemberOf')
+            this._sbolDocument.lookupURI(value)
+    }
+
+    /**
+     * Add a Date annotation to this Identified.
+     * @param {string} [name] - The URI of the annotation
+     * @param {Date} [value] - The annotation value
+     */
+    addDateAnnotation(name, value) {
+        this._annotations.push({
+            type: 'date',
+            name: name,
+            value: value
+        });
+    }
+
+    /**
+     * Add a HTML annotation to this Identified.
+     * @param {string} [name] - The URI of the annotation
+     * @param {string} [value] - The annotation value
+     */
+    addHtmlAnnotation(name, value) {
+        this._annotations.push({
+            type: 'html',
+            name: name,
+            value: value
+        });
+    }
+
+    /**
+     * Retrieve the annotations for this Identified.
+     * @returns {Object[]}
+     * @property {string} [type] - The type of the annotation (string or uri)
+     * @property {string} [name] - The URI of the annotation
+     * @property {string} [value] - The annotation value
+     */
+    get annotations() {
+        return this._annotations.slice(0);
+    }
+
+    /**
+     * Retrieve all annotations for a given URI
+     * @returns {string[]} - A list of annotation values
+     */
+    getAnnotations(name) {
+        return this._annotations.filter(
+            (annotation) => annotation.name === name
+        ).map(
+            (annotation) => annotation.value
+        )
+    }
+
+    /**
+     * Retrieve the first matching annotation for a given URI.
+     * @returns {string} - The annotation value, or undefined.
+     */
+    getAnnotation(name) {
+        return this.getAnnotations(name)[0]
+    }
+
+	/**
+	 * Adds the given attachment
+     * @param {URI} - The URI of the attachment.
+     */
+	addAttachment(value) {
+		this._attachments.push(util.uriOrObject(value));
+	}
+
+	/**
+	 * Returns all the attachments for this object
+	 * @returns {Attachment[]} - An array of attachments
+	 */
+	get attachments () {
+		return this._attachments.slice();
+	}
+
+	/**
+	 * Links the members of Top Level (Identified)
+	 */
+	link () {
+		this._attachments = this._sbolDocument.lookupURIs(this._attachments);
+	}
+};
+
+module.exports = Identified;
+
+},{"./compareMavenVersions":232,"./util":308,"urijs":378}],214:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Implementation reference.
+ */
+class Implementation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._built = URI();
+    }
+
+    /**
+     * Set the built URI for this Implementation.
+     * @param {string|URI} [built]
+     */
+    set built(built) {
+        this._built = URI(built);
+    }
+
+    /**
+     * Retrieve the built URI for this Implementation.
+     * @returns {URI} [built]
+     */
+    get built() {
+        return this._built;
+    }
+	
+	/**		
+     * Attempt to resolve the members assigned to this Collection by URI.		
+     */		
+    link() {
+		// Call super link to link members of Top Level (Identified)
+		super.link();
+		
+        this._built = this._sbolDocument.lookupURI(this._built);		
+    }		
+}
+
+module.exports = Implementation;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],215:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Interaction.
+ */
+class Interaction extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._types = [];
+        this._participations = [];
+    }
+
+    /**
+     * Add a type to this Interaction.
+     * @param {string|URI} [type]
+     */
+    addType(type) {
+        this._types.push(util.uriOrObject(type));
+    }
+
+    /**
+     * Retrieve a list of types for this Interaction.
+     * @returns {URI[]} [types]
+     */
+    get types() {
+        return this._types;
+    }
+    
+    /**
+     * Add a Participation to this Interaction.
+     * @param {string|URI|Paticipation} [participation]
+     */
+    addParticipation(participation) {
+        this._participations.push(util.uriOrObject(participation));
+    }
+
+    /**
+     * Retrieve the list of Participations for this Interaction.
+     * There may be URIs present in this list if the participation(s) have not
+     * yet been resolved.
+     *
+     * @returns {Participation[]}
+     */
+    get participations() {
+        return this._participations;
+    }
+
+    /**
+     * Attempt to resolve participations by URI.
+     */
+    link() {
+        this._participations = this._sbolDocument.lookupURIs(this._participations);
+    }
+}
+
+module.exports = Interaction;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],216:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 MapsTo.
+ */
+class MapsTo extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._refinement = URI();
+        this._remote = URI();
+        this._local = URI();
+    }
+
+    /**
+     * Set the refinement property for this MapsTo.
+     * @param {string|URI} [refinement]
+     */
+    set refinement(refinement) {
+        this._refinement = URI(refinement);
+    }
+
+    /**
+     * Retrieve the refinement property for this MapsTo.
+     * @returns {URI} - refinement
+     */
+    get refinement() {
+        return this._refinement;
+    }
+
+    /**
+     * Set the remote component for this MapsTo.
+     * @param {string|URI|Component|FunctionalComponent} [remote]
+     */
+    set remote(remote) {
+        this._remote = util.uriOrObject(remote);
+    }
+
+    /**
+     * Retrieve the remote component for this MapsTo.
+     * @returns {URI|Component|FunctionalComponent} [remote]
+     */
+    get remote() {
+        return this._remote;
+    }
+
+    /**
+     * Set the local component for this MapsTo.
+     * @param {string|URI|Component|FunctionalComponent} [local]
+     */
+    set local(local) {
+        this._local = util.uriOrObject(local);
+    }
+
+    /**
+     * Retrieve the local component for this MapsTo.
+     * @returns {URI|Component|FunctionalComponent} [local]
+     */
+    get local() {
+        return this._local;
+    }
+
+    /**
+     * Attempt to resolve the local and remote components by URI.
+     */
+    link() {
+        this._remote = this._sbolDocument.lookupURI(this._remote);
+        this._local = this._sbolDocument.lookupURI(this._local);
+    }
+}
+
+module.exports = MapsTo;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],217:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Model reference.
+ */
+class Model extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._source = URI();
+        this._language = URI();
+        this._framework = URI();
+    }
+
+    /**
+     * Set the source URI for this Model.
+     * @param {string|URI} [source]
+     */
+    set source(source) {
+        this._source = URI(source);
+    }
+
+    /**
+     * Retrieve the source URI for this Model.
+     * @returns {URI} [source]
+     */
+    get source() {
+        return this._source;
+    }
+
+    /**
+     * Set the language for this Model.
+     * @param {string|URI} [language]
+     */
+    set language(language) {
+        this._language = URI(language);
+    }
+
+    /**
+     * Retrieve the language for this Model.
+     * @returns {URI} [language]
+     */
+    get language() {
+        return this._language;
+    }
+
+    /**
+     * Set the framework for this Model.
+     * @param {string|URI} [framework]
+     */
+    set framework(framework) {
+        this._framework = URI(framework);
+    }
+
+    /**
+     * Retrieve the framework for this Model.
+     * @returns {URI} [framework]
+     */
+    get framework() {
+        return this._framework;
+    }
+}
+
+module.exports = Model;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],218:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 module instantiation.
+ */
+class Module extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._definition = URI();
+        this._mappings = [];
+    }
+
+    /**
+     * Set the ModuleDefinition for this Module.
+     * @param {string|URI|ModuleDefinition} [definition]
+     */
+    set definition(definition) {
+        this._definition = util.uriOrObject(definition);
+    }
+
+    /**
+     * Retrieve the ModuleDefinition for this Module.  Returns either a
+     * URI or a ModuleDefinition, depending on whether the URI has been
+     * resolved by link().
+     *
+     * @returns {URI|ModuleDefinition}
+     */
+    get definition() {
+        return this._definition;
+    }
+
+    /**
+     * Add a MapsTo to this Module.
+     * @param {string|URI|MapsTo} [mapping]
+     */
+    addMapping(mapping) {
+        this._mappings.push(util.uriOrObject(mapping));
+    }
+
+    /**
+     * Retrieve the list of mappings assigned to this Module.  There may be
+     * URIs present in this list if the mapping(s) have not yet been resolved.
+     *
+     * @returns {MapsTo[]}
+     */
+    get mappings() {
+        return this._mappings.slice(0);
+    }
+
+    /**
+     * Attempt to resolve the ModuleDefinition and mappings by URI.
+     */
+    link() {
+        this._definition = this._sbolDocument.lookupURI(this._definition);
+        this._mappings = this._sbolDocument.lookupURIs(this._mappings);
+    }
+}
+
+module.exports = Module;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],219:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 ModuleDefinition.
+ */
+class ModuleDefinition extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._roles = [];
+        this._modules = [];
+        this._functionalComponents = [];
+        this._interactions = [];
+	this._models = [];
+    }
+
+    /**
+     * Assign a role to this ModuleDefinition.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+    /**
+     * Add a Module to this ModuleDefinition.
+     * @param {string|URI|Module} [module]
+     */
+    addModule(module) {
+        this._modules.push(util.uriOrObject(module));
+    }
+
+    /**
+     * Add a FunctionalComponent to this ModuleDefinition.
+     * @param {string|URI|FunctionalComponent} [component]
+     */
+    addFunctionalComponent(component) {
+        this._functionalComponents.push(util.uriOrObject(component));
+    }
+
+    /**
+     * Add an Interaction to this ModuleDefinition.
+     * @param {string|URI|Interaction} [interaction]
+     */
+    addInteraction(interaction) {
+        this._interactions.push(util.uriOrObject(interaction));
+    }
+
+    /**
+     * Add an Model to this ModuleDefinition.
+     * @param {string|URI|Model} [model]
+     */
+    addModel(model) {
+        this._models.push(util.uriOrObject(model));
+    }
+
+    /**
+     * Retrieve the list of roles assigned to this ModuleDefinition
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    /**
+     * Retrieve the list of modules assigned to this ModuleDefinition.  There
+     * may be URIs present in this list if the module(s) have not yet been
+     * resolved.
+     *
+     * @returns {Module[]}
+     */
+    get modules() {
+        return this._modules.slice(0);
+    }
+
+    /**
+     * Retrieve the list of FunctionalComponents assigned to this
+     * ModuleDefinition.  There may be URIs present in this list if the
+     * component(s) have not yet been resolved.
+     *
+     * @returns {FunctionalComponent[]}
+     */
+    get functionalComponents() {
+        return this._functionalComponents.slice(0);
+    }
+
+    /**
+     * Retrieve the list of Interactions assigned to this ModuleDefinition.
+     * There may be URIs present in this list if the interaction(s) have not
+     * yet been resolved.
+     *
+     * @returns {Interaction[]}
+     */
+    get interactions() {
+        return this._interactions.slice(0);
+    }
+
+    /**
+     * Retrieve the list of Models assigned to this ModuleDefinition.
+     * There may be URIs present in this list if the model(s) have not
+     * yet been resolved.
+     *
+     * @returns {Model[]}
+     */
+    get models() {
+        return this._models.slice(0);
+    }
+
+    /**
+     * Attempt to resolve the Modules, FunctionalComponents, and Interactions
+     * assigned to this ModuleDefinition by URI.
+     */
+    link() {
+		// Call super link to link members of Top Level (Identified)
+		super.link();
+
+        this._modules = this._sbolDocument.lookupURIs(this._modules);
+        this._functionalComponents = this._sbolDocument.lookupURIs(this._functionalComponents);
+        this._interactions = this._sbolDocument.lookupURIs(this._interactions);
+        this._models = this._sbolDocument.lookupURIs(this._models);
+    }
+}
+
+module.exports = ModuleDefinition;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],220:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent a participation in an Interaction.
+ */
+class Participation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._roles = [];
+        this._participant = URI();
+    }
+
+    /**
+     * Assign a role to this Participation.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+    /**
+     * Retrieve the list of roles assigned to this Participation.
+     * @returns {URI[]} [roles]
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    /**
+     * Set the participant FunctionalComponent for this Participation.
+     * @param {string|URI|FunctionalComponent} [participant]
+     */
+    set participant(participant) {
+        this._participant = util.uriOrObject(participant);
+    }
+
+    /**
+     * Retrieve the participant FunctionalComponent for this Participation.  May return
+     * a URI if the participant FunctionalComponent has not yet been resolved.
+     *
+     * @returns {URI|FunctionalComponent}
+     */
+    get participant() {
+        return this._participant;
+    }
+
+    /**
+     * Attempt to resolve all participants by URI.
+     */
+    link() {
+        this._participant = this._sbolDocument.lookupURI(this._participant);
+    }
+}
+
+module.exports = Participation;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],221:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Represents a PROV-O Activity as described in 12.8 "Adding Provenance"
+ */
+class ProvActivity extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._startedAtTime = null
+        this._endedAtTime = null
+        this._usages = []
+        this._associations = []
+        this._wasInformedBys = []
+    }
+
+    set startedAtTime(startedAtTime) {
+        this._startedAtTime = startedAtTime ? new Date(startedAtTime) : null
+    }
+
+    get startedAtTime() {
+        return this._startedAtTime ? new Date(this._startedAtTime) : null
+    }
+
+    set endedAtTime(endedAtTime) {
+        this._endedAtTime = endedAtTime ? new Date(endedAtTime) : null
+    }
+
+    get endedAtTime() {
+        return this._endedAtTime ? new Date(this._endedAtTime) : null
+    }
+
+    addUsage(usage) {
+        this._usages.push(usage)
+    }
+
+    get usages() {
+        return this._usages.slice(0)
+    }
+
+    addAssociation(association) {
+        this._associations.push(association)
+    }
+
+    get associations() {
+        return this._associations.slice(0)
+    }
+  
+    addWasInformedBy(wasInformedBy) {
+        this._wasInformedBys.push(wasInformedBy)
+    }
+
+    get wasInformedBys() {
+        return this._wasInformedBys.slice(0)
+    }
+    
+    link() {
+		// Call super link to link members of Top Level (Identified)
+		super.link();
+		
+	this._usages = this._sbolDocument.lookupURIs(this._usages)
+	this._associations = this._sbolDocument.lookupURIs(this._associations)
+	this._wasInformedBys = this._sbolDocument.lookupURIs(this._wasInformedBys)
+    }
+}
+
+module.exports = ProvActivity;
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],222:[function(require,module,exports){
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Represents a PROV-O Association as described in 12.8 "Adding Provenance"
+ */
+class ProvAgent extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+    }
+}
+
+module.exports = ProvAgent;
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],223:[function(require,module,exports){
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Represents a PROV-O Association as described in 12.8 "Adding Provenance"
+ */
+class ProvAssociation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._agent = new URI()
+        this._plan = new URI()
+        this._roles = []
+    }
+
+    set agent(agent) {
+        this._agent = new URI(agent)
+    }
+
+    get agent() {
+        return this._agent
+    }
+
+    set plan(plan) {
+        this._plan = new URI(plan)
+    }
+
+    get plan() {
+        return this._plan
+    }
+
+    /**
+     * Assign a role to this Association.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+     /**
+     * Retrieve the list of roles assigned to this Association.
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    link() {
+	this._agent = this._sbolDocument.lookupURI(this._agent);
+	this._plan = this._sbolDocument.lookupURI(this._plan);
+    }
+}
+
+module.exports = ProvAssociation;
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],224:[function(require,module,exports){
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Represents a PROV-O Plan as described in 12.8 "Adding Provenance"
+ */
+class ProvPlan extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+    }
+}
+
+module.exports = ProvPlan;
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],225:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    xml = require('xml'),
+    util = require('./util');
+
+/**
+ * Represents a PROV-O Usage as described in 12.8 "Adding Provenance"
+ */
+class ProvUsage extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._entity = new URI()
+        this._roles = []
+    }
+
+    set entity(entity) {
+        this._entity = new URI(entity)
+    }
+
+    get entity() {
+        return this._entity
+    }
+
+    /**
+     * Assign a role to this Usage.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+     /**
+     * Retrieve the list of roles assigned to this Usage.
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    link() {
+		this._entity = this._sbolDocument.lookupURI(this._entity);
+    }
+}
+
+module.exports = ProvUsage;
+
+},{"./Identified":213,"./util":308,"urijs":378,"xml":382}],226:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Range location.
+ */
+class Range extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._start = 0;
+        this._end = 0;
+        this._orientation = URI();
+    }
+
+    /**
+     * Set the start property for this Range.
+     * @param {Integer} [start]
+     */
+    set start(start) {
+        this._start = start;
+    }
+
+    /**
+     * Retrieve the start property for this Range.
+     * @returns {Integer}
+     */
+    get start() {
+        return this._start;
+    }
+
+    /**
+     * Set the end property for this Range.
+     * @param {Integer} [end]
+     */
+    set end(end) {
+        this._end = end;
+    }
+
+    /**
+     * Retrieve the end property for this Range.
+     * @returns {Integer}
+     */
+    get end() {
+        return this._end;
+    }
+
+    /**
+     * Set the orientation property for this Range.
+     * @param {string|URI} [orientation]
+     */
+    set orientation(orientation) {
+        this._orientation = util.uriOrObject(orientation);
+    }
+
+    /**
+     * Retrieve the orientation property for this Range.
+     * @returns {URI}
+     */
+    get orientation() {
+        return this._orientation;
+    }
+}
+
+module.exports = Range;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],227:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var fs = require('fs'),
+    URI = require('urijs'),
+    assert = require('assert');
+
+var ModuleDefinition = require('./ModuleDefinition'),
+    Module = require('./Module'),
+    MapsTo = require('./MapsTo'),
+    Collection = require('./Collection'),
+    Model = require('./Model'),
+    Attachment = require('./Attachment'),
+    Implementation = require('./Implementation'),
+    ComponentDefinition = require('./ComponentDefinition'),
+    Sequence = require('./Sequence'),
+    FunctionalComponent = require('./FunctionalComponent'),
+    Interaction = require('./Interaction'),
+    Participation = require('./Participation'),
+    Range = require('./Range'),
+    SequenceAnnotation = require('./SequenceAnnotation'),
+    Component = require('./Component'),
+    SequenceConstraint = require('./SequenceConstraint'),
+    Cut = require('./Cut'),
+    GenericLocation = require('./GenericLocation'),
+    GenericTopLevel = require('./GenericTopLevel'),
+    CombinatorialDerivation = require('./CombinatorialDerivation'),
+    VariableComponent = require('./VariableComponent'),
+    ProvActivity = require('./ProvActivity'),
+    ProvAssociation = require('./ProvAssociation'),
+    ProvAgent = require('./ProvAgent'),
+    ProvPlan = require('./ProvPlan'),
+    ProvUsage = require('./ProvUsage')
+    CombinatorialDerivation = require('./CombinatorialDerivation'),
+    VariableComponent = require('./VariableComponent')
+
+/**
+ * Class to represent an SBOL2 document in memory.
+ */
+class SBOLDocument
+{
+    constructor() {
+
+		this._attachments = [];
+        this._collections = [];
+        this._moduleDefinitions = [];
+        this._modules = [];
+        this._mappings = [];
+        this._models = [];
+        this._implementations = [];
+        this._componentDefinitions = [];
+        this._sequences = [];
+        this._genericTopLevels = [];
+        this._functionalComponents = [];
+        this._interactions = [];
+        this._participations = [];
+        this._ranges = [];
+        this._cuts = [];
+        this._genericLocations = [];
+        this._sequenceAnnotations = [];
+        this._sequenceConstraints = [];
+        this._variableComponents = [];
+        this._combinatorialDerivations = [];
+        this._components = [];
+        this._URIs = {};
+        this._unresolvedURIs = {};
+
+
+        this._provActivities = [];
+        this._provAssociations = [];
+        this._provUsages = [];
+        this._provPlans = [];
+        this._provAgents = [];
+
+    }
+
+    /**
+     * Create a new Collection in the document.
+     * @param {string} [uri] - The URI of the Collection
+     * @returns {Collection}
+     */
+    collection(uri) {
+        var collection = new Collection(this, uri);
+        this._collections.push(collection);
+        return collection;
+    }
+
+    /**
+     * Create a new Model in the document.
+     * @param {string} [uri] - The URI of the Model
+     * @returns {Model}
+     */
+    model(uri) {
+        var model = new Model(this, uri);
+        this._models.push(model);
+        return model;
+    }
+
+	/**
+     * Create a new Attachment in the document.
+     * @param {string} [uri] - The URI of the Attachment
+     * @returns {Attachment}
+     */
+    attachment(uri) {
+        var attachment = new Attachment(this, uri);
+        this._attachments.push(attachment);
+        return attachment;
+    }
+
+    /**
+     * Create a new Implementation in the document.
+     * @param {string} [uri] - The URI of the Implementation
+     * @returns {Implementation}
+     */
+    implementation(uri) {
+        var implementation = new Implementation(this, uri);
+        this._implementations.push(implementation);
+        return implementation;
+    }
+
+    /**
+     * Create a new ModuleDefinition in the document.
+     * @param {string} [uri] - The URI of the ModuleDefinition
+     * @returns {ModuleDefinition}
+     */
+    moduleDefinition(uri) {
+        var moduleDefinition = new ModuleDefinition(this, uri);
+        this._moduleDefinitions.push(moduleDefinition);
+        return moduleDefinition;
+    }
+
+    /**
+     * Create a new Module in the document.
+     * @param {string} [uri] - The URI of the Module
+     * @returns {Module}
+     */
+    module(uri) {
+        var module = new Module(this, uri);
+        this._modules.push(module);
+        return module;
+    }
+
+    /**
+     * Create a new Mapping in the document.
+     * @param {string} [uri] - The URI of the Mapping
+     * @returns {Mapping}
+     */
+    mapping(uri) {
+        var mapping = new MapsTo(this, uri);
+        this._mappings.push(mapping);
+        return mapping;
+    }
+
+    /**
+     * Create a new ComponentDefinition in the document.
+     * @param {string} [uri] - The URI of the ComponentDefinition
+     * @returns {ComponentDefinition}
+     */
+    componentDefinition(uri) {
+        var componentDefinition = new ComponentDefinition(this, uri);
+        this._componentDefinitions.push(componentDefinition);
+        return componentDefinition;
+    }
+
+    /**
+     * Create a new Sequence in the document.
+     * @param {string} [uri] - The URI of the Sequence
+     * @returns {Sequence}
+     */
+    sequence(uri) {
+        var sequence = new Sequence(this, uri);
+        this._sequences.push(sequence);
+        return sequence;
+    }
+
+    /**
+     * Create a new CombinatorialDerivation in the document.
+     * @param {string} [uri] - The URI of the CombinatorialDerivation
+     * @returns {CombinatorialDerivation}
+     */
+    combinatorialDerivation(uri) {
+        var combinatorialDerivation = new CombinatorialDerivation(this, uri);
+        this._combinatorialDerivations.push(combinatorialDerivation);
+        return combinatorialDerivation;
+    }
+
+    /**
+     * Create a new VariableComponent in the document.
+     * @param {string} [uri] - The URI of the VariableComponent
+     * @returns {VariableComponent}
+     */
+    variableComponent(uri) {
+        var variableComponent = new VariableComponent(this, uri);
+        this._variableComponents.push(variableComponent);
+        return variableComponent;
+    }
+
+    /**
+     * Create a new GenericTopLevel in the document.
+     * @param {string} [uri] - The URI of the Sequence
+     * @returns {Sequence}
+     */
+    genericTopLevel(uri,rdfType) {
+        var genericTopLevel = new GenericTopLevel(this, uri, rdfType);
+        this._genericTopLevels.push(genericTopLevel);
+        return genericTopLevel;
+    }
+
+    /**
+     * Create a new FunctionalComponent in the document.
+     * @param {string} [uri] - The URI of the FunctionalComponent
+     * @returns {FunctionalComponent}
+     */
+    functionalComponent(uri) {
+        var functionalComponent = new FunctionalComponent(this, uri);
+        this._functionalComponents.push(functionalComponent);
+        return functionalComponent;
+    }
+
+    /**
+     * Create a new Interaction in the document.
+     * @param {string} [uri] - The URI of the Interaction
+     * @returns {Interaction}
+     */
+    interaction(uri) {
+        var interaction = new Interaction(this, uri);
+        this._interactions.push(interaction);
+        return interaction;
+    }
+
+    /**
+     * Create a new Participation in the document.
+     * @param {string} [uri] - The URI of the Participation
+     * @returns {Participation}
+     */
+    participation(uri) {
+        var participation = new Participation(this, uri);
+        this._participations.push(participation);
+        return participation;
+    }
+
+    /**
+     * Create a new Range in the document.
+     * @param {string} [uri] - The URI of the Range
+     * @returns {Range}
+     */
+    range(uri) {
+        var range = new Range(this, uri);
+        this._ranges.push(range);
+        return range;
+    }
+
+    /**
+     * Create a new Cut in the document.
+     * @param {string} [uri] - The URI of the Cut
+     * @returns {Cut}
+     */
+    cut(uri) {
+        var cut = new Cut(this, uri);
+        this._cuts.push(cut);
+        return cut;
+    }
+
+    /**
+     * Create a new GenericLocation in the document.
+     * @param {string} [uri] - The URI of the GenericLocation
+     * @returns {GenericLocation}
+     */
+    genericLocation(uri) {
+        var genericLocation = new GenericLocation(this, uri);
+        this._genericLocations.push(genericLocation);
+        return genericLocation;
+    }
+
+    /**
+     * Create a new SequenceAnnotation in the document.
+     * @param {string} [uri] - The URI of the SequenceAnnotation
+     * @returns {SequenceAnnotation}
+     */
+    sequenceAnnotation(uri) {
+        var sequenceAnnotation = new SequenceAnnotation(this, uri);
+        this._sequenceAnnotations.push(sequenceAnnotation);
+        return sequenceAnnotation;
+    }
+
+    /**
+     * Create a new Component in the document.
+     * @param {string} [uri] - The URI of the Component
+     * @returns {Component}
+     */
+    component(uri) {
+        var component = new Component(this, uri);
+        this._components.push(component);
+        return component;
+    }
+
+    /**
+     * Create a new SequenceConstraint in the document.
+     * @param {string} [uri] - The URI of the SequenceConstraint
+     * @returns {SequenceConstraint}
+     */
+    sequenceConstraint(uri) {
+        var sequenceConstraint = new SequenceConstraint(this, uri);
+        this._sequenceConstraints.push(sequenceConstraint);
+        return sequenceConstraint;
+    }
+
+    /**
+     * Create a new provenance activity in the document
+     * @returns {ProvActivity}
+     */
+    provActivity(uri) {
+        var activity = new ProvActivity(this, uri);
+        this._provActivities.push(activity);
+        return activity;
+    }
+
+    /**
+     * Create a new provenance association in the document
+     * @returns {ProvAssociation}
+     */
+    provAssociation(uri) {
+        var association = new ProvAssociation(this, uri);
+        this._provAssociations.push(association);
+        return association;
+    }
+
+    /**
+     * Create a new provenance agent in the document
+     * @returns {ProvAgent}
+     */
+    provAgent(uri) {
+        var agent = new ProvAgent(this, uri);
+        this._provAgents.push(agent);
+        return agent;
+    }
+
+    /**
+     * Create a new provenance plan in the document
+     * @returns {ProvPlan}
+     */
+    provPlan(uri) {
+        var plan = new ProvPlan(this, uri);
+        this._provPlans.push(plan);
+        return plan;
+    }
+
+    /**
+     * Create a new provenance usage in the document
+     * @returns {ProvUsage}
+     */
+    provUsage(uri) {
+        var usage = new ProvUsage(this, uri);
+        this._provUsages.push(usage);
+        return usage;
+    }
+
+    /**
+     * Attempt to resolve any unresolved URIs in the document, replacing them
+     * with their instantiated object.
+     */
+    link() {
+        //this.models
+        //this.sequences
+        //this.genericTopLevels
+        //this.ranges
+        //this.cuts
+        //this.genericLocations
+
+        this.moduleDefinitions.forEach(function(moduleDefinition) {
+            moduleDefinition.link();
+        });
+        
+        this.modules.forEach(function(module) {
+            module.link();
+        });
+        
+        this.mappings.forEach(function(mapping) {
+            mapping.link();
+        });
+
+        this.sequenceAnnotations.forEach(function(sequenceAnnotation) {
+            sequenceAnnotation.link();
+        });
+
+        this.sequenceConstraints.forEach(function(sequenceConstraint) {
+            sequenceConstraint.link();
+        });
+
+        this.componentDefinitions.forEach(function(componentDefinition) {
+            componentDefinition.link();
+        });
+
+        this.functionalComponents.forEach(function(functionalComponent) {
+            functionalComponent.link();
+        });
+
+        this.components.forEach(function(component) {
+            component.link();
+        });
+
+        this.interactions.forEach(function(interaction) {
+            interaction.link();
+        });
+
+        this.participations.forEach(function(participation) {
+            participation.link();
+        });
+
+        this.collections.forEach(function(collection) {
+            collection.link();
+        });
+
+        this.implementations.forEach(function(implementation) {
+            implementation.link();
+        });
+
+		// All classes that inherit from Top Level (Identified) must be linked to link members of Top Level i.e.: attachments
+		this.attachments.forEach(function(attachment) {
+			attachment.link();
+		});
+
+		this.sequences.forEach(function(sequence) {
+			sequence.link();
+		});
+
+		this.models.forEach(function(model) {
+			model.link();
+		});
+
+		this.genericTopLevels.forEach(function(genericTopLevel) {
+			genericTopLevel.link();
+		});
+
+        this.provActivities.forEach(function(activity) {
+            activity.link();
+        });
+
+		this.provPlans.forEach(function(provPlan) {
+			provPlan.link();
+		});
+
+		this.provAgents.forEach(function(provAgent) {
+			provAgent.link();
+		});
+
+		this.provAssociations.forEach(function(association) {
+			association.link();
+		});
+
+		this.provUsages.forEach(function(usage) {
+			usage.link();
+		});
+
+        this.combinatorialDerivations.forEach(function(derivation) {
+            derivation.link();
+        });
+
+        this.variableComponents.forEach(function(component) {
+            component.link();
+        });
+    }
+
+    /**
+     * Returns a list of all Collections in the document
+     * @returns {Collection[]}
+     */
+    get collections() {
+        return this._collections.slice(0);
+    }
+
+    /**
+     * Returns a list of all ModuleDefinitions in the document
+     * @returns {ModuleDefinition[]}
+     */
+    get moduleDefinitions() {
+        return this._moduleDefinitions.slice(0);
+    }
+
+    /**
+     * Returns a list of all Modules in the document
+     * @returns {Module[]}
+     */
+    get modules() {
+        return this._modules.slice(0);
+    }
+
+    /**
+     * Returns a list of all FunctionalComponents in the document
+     * @returns {FunctionalComponent[]}
+     */
+    get functionalComponents() {
+        return this._functionalComponents.slice(0);
+    }
+
+    /**
+     * Returns a list of all Mappings in the document
+     * @returns {Mapping[]}
+     */
+    get mappings() {
+        return this._mappings.slice(0);
+    }
+
+    /**
+     * Returns a list of all ComponentDefinitions in the document
+     * @returns {ComponentDefinition[]}
+     */
+    get componentDefinitions() {
+        return this._componentDefinitions.slice(0);
+    }
+
+    /**
+     * Returns a list of all SequenceAnnotations in the document
+     * @returns {SequenceAnnotation[]}
+     */
+    get sequenceAnnotations() {
+        return this._sequenceAnnotations.slice(0);
+    }
+
+    /**
+     * Returns a list of all Interactions in the document
+     * @returns {Interaction[]}
+     */
+    get interactions() {
+        return this._interactions.slice(0);
+    }
+
+    /**
+     * Returns a list of all Participations in the document
+     * @returns {Participation[]}
+     */
+    get participations() {
+        return this._participations.slice(0);
+    }
+
+    /**
+     * Returns a list of all Sequences in the document
+     * @returns {Sequence[]}
+     */
+    get sequences() {
+        return this._sequences.slice(0);
+    }
+
+    /**
+     * Returns a list of all GenericTopLevels in the document
+     * @returns {GenericTopLevel[]}
+     */
+    get genericTopLevels() {
+        return this._genericTopLevels.slice(0);
+    }
+
+    /**
+     * Returns a list of all SequenceConstraints in the document
+     * @returns {SequenceConstraint[]}
+     */
+    get sequenceConstraints() {
+        return this._sequenceConstraints.slice(0);
+    }
+
+    /**
+     * Returns a list of all Models in the document
+     * @returns {Model[]}
+     */
+    get models() {
+        return this._models.slice(0);
+    }
+
+	/**
+     * Returns a list of all Attachments in the document
+     * @returns {Attachment[]}
+     */
+    get attachments() {
+        return this._attachments.slice();
+    }
+
+    /**
+     * Returns a list of all Implementations in the document
+     * @returns {Implementation[]}
+     */
+    get implementations() {
+        return this._implementations.slice(0);
+    }
+
+    /**
+     * Returns a list of all Components in the document
+     * @returns {Component[]}
+     */
+    get components() {
+        return this._components.slice(0);
+    }
+
+    /**
+     * Return a list of all provenance activities in the document
+     * @returns {ProvActivity[]}
+     */
+    get provActivities() {
+        return this._provActivities.slice(0)
+    }
+
+    /**
+     * Return a list of all provenance association in the document
+     * @returns {ProvAssociation[]}
+     */
+    get provAssociations() {
+        return this._provAssociations.slice(0)
+    }
+
+    /**
+     * Return a list of all provenance usages in the document
+     * @returns {ProvUsage[]}
+     */
+    get provUsages() {
+        return this._provUsages.slice(0)
+    }
+
+    /**
+     * Return a list of all provenance plans in the document
+     * @returns {ProvPlan[]}
+     */
+    get provPlans() {
+        return this._provPlans.slice(0)
+    }
+
+    /**
+     * Return a list of all provenance agent in the document
+     * @returns {ProvAgent[]}
+     */
+    get provAgents() {
+        return this._provAgents.slice(0)
+    }
+
+    get combinatorialDerivations() {
+        return this._combinatorialDerivations.slice();
+    }
+
+    get variableComponents() {
+        return this._variableComponents.slice();
+    }
+
+    /**
+     * Map a URI to an object, such that lookupURI will return the object and
+     * the URI will be removed from unresolvedURIs if present.
+     *
+     * @param {string|URI} uri - The URI to map
+     * @param {*} object - The object to map to the URI
+     */
+    mapURI(uri, object) {
+
+        if(uri instanceof URI)
+            uri = uri.toString();
+
+        assert(typeof uri === 'string')
+
+        if(this._URIs[uri] !== undefined) {
+            //console.warn('Replacing URI: ' + uri);
+        }
+
+        this._URIs[uri] = object;
+
+        if(this._unresolvedURIs[uri]) {
+            //console.log('Resolved URI: ' + uri);
+        }
+
+        delete this._unresolvedURIs[uri]
+    }
+
+    /**
+     * The reverse of mapURI.  Unmap a URI from an object, such that lookupURI
+     * will no longer return the object.
+     *
+     * @param {string|URI} uri - The URI to unmap
+     * @param {*} object - The object to unmap from the URI
+     */
+    unmapURI(uri, object) {
+
+        if(this._URIs[uri] === object)
+            delete this._URIs[uri];
+    }
+
+    /**
+     * Return the corresponding object for a URI, if resolved.  If the URI
+     * has not been resolved, it will be returned unmodified.
+     *
+     * @param {string|URI} uri
+     * @returns {Array}
+     */
+    lookupURI(uri) {
+
+        if(typeof(uri) === 'string')
+            uri = URI(uri);
+
+        if(! (uri instanceof URI))
+            return uri
+
+        assert(uri instanceof URI)
+
+        uri = uri.toString();
+
+        if(uri === '')
+            return uri
+
+        assert(typeof uri === 'string')
+        assert(uri !== '[object Object]')
+
+        var object = this._URIs[uri];
+
+        if(object === undefined) {
+
+            this._unresolvedURIs[uri] = true
+
+            return URI(uri)
+
+        } else {
+
+            delete this._unresolvedURIs[uri]
+            return object
+
+        }
+    }
+
+    /**
+     * Map a list of URIs to their corresponding objects, if resolved. 
+     * Unresolved URIs will be returned unmodified.
+     * @param {URI[]} uris
+     * @returns {Array}
+     */
+    lookupURIs(uris) {
+        return uris.map((uri) => this.lookupURI(uri))
+    }
+
+    /**
+     * Returns a list of all unresolved URIs in the document.
+     * @returns {string[]}
+     */
+    get unresolvedURIs() {
+        return Object.keys(this._unresolvedURIs)
+    } 
+
+    toDisplayList() {
+
+        var displayList = {
+            segments: []
+        };
+
+        this.componentDefinitions.forEach(function(componentDefinition) {
+
+            var segment = {
+                sequence: []
+            };
+
+            displayList.segments.push(segment);
+
+            componentDefinition.sequenceAnnotations.forEach(function(sequenceAnnotation) {
+
+                var component = sequenceAnnotation.getComponent();
+
+                segment.sequence.push({
+                    name: component.getName()
+                });
+
+
+
+            });
+        });
+
+        return displayList;
+    }
+
+    /**
+     * Load a new SBOL document from an RDF/XML string.
+     *
+     * @param {string} rdf - A string containing valid RDF/XML
+     * @param {function(err: Error, sbol: SBOLDocument)} callback
+     */
+    static loadRDF(rdf, callback) {
+
+        var sbolDocument = new SBOLDocument();
+
+        sbolDocument.loadRDF(rdf, (err) => {
+
+            if(err)
+                callback(err);
+            else
+                callback(null, sbolDocument);
+
+        })
+    }
+
+    /**
+     * Load a new SBOL document from an RDF/XML file.
+     *
+     * @param {string} filename - The name of the file
+     * @param {function(err: Error, sbol: SBOLDocument)} callback
+     */
+    static loadRDFFile(filename, callback) {
+
+        fs.readFile(filename, function(err, file) {
+
+            SBOLDocument.loadRDF(file + '', callback);
+        })
+    }
+
+    /**
+     * Load RDF/XML into the document.  The existing contents of the document
+     * will be preserved.
+     *
+     * @param {string} rdf - A string containing valid RDF/XML
+     * @param {function(err: Error)} callback
+     */
+    loadRDF(rdf, callback) {
+
+        var load = require('./load/rdf/loadRDF');
+
+        load(this, rdf, callback);
+    }
+
+    /**
+     * Serialize the document to SBOL RDF/XML
+     * @returns {string}
+     */
+    serializeXML() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return require('./serialize/xml/serializeXML').apply(this, [this].concat(args));
+    }
+
+    /**
+     * Serialize the document to JSON
+     * @returns {string}
+     */
+    serializeJSON() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return require('./serialize/json/serializeJSON').apply(this, [this].concat(args));
+    }
+}
+
+SBOLDocument.terms = require('./terms');
+
+SBOLDocument.URI = URI;
+
+module.exports = SBOLDocument;
+
+},{"./Attachment":204,"./Collection":205,"./CombinatorialDerivation":206,"./Component":207,"./ComponentDefinition":208,"./Cut":209,"./FunctionalComponent":210,"./GenericLocation":211,"./GenericTopLevel":212,"./Implementation":214,"./Interaction":215,"./MapsTo":216,"./Model":217,"./Module":218,"./ModuleDefinition":219,"./Participation":220,"./ProvActivity":221,"./ProvAgent":222,"./ProvAssociation":223,"./ProvPlan":224,"./ProvUsage":225,"./Range":226,"./Sequence":228,"./SequenceAnnotation":229,"./SequenceConstraint":230,"./VariableComponent":231,"./load/rdf/loadRDF":256,"./serialize/json/serializeJSON":271,"./serialize/xml/serializeXML":306,"./terms":307,"assert":403,"fs":388,"urijs":378}],228:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 Sequence.
+ */
+class Sequence extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._elements = '';
+        this._encoding = URI();
+    }
+
+    /**
+     * Set the sequence elements for this sequence.
+     *
+     * The format of the elements is dependent on the encoding.  For example,
+     * if this is a nucleotide sequence, the elements should be a string of
+     * nucleotide base pairs.
+     *
+     * @param {string} [elements]
+     */
+    set elements(elements) {
+        this._elements = elements;
+    }
+
+    /**
+     * Retrieve the sequence elements for this sequence.
+     * @returns {string} [elements]
+     */
+    get elements() {
+        return this._elements;
+    }
+
+    /**
+     * Set the sequence encoding for this sequence.
+     * @param {string|URI} [encoding]
+     */
+    set encoding(encoding) {
+        this._encoding = URI(encoding);
+    }
+
+    /**
+     * Retrieve the sequence encoding for this sequence.
+     * @returns {URI} [encoding]
+     */
+    get encoding() {
+        return this._encoding;
+    }
+}
+
+module.exports = Sequence;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],229:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util'),
+    Range = require('./Range'),
+    Cut = require('./Cut'),
+    GenericLocation = require('./GenericLocation');
+
+/**
+ * Class to represent an SBOL2 SequenceAnnotation.
+ */
+class SequenceAnnotation extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._locations = [];
+        this._component = URI();
+        this._roles = [];
+    }
+
+    /**
+     * Add a location to this SequenceAnnotation.
+     * @param {string|URI|Range|Cut|GenericLocation} [location]
+     */
+    addLocation(location) {
+        this._locations.push(util.uriOrObject(location));
+    }
+
+    /**
+     * Set the component for this SequenceAnnotation.
+     * @param {string|URI|Component} [component]
+     */
+    set component(component) {
+        this._component = util.uriOrObject(component);
+    }
+
+    /**
+     * Retrieve the component for this SequenceAnnotation.  May return a URI
+     * if the Component has not yet been resolved.
+     *
+     * @returns {URI|Component}
+     */
+    get component() {
+        return this._component;
+    }
+
+    /**
+     * Retrieve the list of locations assigned to this SequenceAnnotation.
+     * There may be URIs present in this list if the location(s) have not yet
+     * been resolved.
+     *
+     * @returns {Location[]}
+     */
+    get locations() {
+        return this._locations.slice(0);
+    }
+
+    /**
+     * Retrieve the list of range locations assigned to this SequenceAnnotation.
+     * @returns {Range[]}
+     */
+    get ranges() {
+        return this._locations.filter(function(location) {
+            return location instanceof Range;
+        });
+    }
+
+    /**
+     * Retrieve the list of cut locations assigned to this SequenceAnnotation.
+     * @returns {Range[]}
+     */
+    get cuts() {
+        return this._locations.filter(function(location) {
+            return location instanceof Cut;
+        });
+    }
+
+    /**
+     * Retrieve the list of generic locations assigned to this SequenceAnnotation.
+     * @returns {Range[]}
+     */
+    get genericLocations() {
+        return this._locations.filter(function(location) {
+            return location instanceof GenericLocation;
+        });
+    }
+
+    /**
+     * Assign a role to this SequenceAnnotation.
+     * @param {string|URI} [role]
+     */
+    addRole(role) {
+        this._roles.push(URI(role));
+    }
+
+    /**
+     * Retrieve the list of roles assigned to this SequenceAnnotation.
+     * @returns {URI[]}
+     */
+    get roles() {
+        return this._roles.slice(0);
+    }
+
+    /**
+     * Attempt to resolve the location(s) and component by URI.
+     */
+    link() {
+        this._locations = this._sbolDocument.lookupURIs(this._locations);
+        this._component = this._sbolDocument.lookupURI(this._component);
+    }
+}
+
+module.exports = SequenceAnnotation;
+
+
+
+},{"./Cut":209,"./GenericLocation":211,"./Identified":213,"./Range":226,"./util":308,"urijs":378}],230:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent an SBOL2 SequenceConstraint.
+ */
+class SequenceConstraint extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._restriction = URI();
+        this._subject = URI();
+        this._object = URI();
+    }
+
+    /**
+     * Set the restriction specifier for this SequenceConstraint.
+     * @param {string|URI} [restriction]
+     */
+    set restriction(restriction) {
+        this._restriction = URI(restriction);
+    }
+
+    /**
+     * Retrieve the restriction specifier for this SequenceConstraint.
+     * @returns {URI} [restriction]
+     */
+    get restriction() {
+        return this._restriction;
+    }
+
+    /**
+     * Set the subject Component for this SequenceConstraint.
+     * @param {string|URI|Component} [subject]
+     */
+    set subject(subject) {
+        this._subject = util.uriOrObject(subject);
+    }
+
+    /**
+     * Retrieve the subject Component for this SequenceConstraint.  May return
+     * a URI if the subject Component has not yet been resolved.
+     *
+     * @returns {URI|Component}
+     */
+    get subject() {
+        return this._subject;
+    }
+
+    /**
+     * Set the object Component for this SequenceConstraint.
+     * @param {string|URI|Component} [object]
+     */
+    set object(object) {
+        this._object = util.uriOrObject(object);
+    }
+
+    /**
+     * Retrieve the object Component for this SequenceConstraint.  May return
+     * a URI if the object Component has not yet been resolved.
+     *
+     * @returns {URI|Component}
+     */
+    get object() {
+        return this._object;
+    }
+
+    /* Attempt to resolve the subject and object Components by URI.
+     */
+    link() {
+        this._subject = this._sbolDocument.lookupURI(this._subject);
+        this._object = this._sbolDocument.lookupURI(this._object);
+    }
+}
+
+module.exports = SequenceConstraint;
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],231:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs'),
+    Identified = require('./Identified'),
+    util = require('./util');
+
+/**
+ * Class to represent a Variable component (SEP 007)
+ */
+class VariableComponent extends Identified
+{
+    constructor(sbolDocument, uri) {
+
+        super(sbolDocument, uri);
+
+        this._variable = URI();
+        this._operator = URI();
+        this._variants = [];
+        this._variantCollections = [];
+        this._variantDerivations = [];
+    }
+
+    /**
+     * Set the variable for this VariableComponent.
+     * @param {string|URI|Component} [component]
+     */
+    set variable(variable) {
+        this._variable = util.uriOrObject(variable);
+    }
+
+    /**
+     * Retrieve the variable for this derivation.  Returns either a
+     * URI or a Component, depending on whether the URI has been
+     * resolved by link().
+     *
+     * @returns {URI|Component}
+     */
+    get variable() {
+        return this._variable;
+    }
+
+    /**
+     * Set the operator property for this VariableComponent.
+     * @param {string|URI} [operator]
+     */
+    set operator(operator) {
+        this._operator = URI(operator);
+    }
+
+    /**
+     * Retrieve the operator property for this VariableComponent.
+     * @returns {URI} [operator]
+     */
+    get operator() {
+        return this._operator;
+    }
+
+    /**
+     * Add a VariantCollection to this VariableComponent
+     * @param {string|URI|Collection} [variantCollection]
+     */
+    addVariantCollection(variantCollection) {
+        this._variantCollections.push(variantCollection);
+    }
+
+    get variantCollections() {
+        return this._variantCollections.slice();
+    }
+
+    /**
+     * Add a Variant to this VariableComponent
+     * @param {string|URI|ComponentDefinition} [variant]
+     */
+    addVariant(variant) {
+        this._variants.push(variant);
+    }
+
+    /**
+     * Retrieve the variants for this derivation.  Returns either a 
+     * list of URIs or Components, depending on whether they have been
+     * resolved by link().
+     *
+     * @returns {URI[]|Component[]}
+     */
+    get variants() {
+        return this._variants.slice();
+    }
+
+    /**
+     * Add a VariantDerivation to this VariableComponent
+     * @param {string|URI|ComponentDefinition} [variantDerivation]
+     */
+    addVariantDerivation(variantDerivation) {
+        this._variantDerivations.push(variantDerivation)
+    }
+
+    get variantDerivations() {
+        return this._variantDerivations.slice();
+    }
+
+    /**
+     * Attempt to resolve the URIs linked to this variable component
+     */
+    link() {
+        this._variable = this._sbolDocument.lookupURI(this._variable);
+        this._variantDerivations = this._sbolDocument.lookupURIs(this._variantDerivations);
+        this._variantCollections = this._sbolDocument.lookupURIs(this._variantCollections);
+        this._variants = this._sbolDocument.lookupURIs(this._variants);
+    }
+}
+
+module.exports = VariableComponent;
+
+
+
+},{"./Identified":213,"./util":308,"urijs":378}],232:[function(require,module,exports){
+
+
+// Source: https://gist.github.com/danielflower/3656539
+//
+
+/**
+ * Compares two Maven version strings and returns value suitable for use in Array.sort.
+ * @param {String} v1
+ * @param {String} v2
+ * @return {Number} Negative number if v1 is older than v2; positive number if v1 is newer than v2; 0 if equal.
+ */
+module.exports = function (v1, v2) {
+    // Strategy: pad each part of the version with zeros so strings are same length, then do string compare.
+    // Snapshot version have an extra 0 put on the end, whereas release versions have a 1 on the end
+    // e.g. 1.5-SNAPSHOT vs. 1.10.0 => 1.05.0.a vs. 1.10.0.c
+
+    // e.g. 1.5 => [1,5]
+    var v1Bits = v1.split(".");
+    var v2Bits = v2.split(".");
+    var v1OriginalLength = v1Bits.length;
+    var v2OriginalLength = v2Bits.length;
+
+    // equalise the number of parts, e.g. [1, 5] => [1,5,0]
+    while (v1Bits.length < v2Bits.length) {
+        v1Bits.push("0");
+    }
+    while (v2Bits.length < v1Bits.length) {
+        v2Bits.push("0");
+    }
+
+    // Change snapshot versions to have an extra ".0" and release versions to have an extra ".1"
+    function alterBasedOnSnapshotOrReleaseVersion(bits, potentialTextPosition) {
+        if (bits[potentialTextPosition].indexOf("-SNAPSHOT") > 0) {
+            bits[potentialTextPosition] = bits[potentialTextPosition].replace("-SNAPSHOT", "");
+            bits.push("0");
+        } else if (bits[potentialTextPosition].indexOf("-") > 0) {
+            bits[potentialTextPosition] = bits[potentialTextPosition].replace(/\-.*/, "");
+            bits.push("1");
+        } else {
+            bits.push("2");
+        }
+    }
+    alterBasedOnSnapshotOrReleaseVersion(v1Bits, v1OriginalLength - 1);
+    alterBasedOnSnapshotOrReleaseVersion(v2Bits, v2OriginalLength - 1);
+
+    // pad with zeros, e.g. [1,5,0] => [1,05,0]
+    for (var i = 0; i < v1Bits.length; i++) {
+        var targetLength = Math.max(v1Bits[i].length, v2Bits[i].length);
+        while (v1Bits[i].length < targetLength) {
+            v1Bits[i] = "0" + v1Bits[i];
+        }
+        while (v2Bits[i].length < targetLength) {
+            v2Bits[i] = "0" + v2Bits[i];
+        }
+    }
+
+    // back to normal, e.g. [1,05,0] => 1.05.0
+    var transformed1 = v1Bits.join(".");
+    var transformed2 = v2Bits.join(".");
+
+    //console.log("v1: " + v1 + "=>" + transformed1 + ", v2: " + v2 + "=>" + transformed2);
+
+    return transformed1.localeCompare(transformed2);
+};
+
+
+
+},{}],233:[function(require,module,exports){
+
+function addAnnotation(identified, predicateNode, objectNode) {
+
+    if(predicateNode.interfaceName !== 'NamedNode') {
+        throw new Error('Expected NamedNode for predicate')
+    }
+
+    if(objectNode.interfaceName === 'NamedNode') {
+
+        identified.addUriAnnotation(
+            predicateNode.toString(), objectNode.toString()
+        )
+        
+    } else {
+
+        identified.addStringAnnotation(
+            predicateNode.toString(), objectNode.toString()
+        )
+
+    }
+
+}
+
+module.exports = addAnnotation
+
+
+
+},{}],234:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadAttachment(sbolDocument, attachment, triples) {
+
+    loadIdentified(sbolDocument, attachment, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#source':
+                attachment.source = object;
+                break;
+
+            case 'http://sbols.org/v2#format':
+                attachment.format = object;
+                break;
+
+            case 'http://sbols.org/v2#size':
+                attachment.size = object;
+                break;
+
+		    case 'http://sbols.org/v2#hash':
+			    attachment.hash = object;
+			    break;
+
+            default:
+                addAnnotation(attachment, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],235:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadCollection(sbolDocument, collection, triples) {
+
+    loadIdentified(sbolDocument, collection, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#member':
+                collection.addMember(object)
+                break;
+
+            default:
+                addAnnotation(collection, triple.predicate, triple.object)
+                break;
+        }
+    })
+
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],236:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadCombinatorialDerivation(sbolDocument, combinatorialDerivation, triples) {
+
+    loadIdentified(sbolDocument, combinatorialDerivation, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#template':
+                combinatorialDerivation.template = object;
+                break;
+
+            case 'http://sbols.org/v2#variableComponent':
+                combinatorialDerivation.addVariableComponent(object);
+                break;
+
+            case 'http://sbols.org/v2#strategy':
+                combinatorialDerivation.strategy = object;
+                break;
+
+            default:
+                addAnnotation(combinatorialDerivation, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],237:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadComponent(sbolDocument, component, triples) {
+
+    loadIdentified(sbolDocument, component, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#definition':
+                component.definition = object;
+                break;
+
+            case 'http://sbols.org/v2#access':
+                component.access = object;
+                break;
+
+            case 'http://sbols.org/v2#role':
+                component.addRole(object)
+                break;
+
+            case 'http://sbols.org/v2#roleIntegration':
+                component.roleIntegration = object
+                break;
+
+            case 'http://sbols.org/v2#mapsTo':
+                component.addMapping(object);
+                break;
+
+            default:
+                addAnnotation(component, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],238:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadComponentDefinition(sbolDocument, componentDefinition, triples) {
+
+    loadIdentified(sbolDocument, componentDefinition, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#type':
+                componentDefinition.addType(object);
+                break;
+
+            case 'http://sbols.org/v2#role':
+                componentDefinition.addRole(object);
+                break;
+
+            case 'http://sbols.org/v2#component':
+                componentDefinition.addComponent(object);
+                break;
+
+            case 'http://sbols.org/v2#sequenceAnnotation':
+                componentDefinition.addSequenceAnnotation(object);
+                break;
+
+            case 'http://sbols.org/v2#sequenceConstraint':
+                componentDefinition.addSequenceConstraint(object);
+                break;
+
+            case 'http://sbols.org/v2#sequence':
+                componentDefinition.addSequence(object);
+                break;
+
+            default:
+                addAnnotation(componentDefinition, triple.predicate, triple.object)
+                break;
+        };
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],239:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadCut(sbolDocument, cut, triples) {
+
+    loadIdentified(sbolDocument, cut, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#at':
+                cut.at = parseInt(object);
+                break;
+
+            case 'http://sbols.org/v2#orientation':
+                cut.orientation = object;
+                break;
+
+            default:
+                addAnnotation(cut, triple.predicate, triple.object)
+                break;
+        };
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],240:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadFunctionalComponent(sbolDocument, functionalComponent, triples) {
+
+    loadIdentified(sbolDocument, functionalComponent, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#definition':
+                functionalComponent.definition = object;
+                break;
+
+            case 'http://sbols.org/v2#access':
+                functionalComponent.access = object;
+                break;
+
+            case 'http://sbols.org/v2#direction':
+                functionalComponent.direction = object;
+                break;
+
+            case 'http://sbols.org/v2#mapsTo':
+                module.addMapping(object);
+                break;
+
+            default:
+                addAnnotation(functionalComponent, triple.predicate, triple.object)
+                break;
+        }
+    });
+
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],241:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadGenericLocation(sbolDocument, genericLocation, triples) {
+
+    loadIdentified(sbolDocument, genericLocation, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#orientation':
+                genericLocation.orientation = object;
+                break;
+	    // Added for backwards compatibility to a libSBOLj bug
+            case 'http://sbols.org/v2#Orientation':
+                genericLocation.orientation = object;
+                break;
+
+            default:
+                addAnnotation(genericLocation, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],242:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadGenericTopLevel(sbolDocument, genericTopLevel, triples) {
+
+    loadIdentified(sbolDocument, genericTopLevel, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+	
+        addAnnotation(genericTopLevel, triple.predicate, triple.object);
+
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],243:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+module.exports = function loadIdentified(sbolDocument, identified, triples) {
+
+    return triples.filter((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type':
+                break;
+
+            case 'http://purl.org/dc/terms/title':
+                identified.name = object;
+                break;
+
+            case 'http://purl.org/dc/terms/description':
+                identified.description = object;
+                break;
+
+            case 'http://sbols.org/v2#displayId':
+                identified.displayId = object;
+                break;
+
+            case 'http://sbols.org/v2#persistentIdentity':
+                identified.persistentIdentity = object;
+                break;
+
+            case 'http://sbols.org/v2#version':
+                identified.version = object;
+                break;
+
+            case 'http://www.w3.org/ns/prov#wasDerivedFrom':
+                identified.wasDerivedFrom = object;
+                break;
+
+            case 'http://www.w3.org/ns/prov#wasGeneratedBy':
+                identified.wasGeneratedBy = object;
+                break;
+
+            case 'http://sbols.org/v2#name':
+                identified.name = object;
+                break;
+
+            case 'http://sbols.org/v2#description':
+                identified.description = object;
+            break;
+
+		case 'http://sbols.org/v2#attachment':
+			identified.addAttachment(object);
+			break;
+
+            default:
+                return true;
+        };
+
+    });
+}
+
+
+
+},{}],244:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadImplementation(sbolDocument, implementation, triples) {
+
+    loadIdentified(sbolDocument, implementation, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#built':
+                implementation.built = object;
+                break;
+
+            default:
+                addAnnotation(implementation, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],245:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadInteraction(sbolDocument, interaction, triples) {
+
+    loadIdentified(sbolDocument, interaction, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#type':
+                interaction.addType(object);
+                break;
+
+            case 'http://sbols.org/v2#participation':
+                interaction.addParticipation(object);
+                break;
+
+            default:
+                addAnnotation(interaction, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],246:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadMapping(sbolDocument, mapping, triples) {
+
+    loadIdentified(sbolDocument, mapping, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#refinement':
+                mapping.refinement = object;
+                break;
+
+            case 'http://sbols.org/v2#remote':
+                mapping.remote = object;
+                break;
+
+            case 'http://sbols.org/v2#local':
+                mapping.local = object;
+                break;
+
+            default:
+                addAnnotation(mapping, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],247:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadModel(sbolDocument, model, triples) {
+
+    loadIdentified(sbolDocument, model, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#source':
+                model.source = object;
+                break;
+
+            case 'http://sbols.org/v2#language':
+                model.language = object;
+                break;
+
+            case 'http://sbols.org/v2#framework':
+                model.framework = object;
+                break;
+
+            default:
+                addAnnotation(model, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],248:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadModule(sbolDocument, module, triples) {
+
+    loadIdentified(sbolDocument, module, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#definition':
+                module.definition = object;
+                break;
+
+            case 'http://sbols.org/v2#mapsTo':
+                module.addMapping(object);
+                break;
+
+            default:
+                addAnnotation(module, triple.predicate, triple.object)
+                break;
+        }
+    });
+
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],249:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadModuleDefinition(sbolDocument, moduleDefinition, triples) {
+
+    loadIdentified(sbolDocument, moduleDefinition, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#role':
+                moduleDefinition.addRole(object);
+                break;
+
+            case 'http://sbols.org/v2#module':
+                moduleDefinition.addModule(object);
+                break;
+
+            case 'http://sbols.org/v2#functionalComponent':
+                moduleDefinition.addFunctionalComponent(object);
+                break;
+
+            case 'http://sbols.org/v2#interaction':
+                moduleDefinition.addInteraction(object);
+                break;
+
+            case 'http://sbols.org/v2#model':
+                moduleDefinition.addModel(object);
+                break;
+
+            default:
+                addAnnotation(moduleDefinition, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],250:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadParticipation(sbolDocument, participation, triples) {
+
+    loadIdentified(sbolDocument, participation, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#role':
+                participation.addRole(object);
+                break;
+
+            case 'http://sbols.org/v2#participant':
+                participation.participant = object;
+                break;
+
+            default:
+                addAnnotation(participation, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],251:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadProvActivity(sbolDocument, activity, triples) {
+
+    loadIdentified(sbolDocument, activity, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://www.w3.org/ns/prov#startedAtTime':
+                activity.startedAtTime = object;
+                break;
+
+            case 'http://www.w3.org/ns/prov#endedAtTime':
+                activity.endedAtTime = object;
+                break;
+
+            case 'http://www.w3.org/ns/prov#qualifiedUsage':
+                activity.addUsage(object);
+                break;
+
+            case 'http://www.w3.org/ns/prov#qualifiedAssociation':
+                activity.addAssociation(object);
+                break;
+
+            case 'http://www.w3.org/ns/prov#wasInformedBy':
+                activity.addWasInformedBy(object);
+                break;
+
+            default:
+                addAnnotation(activity, triple.predicate, triple.object)
+                break;
+        };
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],252:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadProvAgent(sbolDocument, agent, triples) {
+
+    loadIdentified(sbolDocument, agent, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+            default:
+                addAnnotation(agent, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],253:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadProvAssociation(sbolDocument, association, triples) {
+
+    loadIdentified(sbolDocument, association, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://www.w3.org/ns/prov#hadRole':
+                association.addRole(object);
+                break;
+
+            case 'http://www.w3.org/ns/prov#hadPlan':
+                association.plan = object;
+                break;
+
+            case 'http://www.w3.org/ns/prov#agent':
+                association.agent = object;
+                break;
+
+            default:
+                addAnnotation(association, triple.predicate, triple.object)
+                break;
+        };
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],254:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadProvPlan(sbolDocument, plan, triples) {
+
+    loadIdentified(sbolDocument, plan, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+            default:
+                addAnnotation(plan, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],255:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadProvUsage(sbolDocument, usage, triples) {
+
+    loadIdentified(sbolDocument, usage, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://www.w3.org/ns/prov#hadRole':
+                usage.addRole(object);
+                break;
+
+            case 'http://www.w3.org/ns/prov#entity':
+                usage.entity = object;
+                break;
+
+            default:
+                addAnnotation(usage, triple.predicate, triple.object)
+                break;
+        };
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],256:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var SBOLDocument = require('../../SBOLDocument'),
+    rdf = require('rdf-ext'),
+    RdfXmlParser = require('rdf-parser-rdfxml'),
+    loadModuleDefinition = require('./loadModuleDefinition'),
+    loadModule = require('./loadModule'),
+    loadMapping = require('./loadMapping'),
+    loadCollection = require('./loadCollection'),
+    loadComponent = require('./loadComponent'),
+    loadComponentDefinition = require('./loadComponentDefinition'),
+    loadFunctionalComponent = require('./loadFunctionalComponent'),
+    loadInteraction = require('./loadInteraction'),
+    loadModel = require('./loadModel'),
+	loadAttachment = require('./loadAttachment'),
+    loadImplementation = require('./loadImplementation'),
+    loadParticipation = require('./loadParticipation'),
+    loadRange = require('./loadRange'),
+    loadCut = require('./loadCut'),
+    loadGenericLocation = require('./loadGenericLocation'),
+    loadSequence = require('./loadSequence'),
+    loadSequenceAnnotation = require('./loadSequenceAnnotation'),
+    loadSequenceConstraint = require('./loadSequenceConstraint'),
+    loadCombinatorialDerivation = require('./loadCombinatorialDerivation'),
+    loadVariableComponent = require('./loadVariableComponent'),
+    loadProvActivity = require('./loadProvActivity'),
+    loadProvAssociation = require('./loadProvAssociation'),
+    loadProvUsage = require('./loadProvUsage'),
+    loadProvPlan = require('./loadProvPlan'),
+    loadProvAgent = require('./loadProvAgent'),
+    loadGenericTopLevel = require('./loadGenericTopLevel');
+    loadCombinatorialDerivation = require('./loadCombinatorialDerivation'),
+    loadVariableComponent = require('./loadVariableComponent')
+
+var RdfGraphArray = require('rdf-graph-array').Graph
+
+module.exports = function load(sbolDocument, sources, callback) {
+
+    if(!Array.isArray(sources))
+        sources = [ sources ]
+
+    var parser = new RdfXmlParser();
+
+    var graph = new RdfGraphArray([])
+
+    loadNextSource()
+
+    function loadNextSource() {
+
+        parser.parse(sources[0], function(err, graph) {
+
+            if(err)
+                return callback(err);
+
+            sources = sources.slice(1)
+
+            if(sources.length === 0) {
+
+                loadRDFGraph(sbolDocument, graph);
+
+                callback(null);
+
+            } else {
+
+                loadNextSource()
+
+            }
+
+        }, undefined, undefined, graph);
+
+    }
+}
+
+function loadRDFGraph(sbolDocument, graph) {
+
+    var a = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
+
+    graph.match(null, a, 'http://sbols.org/v2#ModuleDefinition').forEach(
+        (triple) => loadModuleDefinition(sbolDocument, sbolDocument.moduleDefinition(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Module').forEach(
+        (triple) => loadModule(sbolDocument, sbolDocument.module(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#MapsTo').forEach(
+        (triple) => loadMapping(sbolDocument, sbolDocument.mapping(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#FunctionalComponent').forEach(
+        (triple) => loadFunctionalComponent(sbolDocument, sbolDocument.functionalComponent(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Collection').forEach(
+        (triple) => loadCollection(sbolDocument, sbolDocument.collection(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#ComponentDefinition').forEach(
+        (triple) => loadComponentDefinition(sbolDocument, sbolDocument.componentDefinition(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Interaction').forEach(
+        (triple) => loadInteraction(sbolDocument, sbolDocument.interaction(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Participation').forEach(
+        (triple) => loadParticipation(sbolDocument, sbolDocument.participation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Model').forEach(
+        (triple) => loadModel(sbolDocument, sbolDocument.model(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+	graph.match(null, a, 'http://sbols.org/v2#Attachment').forEach(
+        (triple) => loadAttachment(sbolDocument, sbolDocument.attachment(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Implementation').forEach(
+        (triple) => loadImplementation(sbolDocument, sbolDocument.implementation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Sequence').forEach(
+        (triple) => loadSequence(sbolDocument, sbolDocument.sequence(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Range').forEach(
+        (triple) => loadRange(sbolDocument, sbolDocument.range(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Cut').forEach(
+        (triple) => loadCut(sbolDocument, sbolDocument.cut(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#GenericLocation').forEach(
+        (triple) => loadGenericLocation(sbolDocument, sbolDocument.genericLocation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#SequenceAnnotation').forEach(
+        (triple) => loadSequenceAnnotation(sbolDocument, sbolDocument.sequenceAnnotation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#Component').forEach(
+        (triple) => loadComponent(sbolDocument, sbolDocument.component(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#SequenceConstraint').forEach(
+        (triple) => loadSequenceConstraint(sbolDocument, sbolDocument.sequenceConstraint(triple.subject.toString()), graph.match(triple.subject))
+    );
+    graph.match(null, a, 'http://sbols.org/v2#VariableComponent').forEach(
+        (triple) => loadVariableComponent(sbolDocument, sbolDocument.variableComponent(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://sbols.org/v2#CombinatorialDerivation').forEach(
+        (triple) => loadCombinatorialDerivation(sbolDocument, sbolDocument.combinatorialDerivation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://www.w3.org/ns/prov#Activity').forEach(
+        (triple) => loadProvActivity(sbolDocument, sbolDocument.provActivity(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://www.w3.org/ns/prov#Association').forEach(
+        (triple) => loadProvAssociation(sbolDocument, sbolDocument.provAssociation(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://www.w3.org/ns/prov#Agent').forEach(
+        (triple) => loadProvAgent(sbolDocument, sbolDocument.provAgent(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://www.w3.org/ns/prov#Plan').forEach(
+        (triple) => loadProvPlan(sbolDocument, sbolDocument.provPlan(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, 'http://www.w3.org/ns/prov#Usage').forEach(
+        (triple) => loadProvUsage(sbolDocument, sbolDocument.provUsage(triple.subject.toString()), graph.match(triple.subject))
+    );
+
+    graph.match(null, a, null).forEach((triple) => {
+	if (!triple.object.toString().startsWith('http://sbols.org')&&
+	   !triple.object.toString().startsWith('http://www.w3.org/ns/prov')) {
+	    loadGenericTopLevel(sbolDocument, sbolDocument.genericTopLevel(triple.subject.toString(),triple.object.toString()),  graph.match(triple.subject))
+	}
+    });
+    sbolDocument.link();
+
+}
+
+
+},{"../../SBOLDocument":227,"./loadAttachment":234,"./loadCollection":235,"./loadCombinatorialDerivation":236,"./loadComponent":237,"./loadComponentDefinition":238,"./loadCut":239,"./loadFunctionalComponent":240,"./loadGenericLocation":241,"./loadGenericTopLevel":242,"./loadImplementation":244,"./loadInteraction":245,"./loadMapping":246,"./loadModel":247,"./loadModule":248,"./loadModuleDefinition":249,"./loadParticipation":250,"./loadProvActivity":251,"./loadProvAgent":252,"./loadProvAssociation":253,"./loadProvPlan":254,"./loadProvUsage":255,"./loadRange":257,"./loadSequence":258,"./loadSequenceAnnotation":259,"./loadSequenceConstraint":260,"./loadVariableComponent":261,"rdf-ext":335,"rdf-graph-array":351,"rdf-parser-rdfxml":354}],257:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadRange(sbolDocument, range, triples) {
+
+    loadIdentified(sbolDocument, range, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#start':
+                range.start = parseInt(object);
+                break;
+
+            case 'http://sbols.org/v2#end':
+                range.end = parseInt(object);
+                break;
+
+            case 'http://sbols.org/v2#orientation':
+                range.orientation = object;
+                break;
+
+            default:
+                addAnnotation(range, triple.predicate, triple.object);
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],258:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadSequence(sbolDocument, sequence, triples) {
+
+    loadIdentified(sbolDocument, sequence, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#elements':
+                sequence.elements = object;
+                break;
+
+            case 'http://sbols.org/v2#encoding':
+                sequence.encoding = object;
+                break;
+
+            default:
+                addAnnotation(sequence, triple.predicate, triple.object);
+                break;
+        }
+
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],259:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadSequenceAnnotation(sbolDocument, sequenceAnnotation, graph, triple) {
+
+    loadIdentified(sbolDocument, sequenceAnnotation, graph, triple).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#location':
+                sequenceAnnotation.addLocation(object);
+                break;
+
+            case 'http://sbols.org/v2#component':
+                sequenceAnnotation.component = object;
+                break;
+
+            case 'http://sbols.org/v2#role':
+                sequenceAnnotation.addRole(object)
+                break;
+
+            default:
+                addAnnotation(sequenceAnnotation, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],260:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2016 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadSequenceConstraint(sbolDocument, sequenceConstraint, triples) {
+
+    loadIdentified(sbolDocument, sequenceConstraint, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#restriction':
+                sequenceConstraint.restriction = object
+                break;
+
+            case 'http://sbols.org/v2#subject':
+                sequenceConstraint.subject = object;
+                break;
+
+            case 'http://sbols.org/v2#object':
+                sequenceConstraint.object = object;
+                break;
+
+            default:
+                addAnnotation(sequenceConstraint, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],261:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var loadIdentified = require('./loadIdentified');
+var addAnnotation = require('./addAnnotation');
+
+module.exports = function loadVariableComponent(sbolDocument, variableComponent, triples) {
+
+    loadIdentified(sbolDocument, variableComponent, triples).forEach((triple) => {
+
+        var predicate = triple.predicate.toString(),
+            object = triple.object.toString();
+
+        switch(predicate) {
+
+            case 'http://sbols.org/v2#variant':
+                variableComponent.addVariant(object)
+                break;
+
+            case 'http://sbols.org/v2#variantCollection':
+                variableComponent.addVariantCollection(object)
+                break;
+
+            case 'http://sbols.org/v2#variantDerivation':
+                variableComponent.addVariantDerivation(object)
+                break;
+
+            case 'http://sbols.org/v2#variable':
+                variableComponent.variable = object;
+                break;
+
+            case 'http://sbols.org/v2#operator':
+                variableComponent.operator = object;
+                break;
+
+            default:
+                addAnnotation(variableComponent, triple.predicate, triple.object)
+                break;
+        }
+    });
+}
+
+
+
+},{"./addAnnotation":233,"./loadIdentified":243}],262:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeAttachment(sbolDocument, attachment) {
+
+    return extend(serializeIdentified(sbolDocument, attachment), {
+        source: attachment.source.uri ? implementation.source.uri.toString() : implementation.source.toString(),
+		format: attachment.format.uri ? implementation.format.uri.toString() : implementation.format.toString(),
+		size: attachment.size,
+		hash: attachment.hash
+    });
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],263:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeCollection(sbolDocument, collection) {
+
+    var out = {}
+
+    if(collection.members.length > 0) {
+        out.models = collection.members.map(function(member) {
+            return member.uri?member.uri.toString():member.toString();
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, collection), out);
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],264:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeMapping = require('./serializeMapping');
+
+module.exports = function serializeComponent(sbolDocument, component) {
+
+    var out = {};
+
+    if(component.roles.length > 0) {
+        out.roles = component.roles.map(function(role) {
+            return role.toString();
+        });
+    }
+
+    if (component.access.toString() != '') {
+        out.access = component.access.toString()
+    }
+
+    if (component.roleIntegration.toString() != '') {
+        out.roleIntegration = component.roleIntegration.toString()
+    }
+
+    out.definition = component.definition.uri?component.definition.uri.toString():component.definition.toString()
+
+    if(component.mappings.length > 0) {
+
+        out.mapsTos = component.mappings.map(function(mapsTo) {
+            return serializeMapping(sbolDocument, mapsTo);
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, component), out);
+}
+
+
+},{"./serializeIdentified":268,"./serializeMapping":273,"extend":312}],265:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeComponent = require('./serializeComponent'),
+    serializeSequenceAnnotation = require('./serializeSequenceAnnotation'),
+    serializeSequenceConstraint = require('./serializeSequenceConstraint');
+
+module.exports = function serializeComponentDefinition(sbolDocument, componentDefinition) {
+
+    var out = {};
+
+    if(componentDefinition.types.length > 0) {
+        out.types = componentDefinition.types.map(function(type) {
+            return type.toString();
+        });
+    }
+
+    if(componentDefinition.roles.length > 0) {
+        out.roles = componentDefinition.roles.map(function(role) {
+            return role.toString();
+        });
+    }
+
+    if(componentDefinition.components.length > 0) {
+        out.components = componentDefinition.components.map(function(component) {
+            return serializeComponent(sbolDocument, component);
+        });
+    }
+
+    if(componentDefinition.sequenceAnnotations.length > 0) {
+        out.sequenceAnnotations = componentDefinition.sequenceAnnotations.map(function(sequenceAnnotation) {
+            return serializeSequenceAnnotation(sbolDocument, sequenceAnnotation);
+        });
+    }
+
+    if(componentDefinition.sequenceConstraints.length > 0) {
+        out.sequenceConstraints = componentDefinition.sequenceConstraints.map(function(sequenceConstraint) {
+            return serializeSequenceConstraint(sbolDocument, sequenceConstraint);
+        });
+    }
+
+    if(componentDefinition.sequences.length > 0) {
+        out.sequences = componentDefinition.sequences.map(function(sequence) {
+            return sequence.uri?sequence.uri.toString():sequence.toString();
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, componentDefinition), out);
+}
+
+
+},{"./serializeComponent":264,"./serializeIdentified":268,"./serializeSequenceAnnotation":278,"./serializeSequenceConstraint":279,"extend":312}],266:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeFunctionalComponent(sbolDocument, functionalComponent) {
+
+    var out = {};
+
+    if (functionalComponent.access.toString() != '') {
+        out.access = functionalComponent.access.toString()
+    }
+
+    if (functionalComponent.direction.toString() != '') {
+        out.access = functionalComponent.direction.toString()
+    }
+
+    out.definition = functionalComponent.definition.uri?functionalComponent.definition.uri.toString():functionalComponent.definition.toString()
+
+    if(functionalComponent.mappings.length > 0) {
+
+        out.mapsTos = functionalComponent.mappings.map(function(mapsTo) {
+            return serializeMapping(sbolDocument, mapsTo);
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, functionalComponent), out);
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],267:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+  serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeGenericTopLevel(sbolDocument, genericTopLevel) {
+
+    return extend(serializeIdentified(sbolDocument, genericTopLevel), {});
+
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],268:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend');
+
+module.exports = function serializeIdentified(sbolDocument, identified, tagName, properties) {
+
+    var out = {};
+
+    out.uri = identified.uri.toString();
+
+    if(identified.persistentIdentity.toString() !== '')
+        out.persistentIdentity = identified.persistentIdentity.toString();
+
+    if(identified.displayId.toString() !== '')
+        out.displayId = identified.displayId;
+
+    if(identified.version.toString() !== '')
+        out.version = identified.version;
+
+    if(identified.wasDerivedFrom.toString() !== '')
+        out.wasDerivedFrom = identified.wasDerivedFrom.toString();
+
+    if(identified.name.toString() !== '')
+        out.title = identified.title;
+
+    if(identified.description.toString() !== '')
+        out.description = identified.description;
+
+    if(identified.annotations.length > 0) {
+        out.annotations = identified.annotations;
+    }
+
+	if(identified.attachments.length > 0) {
+        out.attachments = identified.attachments;
+    }
+
+    return out;
+}
+
+
+
+},{"extend":312}],269:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeImplementation(sbolDocument, implementation) {
+
+    return extend(serializeIdentified(sbolDocument, implementation), {
+        built: implementation.built.uri ? implementation.built.uri.toString() : implementation.built.toString()
+    });
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],270:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeParticipation = require('./serializeParticipation');
+
+module.exports = function serializeInteraction(sbolDocument, interaction) {
+
+    var out = {};
+
+    if(interaction.types.length > 0) {
+        out.types = interaction.types.map(function(type) {
+            return type.toString();
+        });
+    }
+
+    if(interaction.participations.length > 0) {
+        out.participations = interaction.participations.map(function(participation) {
+            return serializeParticipation(sbolDocument, participation);
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, interaction), out);
+}
+
+
+},{"./serializeIdentified":268,"./serializeParticipation":276,"extend":312}],271:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var serializeModuleDefinition = require('./serializeModuleDefinition'),
+    serializeCollection = require('./serializeCollection'),
+    serializeComponentDefinition = require('./serializeComponentDefinition'),
+    serializeModel = require('./serializeModel'),
+	serializeImplementation = require('./serializeImplementation'),
+    serializeSequence = require('./serializeSequence'),
+    serializeGenericTopLevel = require('./serializeGenericTopLevel'),
+	serializeAttachment = require('./serializeAttachment');
+
+module.exports = function serializeJSON(sbolDocument) {
+
+    var out = {};
+
+    if(sbolDocument.collections.length > 0) {
+        out.collections = sbolDocument.collections.map(function(collection) {
+            return serializeCollection(sbolDocument, collection);
+        });
+    }
+
+    if(sbolDocument.moduleDefinitions.length > 0) {
+        out.moduleDefinitions = sbolDocument.moduleDefinitions.map(function(moduleDefinition) {
+            return serializeModuleDefinition(sbolDocument, moduleDefinition);
+        });
+    }
+
+    if(sbolDocument.models.length > 0) {
+        out.models = sbolDocument.models.map(function(model) {
+            return serializeModel(sbolDocument, model);
+        });
+    }
+
+	if(sbolDocument.implementations.length > 0) {
+        out.implementations = sbolDocument.implementations.map(function(implementation) {
+            return serializeImplementation(sbolDocument, implementation);
+        });
+    }
+
+    if(sbolDocument.componentDefinitions.length > 0) {
+        out.componentDefinitions = sbolDocument.componentDefinitions.map(function(componentDefinition) {
+            return serializeComponentDefinition(sbolDocument, componentDefinition);
+        });
+    }
+
+    if(sbolDocument.sequences.length > 0) {
+        out.sequences = sbolDocument.sequences.map(function(sequence) {
+            return serializeSequence(sbolDocument, sequence);
+        });
+    }
+
+    if(sbolDocument.genericTopLevels.length > 0) {
+        out.genericTopLevels = sbolDocument.genericTopLevels.map(function(genericTopLevel) {
+            return serializeGenericTopLevel(sbolDocument, genericTopLevel);
+        });
+    }
+
+	if (sbolDocument.attachments.length > 0) {
+        out.attachments = sbolDocument.attachments.map(function(attachment) {
+            return serializeAttachment(sbolDocument, attachment);
+        });
+    }
+
+    return JSON.stringify(out, null, 2);
+}
+
+
+
+},{"./serializeAttachment":262,"./serializeCollection":263,"./serializeComponentDefinition":265,"./serializeGenericTopLevel":267,"./serializeImplementation":269,"./serializeModel":274,"./serializeModuleDefinition":275,"./serializeSequence":277}],272:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    Range = require('../../Range'),
+    Cut = require('../../Cut'),
+    GenericLocation = require('../../GenericLocation');
+
+module.exports = function serializeLocation(sbolDocument, location) {
+
+    var out = {};
+
+    if(location instanceof Range) {
+
+        out.start = location.start;
+        out.end = location.end;
+
+    } else if(location instanceof Cut) {
+
+        out.at = location.at.toString();
+
+    } else if(location instanceof GenericLocation) {
+
+    }
+
+    if(location.orientation.toString() !== '') {
+        out.orientation = location.orientation.toString();
+    }
+
+    return extend(serializeIdentified(sbolDocument, location), out);
+}
+
+
+
+},{"../../Cut":209,"../../GenericLocation":211,"../../Range":226,"./serializeIdentified":268,"extend":312}],273:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeMapping(sbolDocument, mapping) {
+
+    var out = {};
+    
+    if (mapping.refinement.toString() != '') {
+        out.access = mapping.refinement.toString()
+    }
+
+    out.remote = mapping.remote.uri?mapping.remote.uri.toString():mapping.remote.toString()
+    
+    out.local = mapping.local.uri?mapping.local.uri.toString():mapping.local.toString()
+
+    return extend(serializeIdentified(sbolDocument, mapping), out);
+}
+
+
+},{"./serializeIdentified":268,"xml":382}],274:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeModel(sbolDocument, model) {
+
+    return extend(serializeIdentified(sbolDocument, model), {
+        source: model.source.toString(),
+        language: model.language.toString(),
+        framework: model.framework.toString()
+    });
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],275:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeFunctionalComponent = require('./serializeFunctionalComponent'),
+    serializeInteraction = require('./serializeInteraction');
+
+module.exports = function serializeModuleDefinition(sbolDocument, moduleDefinition) {
+
+    var out = {};
+
+    if(moduleDefinition.roles.length > 0) {
+        out.roles = moduleDefinition.roles.map(function(role) {
+            return role.toString();
+        });
+    }
+
+    if(moduleDefinition.functionalComponents.length > 0) {
+        out.functionalComponents = moduleDefinition.functionalComponents.map(function(functionalComponent) {
+            return serializeFunctionalComponent(sbolDocument, functionalComponent);
+        });
+    }
+
+    if(moduleDefinition.interactions.length > 0) {
+        out.interactions = moduleDefinition.interactions.map(function(interaction) {
+            return serializeInteraction(sbolDocument, interaction);
+        });
+    }
+
+    if(moduleDefinition.models.length > 0) {
+        out.models = moduleDefinition.models.map(function(model) {
+            return model.uri.toString();
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, moduleDefinition), out);
+}
+
+
+},{"./serializeFunctionalComponent":266,"./serializeIdentified":268,"./serializeInteraction":270,"extend":312}],276:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeParticipation(sbolDocument, participation) {
+
+    var out = {};
+
+    if(participation.roles.length > 0) {
+        out.roles = participation.roles.map(function(role) {
+            return role.toString();
+        });
+    }
+
+    out.participant = participation.participant.uri?participation.participant.uri.toString():participation.participant.toString();
+
+    return extend(serializeIdentified(sbolDocument, participation), out);
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],277:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeSequence(sbolDocument, sequence) {
+
+    return extend(serializeIdentified(sbolDocument, sequence), {
+        elements: sequence.elements,
+        encoding: sequence.encoding.toString()
+    });
+}
+
+
+},{"./serializeIdentified":268,"extend":312}],278:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeLocation = require('./serializeLocation');
+
+module.exports = function serializeSequenceAnnotation(sbolDocument, sequenceAnnotation) {
+
+    var out = {};
+
+    if(sequenceAnnotation.locations.length > 0) {
+        out.locations = sequenceAnnotation.locations.map(function(location) {
+            return serializeLocation(sbolDocument, location);
+        });
+    }
+
+    if(sequenceAnnotation.component && sequenceAnnotation.component.toString() !== '')
+        out.component = sequenceAnnotation.component.uri.toString();
+
+    if(sequenceAnnotation.roles.length > 0) {
+        out.roles = sequenceAnnotation.roles.map(function(role) {
+            return role.toString();
+        });
+    }
+
+    return extend(serializeIdentified(sbolDocument, sequenceAnnotation), out);
+}
+
+
+},{"./serializeIdentified":268,"./serializeLocation":272,"extend":312}],279:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var extend = require('extend'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeLocation = require('./serializeLocation');
+
+module.exports = function serializeSequenceConstraint(sbolDocument, sequenceConstraint) {
+
+    return extend(serializeIdentified(sbolDocument, sequenceConstraint), {
+        restriction: sequenceConstraint.restriction.toString(),
+        subject: sequenceConstraint.subject.toString(),
+        object: sequenceConstraint.object.toString(),
+    });
+}
+
+
+},{"./serializeIdentified":268,"./serializeLocation":272,"extend":312}],280:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    extend = require('extend'),
+    serializeGenericTopLevel = require('./serializeGenericTopLevel');
+
+
+module.exports = function serializeAnnotation(sbolDocument, xmlAttribsRef, annotation) {
+
+    var namespaces = listNamespaces(xmlAttribsRef.namespaces).filter(function(namespace) {
+        return annotation.name.indexOf(namespace.uri) === 0;
+    }).sort((a, b) => {
+        // longest prefixes first
+        return a.prefix.length - b.prefix.length
+    })
+
+    if(namespaces.length > 0) {
+
+        var longestNamespace = namespaces[0]
+
+        return {
+            [longestNamespace.prefix + ':' + annotation.name.slice(longestNamespace.uri.length)]: serializeValue(annotation.type, annotation.value, sbolDocument, xmlAttribsRef)
+        };
+
+    }
+
+    /* no matching namespace
+     */
+
+    var fragmentStart = annotation.name.lastIndexOf('#')
+
+    if(fragmentStart === -1)
+        fragmentStart = annotation.name.lastIndexOf('/')
+
+    if(fragmentStart === -1) {
+        throw new Error('cannot prefixify annotation ' + annotation.name)
+    }
+
+    var namespace = 'ns' + (xmlAttribsRef.lastNamespaceNum ++)
+    var prefix = annotation.name.slice(0, fragmentStart + 1)
+
+    xmlAttribsRef.namespaces['xmlns:' + namespace] = prefix
+
+    return {
+        [namespace + ':' + annotation.name.slice(prefix.length)]: serializeValue(annotation.type, annotation.value, sbolDocument, xmlAttribsRef)
+    }
+
+
+
+
+
+    function serializeValue(type, value, sbolDocument, xmlAttribsRef) {
+
+        if(type === 'string') {
+
+            return value
+
+        } else if(type === 'uri') {
+
+	    var genericTopLevel = sbolDocument.lookupURI(value)
+	    if (genericTopLevel.constructor.name === 'GenericTopLevel') {
+		if (!genericTopLevel.displayId) {
+		    return [ serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel) ]
+		}
+	    }
+
+            return {
+                _attr: {
+                    'rdf:resource': value
+                }
+            }
+
+        } else if(type === 'date') {
+
+            return [
+                {
+                    _attr: {
+                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
+                    }
+                },
+                value
+            ]
+
+        } else if(type === 'html') {
+
+            return [
+                {
+                    _attr: {
+                        'rdf:datatype': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML',
+                    }
+                },
+                value
+            ]
+
+        }
+
+    }
+}
+
+function listNamespaces(xmlAttribs) {
+
+    var namespaces = [];
+
+    Object.keys(xmlAttribs).forEach(function(attrib) {
+
+        var tokens = attrib.split(':');
+
+        if(tokens[0] === 'xmlns') {
+
+            namespaces.push({
+                prefix: tokens[1],
+                uri: xmlAttribs[attrib]
+            })
+        }
+    });
+
+    return namespaces;
+}
+
+
+
+
+
+
+},{"./serializeGenericTopLevel":287,"extend":312,"xml":382}],281:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeAttachment(sbolDocument, xmlAttribsRef, attachment) {
+
+    var properties = [{ 'sbol:source': { _attr: { 'rdf:resource': attachment.source }}}]
+
+    if (attachment.format.toString() !== '') {
+	properties.push({ 'sbol:format': { _attr: { 'rdf:resource': attachment.format }}})
+    }
+    if (attachment.size > 0) {
+	properties.push({ 'sbol:size': attachment.size })
+    }
+    if (attachment.hash.toString() !== '') {
+	properties.push({ 'sbol:hash': attachment.hash })
+    }
+
+    
+    return serializeIdentified(sbolDocument, xmlAttribsRef, attachment, 'sbol:Attachment', properties);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],282:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeCollection(sbolDocument, xmlAttribsRef, collection) {
+
+    var properties = []
+
+    collection.members.forEach(function(member) {
+	if (!member.uri || member.constructor.name != 'GenericTopLevel' || member.displayId) {
+            properties.push({
+		'sbol:member': {
+                    _attr: {
+			'rdf:resource': member.uri?member.uri:member
+                    }
+		}
+            });
+	}
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, collection, 'sbol:Collection', properties)
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],283:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeVariableComponent = require('./serializeVariableComponent');
+
+module.exports = function serializeCombinatorialDerivation(sbolDocument, xmlAttribsRef, combinatorialDerivation) {
+
+    var properties = [
+        { 'sbol:template': { _attr: { 'rdf:resource': combinatorialDerivation.template.uri?combinatorialDerivation.template.uri:combinatorialDerivation.template }}}
+    ];
+
+    if (combinatorialDerivation.strategy.toString() !== '') {
+        properties.push({
+            'sbol:strategy': { _attr: { 'rdf:resource': combinatorialDerivation.strategy }}
+        });
+    }
+
+
+    combinatorialDerivation.variableComponents.forEach(function(variableComponent) {
+        properties.push({
+            'sbol:variableComponent': [
+                serializeVariableComponent(sbolDocument, xmlAttribsRef, variableComponent)
+            ]
+        });
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, combinatorialDerivation, 'sbol:CombinatorialDerivation', properties);
+}
+
+
+},{"./serializeIdentified":288,"./serializeVariableComponent":305,"xml":382}],284:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeMapping = require('./serializeMapping');
+
+module.exports = function serializeComponent(sbolDocument, xmlAttribsRef, component) {
+
+    var properties = [
+        { 'sbol:definition': { _attr: { 'rdf:resource': component.definition.uri?component.definition.uri:component.definition }}},
+        { 'sbol:access': { _attr: { 'rdf:resource': component.access }}},
+    ]
+
+
+    if(component.roleIntegration.toString() !== '') {
+        properties.push(
+            { 'sbol:roleIntegration': { _attr: { 'rdf:resource': component.roleIntegration }}}
+        )
+    }
+
+
+    component.roles.forEach(function(role) {
+        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
+    });
+
+    component.mappings.forEach(function(mapping) {
+        properties.push({
+            'sbol:mapsTo': [
+                serializeMapping(sbolDocument, xmlAttribsRef, mapping)
+            ]
+        });
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, component, 'sbol:Component', properties);
+
+}
+
+
+},{"./serializeIdentified":288,"./serializeMapping":292,"xml":382}],285:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeComponent = require('./serializeComponent'),
+    serializeSequenceAnnotation = require('./serializeSequenceAnnotation'),
+    serializeSequenceConstraint = require('./serializeSequenceConstraint');
+
+module.exports = function serializeComponentDefinition(sbolDocument, xmlAttribsRef, componentDefinition) {
+
+    var properties = [];
+
+    componentDefinition.types.forEach(function(type) {
+        properties.push({ 'sbol:type': { _attr: { 'rdf:resource': type }}});
+    });
+
+    componentDefinition.roles.forEach(function(role) {
+        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
+    });
+
+    componentDefinition.components.forEach(function(component) {
+        properties.push({
+            'sbol:component': [
+                serializeComponent(sbolDocument, xmlAttribsRef, component)
+            ]
+        });
+    });
+
+    componentDefinition.sequenceAnnotations.forEach(function(sequenceAnnotation) {
+        properties.push({
+            'sbol:sequenceAnnotation': [
+                serializeSequenceAnnotation(sbolDocument, xmlAttribsRef, sequenceAnnotation)
+            ]
+        });
+    });
+
+    componentDefinition.sequenceConstraints.forEach(function(sequenceConstraint) {
+        properties.push({
+            'sbol:sequenceConstraint': [
+                serializeSequenceConstraint(sbolDocument, xmlAttribsRef, sequenceConstraint)
+            ]
+        });
+    });
+
+    componentDefinition.sequences.forEach(function(sequence) {
+        properties.push({ 'sbol:sequence': { _attr: { 'rdf:resource': sequence.uri?sequence.uri:sequence }}});
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, componentDefinition, 'sbol:ComponentDefinition', properties);
+}
+
+
+},{"./serializeComponent":284,"./serializeIdentified":288,"./serializeSequenceAnnotation":303,"./serializeSequenceConstraint":304,"xml":382}],286:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeFunctionalComponent(sbolDocument, xmlAttribsRef, functionalComponent) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, functionalComponent, 'sbol:FunctionalComponent', [
+        { 'sbol:definition': { _attr: { 'rdf:resource': functionalComponent.definition.uri?functionalComponent.definition.uri:functionalComponent.definition }}},
+        { 'sbol:access': { _attr: { 'rdf:resource': functionalComponent.access }}},
+        { 'sbol:direction': { _attr: { 'rdf:resource': functionalComponent.direction }}}
+    ]);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],287:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+ extend = require('extend');
+
+module.exports = function serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel) {
+
+    var namespaces = listNamespaces(xmlAttribsRef.namespaces).filter(function(namespace) {
+        return genericTopLevel.rdfType.indexOf(namespace.uri) === 0;
+    });
+
+    var namespace
+    var prefixedName
+    if(namespaces.length === 0) {
+	/* no matching namespace
+	 */
+
+	var fragmentStart = genericTopLevel.rdfType.lastIndexOf('#')
+
+	if(fragmentStart === -1)
+            fragmentStart = genericTopLevel.rdfType.lastIndexOf('/')
+
+	if(fragmentStart === -1) {
+            throw new Error('cannot prefixify genericTopLevel RDF type ' + genericTopLevel.rdfType)
+	}
+
+	var prefix = 'ns' + (xmlAttribsRef.lastNamespaceNum ++)
+	namespace = genericTopLevel.rdfType.slice(0, fragmentStart + 1)
+        prefixedName = prefix + ':' + genericTopLevel.rdfType.slice(namespace.length)
+	xmlAttribsRef.namespaces['xmlns:' + prefix] = namespace
+    } else {
+	namespace = namespaces.sort((a, b) => a.uri.length - b.uri.length)[0];
+	prefixedName = namespace.prefix + ':' + genericTopLevel.rdfType.slice(namespace.uri.length);
+    }
+    var serializeIdentified = require('./serializeIdentified');
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, genericTopLevel, prefixedName, []);
+
+}
+
+function listNamespaces(xmlAttribs) {
+
+    var namespaces = [];
+
+    Object.keys(xmlAttribs).forEach(function(attrib) {
+
+        var tokens = attrib.split(':');
+
+        if(tokens[0] === 'xmlns') {
+
+            namespaces.push({
+                prefix: tokens[1],
+                uri: xmlAttribs[attrib]
+            })
+        }
+    });
+
+    return namespaces;
+}
+
+
+},{"./serializeIdentified":288,"extend":312,"xml":382}],288:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeAnnotation = require('./serializeAnnotation');
+
+module.exports = function serializeIdentified(sbolDocument, xmlAttribsRef, identified, tagName, properties) {
+
+    var tags = [
+        { _attr: { 'rdf:about': identified.uri }}
+    ];
+
+    if(identified.persistentIdentity.toString() !== '') {
+        tags.push({ 'sbol:persistentIdentity': { _attr: { 'rdf:resource': identified.persistentIdentity }}});
+    }
+
+    if(identified.displayId.toString() !== '')
+        tags.push({ 'sbol:displayId': identified.displayId });
+
+    if(identified.version.toString() !== '')
+        tags.push({ 'sbol:version': identified.version });
+
+    if(identified.wasDerivedFrom.toString() !== '')
+        tags.push({ 'prov:wasDerivedFrom': { _attr: { 'rdf:resource': identified.wasDerivedFrom }}});
+
+    if(identified.wasGeneratedBy.toString() !== '')
+        tags.push({ 'prov:wasGeneratedBy': { _attr: { 'rdf:resource': identified.wasGeneratedBy }}});
+
+    if(identified.name.toString() !== '')
+        tags.push({ 'dcterms:title': identified.name });
+
+    if(identified.description.toString() !== '')
+        tags.push({ 'dcterms:description': identified.description });
+
+	identified.attachments.forEach(function(attachment) {
+		tags.push({ 'sbol:attachment': { _attr: { 'rdf:resource': attachment.uri }}});
+	});
+
+    identified.annotations.forEach(function(annotation) {
+        tags.push(serializeAnnotation(sbolDocument, xmlAttribsRef, annotation));
+    });
+
+    return {
+        [tagName]: tags.concat(properties)
+    };
+}
+
+},{"./serializeAnnotation":280,"xml":382}],289:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeImplementation(sbolDocument, xmlAttribsRef, implementation) {
+
+    var properties = []
+
+    if (implementation.built.toString() !== '') {
+	properties.push({'sbol:built': { _attr: { 'rdf:resource': implementation.built.uri?implementation.built.uri:implementation.built }}})
+    }
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, implementation, 'sbol:Implementation', properties);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],290:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeParticipation = require('./serializeParticipation');
+
+module.exports = function serializeInteraction(sbolDocument, xmlAttribsRef, interaction) {
+
+    var properties = [];
+
+    interaction.types.forEach(function(type) {
+
+        properties.push({
+            'sbol:type': {
+                _attr: {
+                    'rdf:resource': type
+                }
+            }
+        });
+
+    });
+
+    interaction.participations.forEach(function(participation) {
+        properties.push({
+            'sbol:participation': [
+                serializeParticipation(sbolDocument, xmlAttribsRef, participation)
+            ]
+        });
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, interaction, 'sbol:Interaction', properties);
+}
+
+
+},{"./serializeIdentified":288,"./serializeParticipation":296,"xml":382}],291:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    Range = require('../../Range'),
+    Cut = require('../../Cut'),
+    GenericLocation = require('../../GenericLocation');
+
+module.exports = function serializeLocation(sbolDocument, xmlAttribsRef, location) {
+
+    if(location instanceof Range) {
+
+        var properties = [
+            { 'sbol:start': location.start },
+            { 'sbol:end': location.end }
+        ];
+
+        if(location.orientation.toString() !== '') {
+            properties.push({
+                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
+            });
+        }
+
+        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:Range', properties);
+
+    } else if(location instanceof Cut) {
+
+        var properties = [{
+            'sbol:at': location.at,
+        }];
+
+        if(location.orientation.toString() !== '') {
+            properties.push({
+                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
+            });
+        }
+
+        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:Cut', properties);
+
+    } else if(location instanceof GenericLocation) {
+
+        var properties = [];
+
+        if(location.orientation.toString() !== '') {
+            properties.push({
+                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
+            });
+        }
+
+        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:GenericLocation', properties);
+    }
+}
+
+
+
+},{"../../Cut":209,"../../GenericLocation":211,"../../Range":226,"./serializeIdentified":288,"xml":382}],292:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeMapping(sbolDocument, xmlAttribsRef, mapping) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, mapping, 'sbol:MapsTo', [
+        { 'sbol:refinement': { _attr: { 'rdf:resource': mapping.refinement }}},
+        { 'sbol:remote': { _attr: { 'rdf:resource': mapping.remote.uri?mapping.remote.uri:mapping.remote }}},
+        { 'sbol:local': { _attr: { 'rdf:resource': mapping.local.uri?mapping.local.uri:mapping.local }}},
+    ]);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],293:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeModel(sbolDocument, xmlAttribsRef, model) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, model, 'sbol:Model', [
+        {'sbol:source': { _attr: { 'rdf:resource': model.source }}},
+        {'sbol:language': { _attr: { 'rdf:resource': model.language }}},
+        {'sbol:framework': { _attr: { 'rdf:resource': model.framework }}}
+    ]);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],294:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeMapping = require('./serializeMapping');
+
+module.exports = function serializeModule(sbolDocument, xmlAttribsRef, module) {
+
+    var properties = [
+        { 'sbol:definition': { _attr: { 'rdf:resource': module.definition.uri?module.definition.uri:module.definition }}}
+    ];
+
+    module.mappings.forEach(function(mapping) {
+        properties.push({
+            'sbol:mapsTo': [
+                serializeMapping(sbolDocument, xmlAttribsRef, mapping)
+            ]
+        });
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, module, 'sbol:Module', properties);
+}
+
+
+},{"./serializeIdentified":288,"./serializeMapping":292,"xml":382}],295:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeFunctionalComponent = require('./serializeFunctionalComponent'),
+    serializeInteraction = require('./serializeInteraction'),
+    serializeModule = require('./serializeModule');
+
+module.exports = function serializeModuleDefinition(sbolDocument, xmlAttribsRef, moduleDefinition) {
+
+    var properties = [];
+
+    moduleDefinition.roles.forEach(function(role) {
+
+        properties.push({
+            'sbol:role': {
+                _attr: {
+                    'rdf:resource': role
+                }
+            }
+        });
+
+    });
+
+    moduleDefinition.modules.forEach(function(module) {
+        properties.push({
+            'sbol:module': [
+                serializeModule(sbolDocument, xmlAttribsRef, module)
+            ]
+        });
+    });
+
+    moduleDefinition.functionalComponents.forEach(function(functionalComponent) {
+        properties.push({
+            'sbol:functionalComponent': [
+                serializeFunctionalComponent(sbolDocument, xmlAttribsRef, functionalComponent)
+            ]
+        });
+    });
+
+    moduleDefinition.interactions.forEach(function(interaction) {
+        properties.push({
+            'sbol:interaction': [
+                serializeInteraction(sbolDocument, xmlAttribsRef, interaction)
+            ]
+        });
+    });
+
+    moduleDefinition.models.forEach(function(model) {
+        properties.push({ 'sbol:model': { _attr: { 'rdf:resource': model.uri?model.uri:model }}});
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, moduleDefinition, 'sbol:ModuleDefinition', properties);
+}
+
+
+},{"./serializeFunctionalComponent":286,"./serializeIdentified":288,"./serializeInteraction":290,"./serializeModule":294,"xml":382}],296:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeParticipation(sbolDocument, xmlAttribsRef, participation) {
+
+    var properties = [];
+
+    participation.roles.forEach(function(role) {
+
+        properties.push({
+            'sbol:role': {
+                _attr: {
+                    'rdf:resource': role
+                }
+            }
+        });
+
+    });
+
+    properties.push({ 'sbol:participant': { _attr: { 'rdf:resource': participation.participant.uri?participation.participant.uri:participation.participant }}})
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, participation, 'sbol:Participation', properties);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],297:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeProvAssociation = require('./serializeProvAssociation'),
+    serializeProvUsage = require('./serializeProvUsage')
+
+module.exports = function serializeProvActivity(sbolDocument, xmlAttribsRef, activity) {
+
+    var attr = []
+
+    if(activity.startedAtTime) {
+
+        attr.push({
+            'prov:startedAtTime': [
+                {
+                    _attr: {
+                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
+                    }
+                },
+                activity.startedAtTime.toISOString()
+            ]
+        })
+
+    }
+
+    if(activity.endedAtTime) {
+
+        attr.push({
+            'prov:endedAtTime': [
+                {
+                    _attr: {
+                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
+                    }
+                },
+                activity.endedAtTime.toISOString()
+            ]
+        })
+
+    }
+
+    activity.usages.forEach((usage) => {
+        attr.push({ 'prov:qualifiedUsage': [
+            serializeProvUsage(sbolDocument, xmlAttribsRef, usage)
+        ]})
+    })
+ 
+    activity.associations.forEach((association) => {
+        attr.push({ 'prov:qualifiedAssociation': [
+            serializeProvAssociation(sbolDocument, xmlAttribsRef, association)
+        ]})
+    })
+ 
+    activity.wasInformedBys.forEach((wasInformedBy) => {
+        attr.push({ 'prov:wasInformedBy': { _attr: { 'rdf:resource': wasinformedBy.uri?wasInformedBy.uri:wasInformedBy}}});
+    })
+        
+    return serializeIdentified(sbolDocument, xmlAttribsRef, activity, 'prov:Activity', attr)
+
+}
+
+
+},{"./serializeIdentified":288,"./serializeProvAssociation":299,"./serializeProvUsage":301,"xml":382}],298:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeProvAgent(sbolDocument, xmlAttribsRef, agent) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, agent, 'prov:Agent', []);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],299:[function(require,module,exports){
+
+
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified')
+
+module.exports = function serializeProvAssociation(sbolDocument, xmlAttribsRef, association) {
+
+    var attr = []
+
+    attr.push({
+        'prov:agent': {
+            _attr: {
+                'rdf:resource': association.agent.uri?association.agent.uri:association.agent
+            }
+        }
+    })
+
+    if (association.plan) {
+	attr.push({
+            'prov:hadPlan': {
+		_attr: {
+                    'rdf:resource': association.plan.uri?association.plan.uri:association.plan
+		}
+            }
+	})
+    }
+    
+    association.roles.forEach(function(role) {
+	attr.push({
+            'prov:hadRole': {
+		_attr: {
+                    'rdf:resource': role
+		}
+            }
+	})
+    })
+        
+    return serializeIdentified(sbolDocument, xmlAttribsRef, association, 'prov:Association', attr)
+
+}
+
+},{"./serializeIdentified":288,"xml":382}],300:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeProvPlan(sbolDocument, xmlAttribsRef, plan) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, plan, 'prov:Plan', []);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],301:[function(require,module,exports){
+
+
+/*
+ * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified')
+
+module.exports = function serializeProvUsage(sbolDocument, xmlAttribsRef, usage) {
+
+    var attr = []
+
+    attr.push({
+        'prov:entity': {
+            _attr: {
+                'rdf:resource': usage.entity.uri?usage.entity.uri:usage.entity
+            }
+        }
+    })
+
+    usage.roles.forEach(function(role) {
+	attr.push({
+            'prov:hadRole': {
+		_attr: {
+                    'rdf:resource': role
+		}
+            }
+	})
+    })
+        
+    return serializeIdentified(sbolDocument, xmlAttribsRef, usage, 'prov:Usage', attr)
+
+}
+
+},{"./serializeIdentified":288,"xml":382}],302:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified');
+
+module.exports = function serializeSequence(sbolDocument, xmlAttribsRef, sequence) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, sequence, 'sbol:Sequence', [
+        { 'sbol:elements': sequence.elements },
+        { 'sbol:encoding': { _attr: { 'rdf:resource': sequence.encoding }}},
+    ]);
+}
+
+
+},{"./serializeIdentified":288,"xml":382}],303:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeLocation = require('./serializeLocation');
+
+module.exports = function serializeSequenceAnnotation(sbolDocument, xmlAttribsRef, sequenceAnnotation) {
+
+    var properties = [];
+
+    sequenceAnnotation.locations.forEach(function(location) {
+
+        properties.push({
+            'sbol:location': [
+                serializeLocation(sbolDocument, xmlAttribsRef, location)
+            ]
+        });
+
+    });
+
+    if(sequenceAnnotation.component.toString() !== '')
+    {
+        properties.push(
+            { 'sbol:component': { _attr: { 'rdf:resource': sequenceAnnotation.component.uri?sequenceAnnotation.component.uri:sequenceAnnotation.component }}}
+        );
+    }
+
+    sequenceAnnotation.roles.forEach(function(role) {
+        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, sequenceAnnotation, 'sbol:SequenceAnnotation', properties);
+}
+
+
+},{"./serializeIdentified":288,"./serializeLocation":291,"xml":382}],304:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeLocation = require('./serializeLocation');
+
+module.exports = function serializeSequenceConstraint(sbolDocument, xmlAttribsRef, sequenceConstraint) {
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, sequenceConstraint, 'sbol:SequenceConstraint', [
+
+        { 'sbol:restriction': { _attr: { 'rdf:resource': sequenceConstraint.restriction }}},
+        { 'sbol:subject': { _attr: { 'rdf:resource': sequenceConstraint.subject.uri?sequenceConstraint.subject.uri:sequenceConstraint.subject }}},
+        { 'sbol:object': { _attr: { 'rdf:resource': sequenceConstraint.object.uri?sequenceConstraint.object.uri:sequenceConstraint.object }}}
+    ]);
+}
+
+
+},{"./serializeIdentified":288,"./serializeLocation":291,"xml":382}],305:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    serializeIdentified = require('./serializeIdentified'),
+    serializeMapping = require('./serializeMapping');
+
+module.exports = function serializeVariableComponent(sbolDocument, xmlAttribsRef, component) {
+
+    var properties = [
+        { 'sbol:variable': { _attr: { 'rdf:resource': component.variable.uri?component.variable.uri:component.variable }}},
+        { 'sbol:operator': { _attr: { 'rdf:resource': component.operator }}},
+    ]
+
+    component.variants.forEach(function(variant) {
+        properties.push({ 'sbol:variant': { _attr: { 'rdf:resource': variant.uri ? variant.uri : variant }}});
+    });
+
+    component.variantCollections.forEach(function(variantCollection) {
+        properties.push({ 'sbol:variantCollection': { _attr: { 'rdf:resource': variantCollection.uri ? variantCollection.uri : variantCollection }}});
+    });
+
+    component.variantDerivations.forEach(function(variantDerivation) {
+        properties.push({ 'sbol:variantDerivation': { _attr: { 'rdf:resource': variantDerivation.uri ? variantDerivation.uri : variantDerivation }}});
+    });
+
+    return serializeIdentified(sbolDocument, xmlAttribsRef, component, 'sbol:VariableComponent', properties);
+
+}
+
+
+},{"./serializeIdentified":288,"./serializeMapping":292,"xml":382}],306:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var xml = require('xml'),
+    extend = require('extend'),
+    serializeModuleDefinition = require('./serializeModuleDefinition'),
+    serializeCollection = require('./serializeCollection'),
+    serializeComponentDefinition = require('./serializeComponentDefinition'),
+    serializeModel = require('./serializeModel'),
+	serializeAttachment = require('./serializeAttachment'),
+    serializeImplementation = require('./serializeImplementation'),
+    serializeSequence = require('./serializeSequence'),
+    serializeGenericTopLevel = require('./serializeGenericTopLevel'),
+    serializeProvActivity = require('./serializeProvActivity'),
+    serializeProvPlan = require('./serializeProvPlan'),
+    serializeProvAgent = require('./serializeProvAgent'),
+    serializeCombinatorialDerivation = require('./serializeCombinatorialDerivation'),
+    serializeVariableComponent = require('./serializeVariableComponent');
+
+module.exports = function serializeXML(sbolDocument, attribs) {
+
+    var xmlAttribs = extend({
+
+        'xmlns:rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+        'xmlns:dcterms': 'http://purl.org/dc/terms/',
+        'xmlns:prov': 'http://www.w3.org/ns/prov#',
+        'xmlns:sbol': 'http://sbols.org/v2#',
+        'xmlns:xsd': 'http://www.w3.org/2001/XMLSchema#dateTime/'
+
+    }, attribs || {})
+
+    var nodes = []
+
+    var xmlAttribsRef = {
+        namespaces: xmlAttribs,
+        lastNamespaceNum: 0
+    } 
+
+    sbolDocument.collections.forEach(function(collection) {
+        nodes.push(serializeCollection(sbolDocument, xmlAttribsRef, collection));
+    });
+
+    sbolDocument.moduleDefinitions.forEach(function(moduleDefinition) {
+        nodes.push(serializeModuleDefinition(sbolDocument, xmlAttribsRef, moduleDefinition));
+    });
+
+    sbolDocument.componentDefinitions.forEach(function(componentDefinition) {
+        nodes.push(serializeComponentDefinition(sbolDocument, xmlAttribsRef, componentDefinition));
+    });
+
+    sbolDocument.models.forEach(function(model) {
+        nodes.push(serializeModel(sbolDocument, xmlAttribsRef, model));
+    });
+
+	sbolDocument.attachments.forEach(function(attachment) {
+        nodes.push(serializeAttachment(sbolDocument, xmlAttribsRef, attachment));
+    });
+
+    sbolDocument.implementations.forEach(function(implementation) {
+        nodes.push(serializeImplementation(sbolDocument, xmlAttribsRef, implementation));
+    });
+
+    sbolDocument.sequences.forEach(function(sequence) {
+        nodes.push(serializeSequence(sbolDocument, xmlAttribsRef, sequence));
+    });
+
+    sbolDocument.provActivities.forEach(function(activity) {
+        nodes.push(serializeProvActivity(sbolDocument, xmlAttribsRef, activity));
+    });
+
+    sbolDocument.provAgents.forEach(function(agent) {
+        nodes.push(serializeProvAgent(sbolDocument, xmlAttribsRef, agent));
+    });
+
+    sbolDocument.provPlans.forEach(function(plan) {
+        nodes.push(serializeProvPlan(sbolDocument, xmlAttribsRef, plan));
+    });
+
+    sbolDocument.genericTopLevels.forEach(function(genericTopLevel) {
+	if (genericTopLevel.displayId) {
+            nodes.push(serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel));
+	}
+    });
+
+    sbolDocument.combinatorialDerivations.forEach(function(derivation) {
+        nodes.push(serializeCombinatorialDerivation(sbolDocument, xmlAttribsRef, derivation));
+    });
+
+    nodes.push({
+        _attr: xmlAttribsRef.namespaces
+    })
+
+    return xml({
+        'rdf:RDF': nodes
+    }, {
+        declaration: true,
+        indent: '  '
+    });
+}
+
+
+
+},{"./serializeAttachment":281,"./serializeCollection":282,"./serializeCombinatorialDerivation":283,"./serializeComponentDefinition":285,"./serializeGenericTopLevel":287,"./serializeImplementation":289,"./serializeModel":293,"./serializeModuleDefinition":295,"./serializeProvActivity":297,"./serializeProvAgent":298,"./serializeProvPlan":300,"./serializeSequence":302,"./serializeVariableComponent":305,"extend":312,"xml":382}],307:[function(require,module,exports){
+
+var so = 'http://identifiers.org/so/'
+var sbo = 'http://identifiers.org/biomodels.sbo/'
+
+module.exports = {
+
+    promoter: 'http://identifiers.org/so/SO:0000167',
+    operator: 'http://identifiers.org/so/SO:0000057',
+    cds: 'http://identifiers.org/so/SO:0000316',
+    fivePrimeUtr: 'http://identifiers.org/so/SO:0000204',
+    terminator: 'http://identifiers.org/so/SO:0000141',
+    insulator: 'http://identifiers.org/so/SO:0000627',
+    originOfReplication: 'http://identifiers.org/so/SO:0000296',
+    primerBindingSite: 'http://identifiers.org/so/SO:0005850',
+    ribosomeBindingSite: 'http://identifiers.org/so/SO:0000139',
+    gene: 'http://identifiers.org/so/SO:0000704',
+    rna: 'http://identifiers.org/so/SO:0000234',
+    restrictionSite: 'http://identifiers.org/so/SO:0001687',
+    bluntRestrictionSite: 'http://identifiers.org/so/SO:0001691',
+    assemblyScar: 'http://identifiers.org/so/SO:0001953',
+    engineeredGene: 'http://identifiers.org/so/SO:0000280',
+    engineeredRegion: 'http://identifiers.org/so/SO:0000804',
+    conservedRegion: 'http://identifiers.org/so/SO:0000330',
+
+    dnaRegion: 'http://www.biopax.org/release/biopax-level3.owl#DnaRegion',
+    rnaRegion: 'http://www.biopax.org/release/biopax-level3.owl#RnaRegion',
+    protein: 'http://www.biopax.org/release/biopax-level3.owl#Protein',
+    smallMolecule: 'http://www.biopax.org/release/biopax-level3.owl#SmallMolecule',
+    effector: 'http://identifiers.org/chebi/CHEBI:35224',
+
+    dnaSequence: 'http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html',
+    rnaSequence: 'http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html',
+    proteinSequence: 'http://www.chem.qmul.ac.uk/iupac/AminoAcid/',
+
+    complex: 'http://www.biopax.org/release/biopax-level3.owl#Complex',
+
+    sbo: {
+        modelingFramework: sbo + 'SBO:0000004',
+        continuousFramework: sbo + 'SBO:0000062',
+        nonSpatialContinuousFramework: sbo + 'SBO:0000293',
+        spatialContinuousFramework: sbo + 'SBO:0000292',
+        discreteFramework: sbo + 'SBO:0000063',
+        nonSpatialDiscreteFramework: sbo + 'SBO:0000295',
+        spatialDiscreteFramework: sbo + 'SBO:0000294',
+        fluxBalanceFramework: sbo + 'SBO:0000624',
+        logicalFramework: sbo + 'SBO:0000234',
+        booleanLogicalFramework: sbo + 'SBO:0000547',
+        occurringEntityRepresentation: sbo + 'SBO:0000231',
+        biologicalActivity: sbo + 'SBO:0000412',
+        process: sbo + 'SBO:0000375',
+        biochemicalOrTransportReaction: sbo + 'SBO:0000167',
+        biochemicalReaction: sbo + 'SBO:0000176',
+        acidBaseReaction: sbo + 'SBO:0000208',
+        deprotonation: sbo + 'SBO:0000213',
+        protonation: sbo + 'SBO:0000212',
+        conformationalTransition: sbo + 'SBO:0000181',
+        conversion: sbo + 'SBO:0000182',
+        additionOfAChemicalGroup: sbo + 'SBO:0000210',
+        acetylation: sbo + 'SBO:0000215',
+        glycosylation: sbo + 'SBO:0000217',
+        hydroxylation: sbo + 'SBO:0000233',
+        methylation: sbo + 'SBO:0000214',
+        myristoylation: sbo + 'SBO:0000219',
+        palmitoylation: sbo + 'SBO:0000218',
+        phosphorylation: sbo + 'SBO:0000216',
+        prenylation: sbo + 'SBO:0000221',
+        farnesylation: sbo + 'SBO:0000222',
+        geranylgeranylation: sbo + 'SBO:0000223',
+        sulfation: sbo + 'SBO:0000220',
+        ubiquitination: sbo + 'SBO:0000224',
+        cleavage: sbo + 'SBO:0000178',
+        removalOfAChemicalGroup: sbo + 'SBO:0000211',
+        deamination: sbo + 'SBO:0000401',
+        decarbonylation: sbo + 'SBO:0000400',
+        decarboxylation: sbo + 'SBO:0000399',
+        dephosphorylation: sbo + 'SBO:0000330',
+        transferOfAChemicalGroup: sbo + 'SBO:0000402',
+        transamination: sbo + 'SBO:0000403',
+        degradation: sbo + 'SBO:0000179',
+        dissociation: sbo + 'SBO:0000180',
+        hydrolysis: sbo + 'SBO:0000376',
+        ionisation: sbo + 'SBO:0000209',
+        isomerisation: sbo + 'SBO:0000377',
+        nonCovalentBinding: sbo + 'SBO:0000177',
+        redoxReaction: sbo + 'SBO:0000200',
+        oxidation: sbo + 'SBO:0000201',
+        reduction: sbo + 'SBO:0000202',
+        transportReaction: sbo + 'SBO:0000185',
+        transcellularMembraneEffluxReaction: sbo + 'SBO:0000588',
+        transcellularMembraneInfluxReaction: sbo + 'SBO:0000587',
+        biologicalEffectOfAPerturbation: sbo + 'SBO:0000357',
+        compositeBiochemicalProcess: sbo + 'SBO:0000205',
+        dnaReplication: sbo + 'SBO:0000204',
+        geneticProduction: sbo + 'SBO:0000589',
+        transcription: sbo + 'SBO:0000183',
+        translation: sbo + 'SBO:0000184',
+        encapsulatingProcess: sbo + 'SBO:0000395',
+        molecularOrGeneticInteraction: sbo + 'SBO:0000342',
+        geneticInteraction: sbo + 'SBO:0000343',
+        geneticEnhancement: sbo + 'SBO:0000501',
+        geneticSuppression: sbo + 'SBO:0000500',
+        syntheticLethality: sbo + 'SBO:0000502',
+        molecularInteraction: sbo + 'SBO:0000344',
+        proteinComplexFormation: sbo + 'SBO:0000526',
+        omittedProcess: sbo + 'SBO:0000397',
+        phenotype: sbo + 'SBO:0000358',
+        stateVariableAssignment: sbo + 'SBO:0000464',
+        petriNetTransition: sbo + 'SBO:0000591',
+        uncertainProcess: sbo + 'SBO:0000396',
+        relationship: sbo + 'SBO:0000374',
+        control: sbo + 'SBO:0000168',
+        allostericControl: sbo + 'SBO:0000239',
+        consumption: sbo + 'SBO:0000394',
+        inhibition: sbo + 'SBO:0000169',
+        absoluteInhibition: sbo + 'SBO:0000407',
+        production: sbo + 'SBO:0000393',
+        stimulation: sbo + 'SBO:0000170',
+        absoluteStimulation: sbo + 'SBO:0000411',
+        catalysis: sbo + 'SBO:0000172',
+        necessaryStimulation: sbo + 'SBO:0000171',
+        equivalence: sbo + 'SBO:0000392',
+        logicalCombination: sbo + 'SBO:0000237',
+        and: sbo + 'SBO:0000173',
+        not: sbo + 'SBO:0000238',
+        or: sbo + 'SBO:0000174',
+        xor: sbo + 'SBO:0000175',
+        logicalRelationship: sbo + 'SBO:0000398',
+        positionalRelationship: sbo + 'SBO:0000413',
+        cis: sbo + 'SBO:0000414',
+        containment: sbo + 'SBO:0000469',
+        trans: sbo + 'SBO:0000415',
+        participantRole: sbo + 'SBO:0000003',
+        functionalCompartment: sbo + 'SBO:0000289',
+        modifier: sbo + 'SBO:0000019',
+        dualActivityModifier: sbo + 'SBO:0000595',
+        inhibitor: sbo + 'SBO:0000020',
+        competitiveInhibitor: sbo + 'SBO:0000206',
+        nonCompetitiveInhibitor: sbo + 'SBO:0000207',
+        silencer: sbo + 'SBO:0000597',
+        modifierOfUnknownActivity: sbo + 'SBO:0000596',
+        stimulator: sbo + 'SBO:0000459',
+        catalyst: sbo + 'SBO:0000013',
+        enzymaticCatalyst: sbo + 'SBO:0000460',
+        essentialActivator: sbo + 'SBO:0000461',
+        bindingActivator: sbo + 'SBO:0000535',
+        catalyticActivator: sbo + 'SBO:0000534',
+        specificActivator: sbo + 'SBO:0000533',
+        nonEssentialActivator: sbo + 'SBO:0000462',
+        potentiator: sbo + 'SBO:0000021',
+        neutralParticipant: sbo + 'SBO:0000594',
+        product: sbo + 'SBO:0000011',
+        sideProduct: sbo + 'SBO:0000603',
+        promoter: sbo + 'SBO:0000598',
+        reactant: sbo + 'SBO:0000010',
+        interactor: sbo + 'SBO:0000336',
+        substrate: sbo + 'SBO:0000015',
+        sideSubstrate: sbo + 'SBO:0000604',
+    },
+
+    so: {
+        promoter: so + 'SO:0000167',
+        operator: so + 'SO:0000057',
+        cds: so + 'SO:0000316',
+        fivePrimeUtr: so + 'SO:0000204',
+        terminator: so + 'SO:0000141',
+        insulator: so + 'SO:0000627',
+        originOfReplication: so + 'SO:0000296',
+        primerBindingSite: so + 'SO:0005850',
+        ribosomeEntrySite: so + 'SO:0000139',
+        gene: so + 'SO:0000704',
+        mRNA: so + 'SO:0000234',
+        restrictionEnzymeRecognitionSite: so + 'SO:0001687',
+        engineeredGene: so + 'SO:0000280',
+        engineeredRegion: so + 'SO:0000804',
+        sequenceFeature: so + 'SO:0000110',
+        SGRNA: so + 'SO:0001998',
+    }
+}
+
+
+},{}],308:[function(require,module,exports){
+
+/*
+ * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
+ * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *  
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+"use strict";
+
+var URI = require('urijs');
+
+exports.uriOrObject = function uriOrObject(obj) {
+
+    if(obj instanceof URI)
+        return obj;
+
+    if(typeof(obj) === 'string')
+        return URI(obj);
+
+    if(!obj)
+        return URI();
+
+    return obj;
+}
+
+
+},{"urijs":378}],309:[function(require,module,exports){
+(function (global){
+'use strict';
+
+var buffer = require('buffer');
+var Buffer = buffer.Buffer;
+var SlowBuffer = buffer.SlowBuffer;
+var MAX_LEN = buffer.kMaxLength || 2147483647;
+exports.alloc = function alloc(size, fill, encoding) {
+  if (typeof Buffer.alloc === 'function') {
+    return Buffer.alloc(size, fill, encoding);
+  }
+  if (typeof encoding === 'number') {
+    throw new TypeError('encoding must not be number');
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size > MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  var enc = encoding;
+  var _fill = fill;
+  if (_fill === undefined) {
+    enc = undefined;
+    _fill = 0;
+  }
+  var buf = new Buffer(size);
+  if (typeof _fill === 'string') {
+    var fillBuf = new Buffer(_fill, enc);
+    var flen = fillBuf.length;
+    var i = -1;
+    while (++i < size) {
+      buf[i] = fillBuf[i % flen];
+    }
+  } else {
+    buf.fill(_fill);
+  }
+  return buf;
+}
+exports.allocUnsafe = function allocUnsafe(size) {
+  if (typeof Buffer.allocUnsafe === 'function') {
+    return Buffer.allocUnsafe(size);
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size > MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  return new Buffer(size);
+}
+exports.from = function from(value, encodingOrOffset, length) {
+  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
+    return Buffer.from(value, encodingOrOffset, length);
+  }
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number');
+  }
+  if (typeof value === 'string') {
+    return new Buffer(value, encodingOrOffset);
+  }
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    var offset = encodingOrOffset;
+    if (arguments.length === 1) {
+      return new Buffer(value);
+    }
+    if (typeof offset === 'undefined') {
+      offset = 0;
+    }
+    var len = length;
+    if (typeof len === 'undefined') {
+      len = value.byteLength - offset;
+    }
+    if (offset >= value.byteLength) {
+      throw new RangeError('\'offset\' is out of bounds');
+    }
+    if (len > value.byteLength - offset) {
+      throw new RangeError('\'length\' is out of bounds');
+    }
+    return new Buffer(value.slice(offset, offset + len));
+  }
+  if (Buffer.isBuffer(value)) {
+    var out = new Buffer(value.length);
+    value.copy(out, 0, 0, value.length);
+    return out;
+  }
+  if (value) {
+    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
+      return new Buffer(value);
+    }
+    if (value.type === 'Buffer' && Array.isArray(value.data)) {
+      return new Buffer(value.data);
+    }
+  }
+
+  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
+}
+exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
+  if (typeof Buffer.allocUnsafeSlow === 'function') {
+    return Buffer.allocUnsafeSlow(size);
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size >= MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  return new SlowBuffer(size);
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"buffer":436}],310:[function(require,module,exports){
+(function (Buffer){
+var Writable = require('readable-stream').Writable
+var inherits = require('inherits')
+
+if (typeof Uint8Array === 'undefined') {
+  var U8 = require('typedarray').Uint8Array
+} else {
+  var U8 = Uint8Array
+}
+
+function ConcatStream(opts, cb) {
+  if (!(this instanceof ConcatStream)) return new ConcatStream(opts, cb)
+
+  if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
+  if (!opts) opts = {}
+
+  var encoding = opts.encoding
+  var shouldInferEncoding = false
+
+  if (!encoding) {
+    shouldInferEncoding = true
+  } else {
+    encoding =  String(encoding).toLowerCase()
+    if (encoding === 'u8' || encoding === 'uint8') {
+      encoding = 'uint8array'
+    }
+  }
+
+  Writable.call(this, { objectMode: true })
+
+  this.encoding = encoding
+  this.shouldInferEncoding = shouldInferEncoding
+
+  if (cb) this.on('finish', function () { cb(this.getBody()) })
+  this.body = []
+}
+
+module.exports = ConcatStream
+inherits(ConcatStream, Writable)
+
+ConcatStream.prototype._write = function(chunk, enc, next) {
+  this.body.push(chunk)
+  next()
+}
+
+ConcatStream.prototype.inferEncoding = function (buff) {
+  var firstBuffer = buff === undefined ? this.body[0] : buff;
+  if (Buffer.isBuffer(firstBuffer)) return 'buffer'
+  if (typeof Uint8Array !== 'undefined' && firstBuffer instanceof Uint8Array) return 'uint8array'
+  if (Array.isArray(firstBuffer)) return 'array'
+  if (typeof firstBuffer === 'string') return 'string'
+  if (Object.prototype.toString.call(firstBuffer) === "[object Object]") return 'object'
+  return 'buffer'
+}
+
+ConcatStream.prototype.getBody = function () {
+  if (!this.encoding && this.body.length === 0) return []
+  if (this.shouldInferEncoding) this.encoding = this.inferEncoding()
+  if (this.encoding === 'array') return arrayConcat(this.body)
+  if (this.encoding === 'string') return stringConcat(this.body)
+  if (this.encoding === 'buffer') return bufferConcat(this.body)
+  if (this.encoding === 'uint8array') return u8Concat(this.body)
+  return this.body
+}
+
+var isArray = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]'
+}
+
+function isArrayish (arr) {
+  return /Array\]$/.test(Object.prototype.toString.call(arr))
+}
+
+function isBufferish (p) {
+  return typeof p === 'string' || isArrayish(p) || (p && typeof p.subarray === 'function')
+}
+
+function stringConcat (parts) {
+  var strings = []
+  var needsToString = false
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[i]
+    if (typeof p === 'string') {
+      strings.push(p)
+    } else if (Buffer.isBuffer(p)) {
+      strings.push(p)
+    } else if (isBufferish(p)) {
+      strings.push(new Buffer(p))
+    } else {
+      strings.push(new Buffer(String(p)))
+    }
+  }
+  if (Buffer.isBuffer(parts[0])) {
+    strings = Buffer.concat(strings)
+    strings = strings.toString('utf8')
+  } else {
+    strings = strings.join('')
+  }
+  return strings
+}
+
+function bufferConcat (parts) {
+  var bufs = []
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[i]
+    if (Buffer.isBuffer(p)) {
+      bufs.push(p)
+    } else if (isBufferish(p)) {
+      bufs.push(new Buffer(p))
+    } else {
+      bufs.push(new Buffer(String(p)))
+    }
+  }
+  return Buffer.concat(bufs)
+}
+
+function arrayConcat (parts) {
+  var res = []
+  for (var i = 0; i < parts.length; i++) {
+    res.push.apply(res, parts[i])
+  }
+  return res
+}
+
+function u8Concat (parts) {
+  var len = 0
+  for (var i = 0; i < parts.length; i++) {
+    if (typeof parts[i] === 'string') {
+      parts[i] = new Buffer(parts[i])
+    }
+    len += parts[i].length
+  }
+  var u8 = new U8(len)
+  for (var i = 0, offset = 0; i < parts.length; i++) {
+    var part = parts[i]
+    for (var j = 0; j < part.length; j++) {
+      u8[offset++] = part[j]
+    }
+  }
+  return u8
+}
+
+}).call(this,require("buffer").Buffer)
+},{"buffer":436,"inherits":313,"readable-stream":372,"typedarray":375}],311:[function(require,module,exports){
+(function (Buffer){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+
+function isArray(arg) {
+  if (Array.isArray) {
+    return Array.isArray(arg);
+  }
+  return objectToString(arg) === '[object Array]';
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = Buffer.isBuffer;
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+}).call(this,{"isBuffer":require("../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":493}],312:[function(require,module,exports){
+'use strict';
+
+var hasOwn = Object.prototype.hasOwnProperty;
+var toStr = Object.prototype.toString;
+
+var isArray = function isArray(arr) {
+	if (typeof Array.isArray === 'function') {
+		return Array.isArray(arr);
+	}
+
+	return toStr.call(arr) === '[object Array]';
+};
+
+var isPlainObject = function isPlainObject(obj) {
+	if (!obj || toStr.call(obj) !== '[object Object]') {
+		return false;
+	}
+
+	var hasOwnConstructor = hasOwn.call(obj, 'constructor');
+	var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
+	// Not own constructor property must be Object
+	if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
+		return false;
+	}
+
+	// Own properties are enumerated firstly, so to speed up,
+	// if last one is own, then all properties are own.
+	var key;
+	for (key in obj) {/**/}
+
+	return typeof key === 'undefined' || hasOwn.call(obj, key);
+};
+
+module.exports = function extend() {
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[0],
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	// Handle a deep copy situation
+	if (typeof target === 'boolean') {
+		deep = target;
+		target = arguments[1] || {};
+		// skip the boolean and the target
+		i = 2;
+	} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
+		target = {};
+	}
+
+	for (; i < length; ++i) {
+		options = arguments[i];
+		// Only deal with non-null/undefined values
+		if (options != null) {
+			// Extend the base object
+			for (name in options) {
+				src = target[name];
+				copy = options[name];
+
+				// Prevent never-ending loop
+				if (target !== copy) {
+					// Recurse if we're merging plain objects or arrays
+					if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && isArray(src) ? src : [];
+						} else {
+							clone = src && isPlainObject(src) ? src : {};
+						}
+
+						// Never move original objects, clone them
+						target[name] = extend(deep, clone, copy);
+
+					// Don't bring in undefined values
+					} else if (typeof copy !== 'undefined') {
+						target[name] = copy;
+					}
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
+
+
+},{}],313:[function(require,module,exports){
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+},{}],314:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+},{}],315:[function(require,module,exports){
+(function (process){
+'use strict';
+
+if (!process.version ||
+    process.version.indexOf('v0.') === 0 ||
+    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
+  module.exports = nextTick;
+} else {
+  module.exports = process.nextTick;
+}
+
+function nextTick(fn, arg1, arg2, arg3) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('"callback" argument must be a function');
+  }
+  var len = arguments.length;
+  var args, i;
+  switch (len) {
+  case 0:
+  case 1:
+    return process.nextTick(fn);
+  case 2:
+    return process.nextTick(function afterTickOne() {
+      fn.call(null, arg1);
+    });
+  case 3:
+    return process.nextTick(function afterTickTwo() {
+      fn.call(null, arg1, arg2);
+    });
+  case 4:
+    return process.nextTick(function afterTickThree() {
+      fn.call(null, arg1, arg2, arg3);
+    });
+  default:
+    args = new Array(len - 1);
+    i = 0;
+    while (i < args.length) {
+      args[i++] = arguments[i];
+    }
+    return process.nextTick(function afterTick() {
+      fn.apply(null, args);
+    });
+  }
+}
+
+}).call(this,require('_process'))
+},{"_process":511}],316:[function(require,module,exports){
+'use strict'
+
+var DataFactory = require('./lib/data-factory')
+
+module.exports = DataFactory
+
+},{"./lib/data-factory":318}],317:[function(require,module,exports){
+'use strict'
+
+function BlankNode (id) {
+  this.value = id || ('b' + (++BlankNode.nextId))
+}
+
+BlankNode.prototype.equals = function (other) {
+  return other.termType === this.termType && other.value === this.value
+}
+
+BlankNode.prototype.termType = 'BlankNode'
+
+BlankNode.nextId = 0
+
+module.exports = BlankNode
+
+},{}],318:[function(require,module,exports){
+'use strict'
+
+var BlankNode = require('./blank-node')
+var DefaultGraph = require('./default-graph')
+var Literal = require('./literal')
+var NamedNode = require('./named-node')
+var Quad = require('./quad')
+var Variable = require('./variable')
+
+function DataFactory () {}
+
+DataFactory.namedNode = function (value) {
+  return new NamedNode(value)
+}
+
+DataFactory.blankNode = function (value) {
+  return new BlankNode(value)
+}
+
+DataFactory.literal = function (value, languageOrDatatype) {
+  if (typeof languageOrDatatype === 'string') {
+    if (languageOrDatatype.indexOf(':') === -1) {
+      return new Literal(value, languageOrDatatype)
+    } else {
+      return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
+    }
+  } else {
+    return new Literal(value, null, languageOrDatatype)
+  }
+}
+
+DataFactory.defaultGraph = function () {
+  return DataFactory.defaultGraphInstance
+}
+
+DataFactory.variable = function (value) {
+  return new Variable(value)
+}
+
+DataFactory.triple = function (subject, predicate, object) {
+  return DataFactory.quad(subject, predicate, object)
+}
+
+DataFactory.quad = function (subject, predicate, object, graph) {
+  return new Quad(subject, predicate, object, graph || DataFactory.defaultGraphInstance)
+}
+
+DataFactory.defaultGraphInstance = new DefaultGraph()
+
+module.exports = DataFactory
+
+},{"./blank-node":317,"./default-graph":319,"./literal":320,"./named-node":321,"./quad":322,"./variable":323}],319:[function(require,module,exports){
+'use strict'
+
+function DefaultGraph () {
+  this.value = ''
+}
+
+DefaultGraph.prototype.equals = function (other) {
+  return other.termType === this.termType && other.value === this.value
+}
+
+DefaultGraph.prototype.termType = 'DefaultGraph'
+
+module.exports = DefaultGraph
+
+},{}],320:[function(require,module,exports){
+'use strict'
+
+var NamedNode = require('./named-node')
+
+function Literal (value, language, datatype) {
+  this.value = value
+
+  if (language) {
+    this.language = language
+    this.datatype = Literal.langStringDatatype
+  } else if (datatype) {
+    this.datatype = datatype
+  }
+}
+
+Literal.prototype.equals = function (other) {
+  return other.termType === this.termType && other.value === this.value &&
+    other.language === this.language && other.datatype.equals(this.datatype)
+}
+
+Literal.prototype.termType = 'Literal'
+Literal.prototype.language = ''
+Literal.prototype.datatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
+
+Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
+
+module.exports = Literal
+
+},{"./named-node":321}],321:[function(require,module,exports){
+'use strict'
+
+function NamedNode (iri) {
+  this.value = iri
+}
+
+NamedNode.prototype.equals = function (other) {
+  return other.termType === this.termType && other.value === this.value
+}
+
+NamedNode.prototype.termType = 'NamedNode'
+
+module.exports = NamedNode
+
+},{}],322:[function(require,module,exports){
+'use strict'
+
+var DefaultGraph = require('./default-graph')
+
+function Quad (subject, predicate, object, graph) {
+  this.subject = subject
+  this.predicate = predicate
+  this.object = object
+
+  if (graph) {
+    this.graph = graph
+  }
+}
+
+Quad.prototype.equals = function (other) {
+  return other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
+    other.object.equals(this.object) && other.graph.equals(this.graph)
+}
+
+Quad.prototype.graph = new DefaultGraph()
+
+module.exports = Quad
+
+},{"./default-graph":319}],323:[function(require,module,exports){
+'use strict'
+
+function Variable (name) {
+  this.value = name
+}
+
+Variable.prototype.equals = function (other) {
+  return other.termType === this.termType && other.value === this.value
+}
+
+Variable.prototype.termType = 'Variable'
+
+module.exports = Variable
+
+},{}],324:[function(require,module,exports){
+const Readable = require('readable-stream')
+
+class SimpleDataset {
+  constructor (quads, factory) {
+    this._quads = []
+
+    if (factory && factory.dataset) {
+      this._datasetFactory = factory.dataset
+    } else {
+      this._datasetFactory = (quads) => {
+        return new SimpleDataset(quads, this._datasetFactory)
+      }
+    }
+
+    if (quads) {
+      this.addAll(quads)
+    }
+  }
+
+  get length () {
+    return this._quads.length
+  }
+
+  add (quad) {
+    if (!this.includes(quad)) {
+      this._quads.push(quad)
+    }
+
+    return this
+  }
+
+  addAll (quads) {
+    quads.forEach((quad) => {
+      this.add(quad)
+    })
+
+    return this
+  }
+
+  clone () {
+    return this._datasetFactory(this._quads)
+  }
+
+  difference (other) {
+    return this._datasetFactory(this.filter((quad) => {
+      return !other.includes(quad)
+    }))
+  }
+
+  every (callback) {
+    return this._quads.every((quad) => {
+      return callback(quad, this)
+    })
+  }
+
+  filter (callback) {
+    return this._datasetFactory(this._quads.filter((quad) => {
+      return callback(quad, this)
+    }))
+  }
+
+  forEach (callback) {
+    this._quads.forEach((quad) => {
+      callback(quad, this)
+    })
+  }
+
+  import (stream) {
+    return new Promise((resolve, reject) => {
+      stream.once('end', () => {
+        resolve(this)
+      })
+
+      stream.once('error', reject)
+
+      stream.on('data', (quad) => {
+        this.add(quad)
+      })
+    })
+  }
+
+  includes (quad) {
+    return this.some((other) => {
+      return other.equals(quad)
+    })
+  }
+
+  intersection (other) {
+    return this._datasetFactory(this.filter((quad) => {
+      return other.includes(quad)
+    }))
+  }
+
+  map (callback) {
+    return this._datasetFactory(this._quads.map((quad) => {
+      return callback(quad, this)
+    }))
+  }
+
+  mapToArray (callback) {
+    return this._quads.map((quad) => {
+      return callback(quad, this)
+    })
+  }
+
+  match (subject, predicate, object, graph) {
+    return this._datasetFactory(this.filter((quad) => {
+      if (subject && !quad.subject.equals(subject)) {
+        return false
+      }
+
+      if (predicate && !quad.predicate.equals(predicate)) {
+        return false
+      }
+
+      if (object && !quad.object.equals(object)) {
+        return false
+      }
+
+      if (graph && !quad.graph.equals(graph)) {
+        return false
+      }
+
+      return true
+    }))
+  }
+
+  merge (other) {
+    return (this._datasetFactory(this._quads)).addAll(other)
+  }
+
+  remove (quad) {
+    let index = this._quads.findIndex((other) => {
+      return other.equals(quad)
+    })
+
+    if (index !== -1) {
+      this._quads.splice(index, 1)
+    }
+
+    return this
+  }
+
+  removeMatches (subject, predicate, object, graph) {
+    this.match(subject, predicate, object, graph).forEach((quad) => {
+      this.remove(quad)
+    })
+
+    return this
+  }
+
+  some (callback) {
+    return this._quads.some((quad) => {
+      return callback(quad, this)
+    })
+  }
+
+  toArray () {
+    return this._quads.slice()
+  }
+
+  toStream () {
+    let stream = new Readable({
+      objectMode: true,
+      read: () => {
+        this.forEach((quad) => {
+          stream.push(quad)
+        })
+
+        stream.push(null)
+      }
+    })
+
+    return stream
+  }
+}
+
+module.exports = SimpleDataset
+
+},{"readable-stream":333}],325:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -59973,7 +69456,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":217,"./_stream_writable":219,"core-util-is":9,"inherits":188,"process-nextick-args":192}],216:[function(require,module,exports){
+},{"./_stream_readable":327,"./_stream_writable":329,"core-util-is":311,"inherits":313,"process-nextick-args":315}],326:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -60021,7 +69504,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":218,"core-util-is":9,"inherits":188}],217:[function(require,module,exports){
+},{"./_stream_transform":328,"core-util-is":311,"inherits":313}],327:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -61031,7 +70514,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":215,"./internal/streams/BufferList":220,"./internal/streams/destroy":221,"./internal/streams/stream":222,"_process":508,"core-util-is":9,"events":470,"inherits":188,"isarray":189,"process-nextick-args":192,"safe-buffer":224,"string_decoder/":381,"util":404}],218:[function(require,module,exports){
+},{"./_stream_duplex":325,"./internal/streams/BufferList":330,"./internal/streams/destroy":331,"./internal/streams/stream":332,"_process":511,"core-util-is":311,"events":473,"inherits":313,"isarray":314,"process-nextick-args":315,"safe-buffer":373,"string_decoder/":334,"util":407}],328:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -61246,7 +70729,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":215,"core-util-is":9,"inherits":188}],219:[function(require,module,exports){
+},{"./_stream_duplex":325,"core-util-is":311,"inherits":313}],329:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -61913,7 +71396,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":215,"./internal/streams/destroy":221,"./internal/streams/stream":222,"_process":508,"core-util-is":9,"inherits":188,"process-nextick-args":192,"safe-buffer":224,"util-deprecate":382}],220:[function(require,module,exports){
+},{"./_stream_duplex":325,"./internal/streams/destroy":331,"./internal/streams/stream":332,"_process":511,"core-util-is":311,"inherits":313,"process-nextick-args":315,"safe-buffer":373,"util-deprecate":380}],330:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -61988,7 +71471,7 @@ module.exports = function () {
 
   return BufferList;
 }();
-},{"safe-buffer":224}],221:[function(require,module,exports){
+},{"safe-buffer":373}],331:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -62061,10 +71544,10 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":192}],222:[function(require,module,exports){
+},{"process-nextick-args":315}],332:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":470}],223:[function(require,module,exports){
+},{"events":473}],333:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -62073,9622 +71556,280 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":215,"./lib/_stream_passthrough.js":216,"./lib/_stream_readable.js":217,"./lib/_stream_transform.js":218,"./lib/_stream_writable.js":219}],224:[function(require,module,exports){
-/* eslint-disable node/no-deprecated-api */
-var buffer = require('buffer')
-var Buffer = buffer.Buffer
-
-// alternative to using Object.keys for old browsers
-function copyProps (src, dst) {
-  for (var key in src) {
-    dst[key] = src[key]
-  }
-}
-if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-  module.exports = buffer
-} else {
-  // Copy properties from require('buffer')
-  copyProps(buffer, exports)
-  exports.Buffer = SafeBuffer
-}
-
-function SafeBuffer (arg, encodingOrOffset, length) {
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-// Copy static methods from Buffer
-copyProps(Buffer, SafeBuffer)
-
-SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  if (typeof arg === 'number') {
-    throw new TypeError('Argument must not be a number')
-  }
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-SafeBuffer.alloc = function (size, fill, encoding) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  var buf = Buffer(size)
-  if (fill !== undefined) {
-    if (typeof encoding === 'string') {
-      buf.fill(fill, encoding)
-    } else {
-      buf.fill(fill)
-    }
-  } else {
-    buf.fill(0)
-  }
-  return buf
-}
-
-SafeBuffer.allocUnsafe = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return Buffer(size)
-}
-
-SafeBuffer.allocUnsafeSlow = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return buffer.SlowBuffer(size)
-}
-
-},{"buffer":433}],225:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-	util = require('./util');
-
-/**
- * Class to represent an SBOL2 Attachment reference.
- */
-class Attachment extends Identified
-{
-    constructor(sbolDocument, uri) {
-		
-        super(sbolDocument, uri);
-		
-        this._source = URI();
-        this._format = URI();
-        this._size = -1;
-		this._hash = '';
-    }
-	
-    /**
-     * Set the source URI for this Attachment.
-     * @param {string|URI} [source]
-     */
-    set source(source) {
-        this._source = URI(source);
-    }
-
-    /**
-     * Retrieve the source URI for this Attachment.
-     * @returns {URI} [source]
-     */
-    get source() {
-        return this._source;
-    }
-
-    /**
-     * Set the format for this Attachment.
-     * @param {string|URI} [format]
-     */
-    set format(format) {
-        this._format = URI(format);
-    }
-
-    /**
-     * Retrieve the format for this Attachment.
-     * @returns {URI} [format]
-     */
-    get format() {
-        return this._format;
-    }
-
-    /**
-     * Set the size for this Attachment.
-     * @param {Long} [size]
-     */
-    set size(size) {
-        this._size = size;
-    }
-
-    /**
-     * Retrieve the size for this Attachment.
-     * @returns {Long} [size]
-     */
-    get size() {
-        return this._size;
-    }
-
-	/**
-     * Set the hash for this Attachment.
-     * @param {String} [hash]
-     */
-    set hash(hash) {
-        this._hash = hash;
-    }
-
-    /**
-     * Retrieve the hash for this Attachment.
-     * @returns {String} [hash]
-     */
-    get hash() {
-        return this._hash;
-    }
-}
-
-module.exports = Attachment;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],226:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var Identified = require('./Identified');
-
-var util = require('./util')
-
-/**
- * Class to represent an SBOL2 Collection.
- */
-class Collection extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._members = []
-    }
-
-    /**
-     * Add a member to this Collection.
-     * @param {string|URI|Identified} [member]
-     */
-    addMember(member) {
-        this._members.push(util.uriOrObject(member));
-    }
-
-    /**
-     * Retrieve the list of members assigned to this Collection.  There
-     * may be URIs present in this list if the member(s) have not yet been
-     * resolved.
-     *
-     * @returns {Identified[]}
-     */
-    get members() {
-        return this._members.slice(0);
-    }
-
-    /**
-     * Attempt to resolve the members assigned to this Collection by URI.
-     */
-    link() {
-		// Call super link to link members of Top Level (Identified)
-		super.link();
-		
-        this._members = this._sbolDocument.lookupURIs(this._members);
-    }
-}
-
-module.exports = Collection;
-
-
-
-
-
-
-},{"./Identified":234,"./util":329}],227:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent a Combinatorial Derivation (SEP 007)
- */
-class CombinatorialDerivation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._strategy = URI();
-        this._template = URI();
-        this._variableComponents = [];
-    }
-
-    /**
-     * Set the template for this CombinatorialDerivation.
-     * @param {string|URI|ComponentDefinition} [definition]
-     */
-    set template(definition) {
-        this._template = util.uriOrObject(definition);
-    }
-
-    /**
-     * Retrieve the template for this derivation.  Returns either a
-     * URI or a ComponentDefinition, depending on whether the URI has been
-     * resolved by link().
-     *
-     * @returns {URI|ComponentDefinition}
-     */
-    get template() {
-        return this._template;
-    }
-
-    /**
-     * Set the strategy property for this CombinatorialDerivation.
-     * @param {string|URI} [strategy]
-     */
-    set strategy(strategy) {
-        this._strategy = URI(strategy);
-    }
-
-    /**
-     * Retrieve the strategy property for this CombinatorialDerivation.
-     * @returns {URI} [strategy]
-     */
-    get strategy() {
-        return this._strategy;
-    }
-
-    /**
-     * Add a VariableComponent to this CombinatorialDerivation
-     * @param {string|URI|ComponentDefinition} [variableComponent]
-     */
-    addVariableComponent(variableComponent) {
-        this._variableComponents.push(variableComponent)
-    }
-
-    get variableComponents() {
-        return this._variableComponents.slice();
-    }
-
-    /**
-     * Attempt to resolve the URI of the template and variableComponents.
-     */
-    link() {
-        this._template = this._sbolDocument.lookupURI(this._template);
-        this._variableComponents = this._sbolDocument.lookupURIs(this._variableComponents);
-    }
-}
-
-module.exports = CombinatorialDerivation;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],228:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 component instantiation.
- */
-class Component extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._definition = URI();
-        this._access = URI('http://sbols.org/v2#public');
-        this._roles = []
-        this._roleIntegration = URI()
-        this._mappings = []
-    }
-
-    /**
-     * Set the ComponentDefinition for this Component.
-     * @param {string|URI|ComponentDefinition} [definition]
-     */
-    set definition(definition) {
-        this._definition = util.uriOrObject(definition);
-    }
-
-    /**
-     * Retrieve the ComponentDefinition for this Component.  Returns either a
-     * URI or a ComponentDefinition, depending on whether the URI has been
-     * resolved by link().
-     *
-     * @returns {URI|ComponentDefinition}
-     */
-    get definition() {
-        return this._definition;
-    }
-
-    /**
-     * Set the access property for this Component.
-     * @param {string|URI} [access]
-     */
-    set access(access) {
-        this._access = URI(access);
-    }
-
-    /**
-     * Assign a role to this Component.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-    /**
-     * Retrieve the list of roles assigned to this Component.
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    /**
-     * Set the role integration for this Component.
-     * @param {string|URI} [roleIntegration]
-     */
-    set roleIntegration(roleIntegration) {
-        this._roleIntegration = util.uriOrObject(roleIntegration);
-    }
-
-    /**
-     * Retrieve the role integration for this Component.
-     * @returns {URI}
-     */
-    get roleIntegration() {
-        return this._roleIntegration;
-    }
-
-    /**
-     * Retrieve the access property for this Component.
-     * @returns {URI} [access]
-     */
-    get access() {
-        return this._access;
-    }
-
-    /**
-     * Add a MapsTo to this Component.
-     * @param {string|URI|MapsTo} [mapping]
-     */
-    addMapping(mapping) {
-        this._mappings.push(util.uriOrObject(mapping));
-    }
-
-    get mappings() {
-        return this._mappings.slice(0)
-    }
-
-    /**
-     * Attempt to resolve the URI of the definition.
-     */
-    link() {
-        this._definition = this._sbolDocument.lookupURI(this._definition);
-    }
-}
-
-module.exports = Component;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],229:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 ComponentDefinition.
- */
-class ComponentDefinition extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._types = [];
-        this._roles = [];
-        this._components = [];
-        this._sequenceAnnotations = [];
-        this._sequenceConstraints = [];
-        this._sequences = [];
-    }
-
-    /**
-     * Assign a type to this ComponentDefinition.
-     * @param {string|URI} [type]
-     */
-    addType(type) {
-        this._types.push(URI(type));
-    }
-
-    /**
-     * Add a Component to this ComponentDefinition.
-     * @param {string|URI|Component} [component]
-     */
-    addComponent(component) {
-        this._components.push(util.uriOrObject(component));
-    }
-
-    /**
-     * Assign a role to this ComponentDefinition.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-    /**
-     * Add a SequenceAnnotation to this ComponentDefinition.
-     * @param {string|URI|SequenceAnnotation} [sequenceAnnotation]
-     */
-    addSequenceAnnotation(sequenceAnnotation) {
-        this._sequenceAnnotations.push(util.uriOrObject(sequenceAnnotation));
-    }
-
-    /**
-     * Add a SequenceConstraint to this ComponentDefinition.
-     * @param {string|URI|SequenceConstraint} [sequenceConstraint]
-     */
-    addSequenceConstraint(sequenceConstraint) {
-        this._sequenceConstraints.push(util.uriOrObject(sequenceConstraint));
-    }
-
-    /**
-     * Add a Sequence to this ComponentDefinition.
-     * @param {string|URI|Sequence} [sequence]
-     */
-    addSequence(sequence) {
-        this._sequences.push(util.uriOrObject(sequence));
-    }
-
-    /**
-     * Retrieve the list of types assigned to this ComponentDefinition.
-     * @returns {URI[]}
-     */
-    get types() {
-        return this._types.slice(0);
-    }
-
-    /**
-     * Retrieve the list of Components for this ComponentDefinition.
-     * There may be URIs present in this list if the component(s) have not
-     * yet been resolved.
-     *
-     * @returns {Component[]}
-     */
-    get components() {
-        return this._components.slice(0);
-    }
-
-    /**
-     * Retrieve the list of SequenceAnnotations for this ComponentDefinition.
-     * There may be URIs present in this list if the sequenceAnnotation(s)
-     * have not yet been resolved.
-     *
-     * @returns {SequenceAnnotation[]}
-     */
-    get sequenceAnnotations() {
-        return this._sequenceAnnotations.slice(0);
-    }
-
-    /**
-     * Retrieve the list of SequenceConstraints for this ComponentDefinition.
-     * There may be URIs present in this list if the sequenceConstraint(s)
-     * have not yet been resolved.
-     *
-     * @returns {SequenceConstraint[]}
-     */
-    get sequenceConstraints() {
-        return this._sequenceConstraints.slice(0);
-    }
-
-    /**
-     * Retrieve the list of Sequences for this ComponentDefinition.
-     * There may be URIs present in this list if the sequence(s) have not yet
-     * been resolved.
-     *
-     * @returns {Sequence[]}
-     */
-    get sequences() {
-        return this._sequences.slice(0);
-    }
-
-    /**
-     * Retrieve the list of roles assigned to this ComponentDefinition.
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    /**
-     * Attempt to resolve the Components, SequenceAnnotations,
-     * SequenceConstraints, and Sequences assigned to this ComponentDefinition
-     * by URI.
-     */
-    link() {
-		// Call super link to link members of Top Level (Identified)
-		super.link();
-
-        this._components = this._sbolDocument.lookupURIs(this._components);
-
-        this._sequenceAnnotations = this._sbolDocument.lookupURIs(this._sequenceAnnotations).sort(function(a, b) {
-
-            if(a instanceof URI || b instanceof URI)
-                return 0;
-
-            if(a.ranges.length === 0 || b.ranges.length === 0)
-                return 0;
-
-            return a.ranges[0].start - b.ranges[0].start;
-        });
-
-        this._sequenceConstraints = this._sbolDocument.lookupURIs(this._sequenceConstraints);
-        this._sequences = this._sbolDocument.lookupURIs(this._sequences);
-    }
-}
-
-module.exports = ComponentDefinition;
-
-
-
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],230:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Cut location.
- *
- * A Cut location specifies a location _between_ two nucleotides.
- */
-class Cut extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._at = 0;
-        this._orientation = URI();
-    }
-
-    /**
-     * Set the at property for this Cut.
-     * @param {Integer} [at]
-     */
-    set at(at) {
-        this._at = at;
-    }
-
-    /**
-     * Retrieve the at property for this Cut.
-     * @returns {Integer}
-     */
-    get at() {
-        return this._at;
-    }
-
-    /**
-     * Set the orientation property for this Cut.
-     * @param {string|URI} [orientation]
-     */
-    set orientation(orientation) {
-        this._orientation = util.uriOrObject(orientation);
-    }
-
-    /**
-     * Retrieve the orientation property for this Cut.
-     * @returns {URI}
-     */
-    get orientation() {
-        return this._orientation;
-    }
-}
-
-module.exports = Cut;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],231:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 functional component instantiation.
- *
- * Functional components are instantiations of ComponentDefinitions that
- * live inside ModuleDefinitions.
- */
-class FunctionalComponent extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._definition = URI();
-        this._access = URI('http://sbols.org/v2#public');
-        this._direction = URI('http://sbols.org/v2#inout');
-        this._mappings = []
-    }
-
-    /**
-     * Set the ComponentDefinition for this FunctionalComponent.
-     * @param {string|URI|ComponentDefinition} [definition]
-     */
-    set definition(definition) {
-        this._definition = util.uriOrObject(definition);
-    }
-
-    /**
-     * Retrieve the ComponentDefinition for this FunctionalComponent.  Returns
-     * either a URI or a ComponentDefinition, depending on whether the URI has
-     * been resolved by link().
-     *
-     * @returns {URI|ComponentDefinition}
-     */
-    get definition() {
-        return this._definition;
-    }
-
-    /**
-     * Set the access property for this FunctionalComponent.
-     * @param {string|URI} [access]
-     */
-    set access(access) {
-        this._access = URI(access);
-    }
-
-    /**
-     * Retrieve the access property for this FunctionalComponent.
-     * @returns {URI} [access]
-     */
-    get access() {
-        return this._access;
-    }
-
-    /**
-     * Set the direction property for this FunctionalComponent.
-     * @param {string|URI} [direction]
-     */
-    set direction(direction) {
-        this._direction = URI(direction);
-    }
-
-    /**
-     * Retrieve the direction property for this FunctionalComponent.
-     * @returns {URI} [direction]
-     */
-    get direction() {
-        return this._direction;
-    }
-
-    /**
-     * Add a MapsTo to this Component.
-     * @param {string|URI|MapsTo} [mapping]
-     */
-    addMapping(mapping) {
-        this._mappings.push(util.uriOrObject(mapping));
-    }
-
-    get mappings() {
-        return this._mappings.slice(0)
-    }
-
-    /**
-     * Attempt to resolve the URI of the definition.
-     */
-    link() {
-        this._definition = this._sbolDocument.lookupURI(this._definition);
-    }
-}
-
-module.exports = FunctionalComponent;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],232:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 GenericLocation.
- */
-class GenericLocation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._orientation = URI();
-    }
-
-    /**
-     * Set the orientation property for this Cut.
-     * @param {string|URI} [orientation]
-     */
-    set orientation(orientation) {
-        this._orientation = util.uriOrObject(orientation);
-    }
-
-    /**
-     * Retrieve the orientation property for this Cut.
-     * @returns {URI}
-     */
-    get orientation() {
-        return this._orientation;
-    }
-}
-
-module.exports = GenericLocation;
-
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],233:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Sequence.
- */
-class GenericTopLevel extends Identified
-{
-    constructor(sbolDocument, uri, rdfType) {
-
-        super(sbolDocument, uri);
-
-        this._rdfType = rdfType;
-    }
-
-    /**
-     * Retrieve the rdfType for this genericTopLevel.
-     * @returns {URI} [rdfType]
-     */
-    get rdfType() {
-        return this._rdfType;
-    }
-}
-
-module.exports = GenericTopLevel;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],234:[function(require,module,exports){
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    util = require('./util');
-
-const compareMavenVersions = require('./compareMavenVersions')
-
-/**
- * Base class for all Identified SBOL2 objects.
- */
-class Identified {
-    constructor(sbolDocument, uri) {
-
-        this._sbolDocument = sbolDocument;
-        this._displayId = '';
-        this._uri = URI();
-        this._persistentIdentity = URI();
-        this._version = '';
-        this._wasDerivedFrom = URI();
-        this._wasGeneratedBy = URI();
-        this._name = '';
-        this._description = '';
-        this._annotations = [];
-		this._attachments = [];
-
-        if (uri !== undefined)
-            this.uri = uri;
-    }
-
-    /**
-     * Set the URI of this Identified.
-     * @param {string|URI} [uri]
-     */
-    set uri(uri) {
-        this._sbolDocument.unmapURI(this._uri, this);
-        this._uri = URI(uri);
-        this._sbolDocument.mapURI(this._uri, this);
-    }
-
-    /**
-     * Retrieve the URI of this Identified.
-     * @returns {URI}
-     */
-    get uri() {
-        return this._uri;
-    }
-
-    /**
-     * Set the display ID of this Identified.
-     * @param {string|URI} [displayId]
-     */
-    set displayId(displayId) {
-        this._displayId = displayId;
-    }
-
-    /**
-     * Retrieve the display ID of this Identified.
-     * @returns {string}
-     */
-    get displayId() {
-        return this._displayId;
-    }
-
-    /**
-     * Set the version of this Identified.
-     * @param {string|URI} [version]
-     */
-    set version(version) {
-        this._version = version;
-        
-        if (this._persistentIdentity && this._persistentIdentity != '') {
-            
-            var oldObject = this._sbolDocument.lookupURI(this._persistentIdentity);
-            
-            if (oldObject.version) {
-                if (compareMavenVersions(this._version, oldObject.version) > 0) {
-                    this._sbolDocument.mapURI(this._persistentIdentity, this);
-                }
-            } else {
-                this._sbolDocument.mapURI(this._persistentIdentity, this);
-            }
-        }
-    }
-
-    /**
-     * Retrieve the version of this Identified.
-     * @returns {string}
-     */
-    get version() {
-        return this._version;
-    }
-
-    /**
-     * Set the wasDerivedFrom property of this Identified.
-     * @param {string|URI} [wasDerivedFrom]
-     */
-    set wasDerivedFrom(wasDerivedFrom) {
-        this._wasDerivedFrom = URI(wasDerivedFrom);
-    }
-
-    /**
-     * Retrieve the wasDerivedFrom property of this Identified.
-     * @returns {URI}
-     */
-    get wasDerivedFrom() {
-        return this._wasDerivedFrom;
-    }
-
-    /**
-     * Set the wasGeneratedBy property of this Identified.
-     * @param {string|URI} [wasGeneratedBy]
-     */
-    set wasGeneratedBy(wasGeneratedBy) {
-        this._wasGeneratedBy = URI(wasGeneratedBy);
-    }
-
-    /**
-     * Retrieve the wasGeneratedBy property of this Identified.
-     * @returns {URI}
-     */
-    get wasGeneratedBy() {
-        return this._wasGeneratedBy;
-    }
-
-    /**
-     * Set the name of this Identified.
-     * @param {string|URI} [name]
-     */
-    set name(name) {
-        this._name = name;
-    }
-
-    /**
-     * Retrieve the name of this Identified.
-     * @returns {string}
-     */
-    get name() {
-        return this._name;
-    }
-
-    /**
-     * Set the description of this Identified.
-     * @param {string|URI} [description]
-     */
-    set description(description) {
-        this._description = description;
-    }
-
-    /**
-     * Retrieve the description of this Identified.
-     * @returns {string}
-     */
-    get description() {
-        return this._description;
-    }
-
-    /**
-     * Set the persistentIdentity of this Identified.
-     * @param {string|URI} [persistentIdentity]
-     */
-    set persistentIdentity(persistentIdentity) {
-        var oldObject = this._sbolDocument.lookupURI(persistentIdentity);
-
-        if (oldObject.version) {
-            if (this._version && compareMavenVersions(this._version, oldObject.version) > 0) {
-                this._sbolDocument.unmapURI(this._persistentIdentity, this);
-                this._persistentIdentity = URI(persistentIdentity);
-                this._sbolDocument.mapURI(this._persistentIdentity, this);
-            } else {
-                this._sbolDocument.unmapURI(this._persistentIdentity, this);
-                this._persistentIdentity = URI(persistentIdentity);
-            }
-        } else {
-            this._sbolDocument.unmapURI(this._persistentIdentity, this);
-            this._persistentIdentity = URI(persistentIdentity);
-            this._sbolDocument.mapURI(this._persistentIdentity, this);
-        }
-    }
-
-    /**
-     * Retrieve the persistentIdentity of this Identified.
-     * @returns {URI}
-     */
-    get persistentIdentity() {
-        return this._persistentIdentity;
-    }
-
-    /**
-     * Add a string annotation to this Identified.
-     * @param {string} [name] - The URI of the annotation
-     * @param {string} [value] - The annotation value
-     */
-    addStringAnnotation(name, value) {
-        this._annotations.push({
-            type: 'string',
-            name: name,
-            value: value
-        });
-    }
-
-    /**
-     * Add a URI annotation to this Identified.
-     * @param {string} [name] - The URI of the annotation
-     * @param {string} [value] - The annotation value
-     */
-    addUriAnnotation(name, value) {
-        this._annotations.push({
-            type: 'uri',
-            name: name,
-            value: value
-        });
-
-        if (name !== 'http://wiki.synbiohub.org/wiki/Terms/synbiohub#rootCollection' &&
-            name !== 'http://wiki.synbiohub.org/wiki/Terms/synbiohub#isMemberOf')
-            this._sbolDocument.lookupURI(value)
-    }
-
-    /**
-     * Add a Date annotation to this Identified.
-     * @param {string} [name] - The URI of the annotation
-     * @param {Date} [value] - The annotation value
-     */
-    addDateAnnotation(name, value) {
-        this._annotations.push({
-            type: 'date',
-            name: name,
-            value: value
-        });
-    }
-
-    /**
-     * Add a HTML annotation to this Identified.
-     * @param {string} [name] - The URI of the annotation
-     * @param {string} [value] - The annotation value
-     */
-    addHtmlAnnotation(name, value) {
-        this._annotations.push({
-            type: 'html',
-            name: name,
-            value: value
-        });
-    }
-
-    /**
-     * Retrieve the annotations for this Identified.
-     * @returns {Object[]}
-     * @property {string} [type] - The type of the annotation (string or uri)
-     * @property {string} [name] - The URI of the annotation
-     * @property {string} [value] - The annotation value
-     */
-    get annotations() {
-        return this._annotations.slice(0);
-    }
-
-    /**
-     * Retrieve all annotations for a given URI
-     * @returns {string[]} - A list of annotation values
-     */
-    getAnnotations(name) {
-        return this._annotations.filter(
-            (annotation) => annotation.name === name
-        ).map(
-            (annotation) => annotation.value
-        )
-    }
-
-    /**
-     * Retrieve the first matching annotation for a given URI.
-     * @returns {string} - The annotation value, or undefined.
-     */
-    getAnnotation(name) {
-        return this.getAnnotations(name)[0]
-    }
-
-	/**
-	 * Adds the given attachment
-     * @param {URI} - The URI of the attachment.
-     */
-	addAttachment(value) {
-		this._attachments.push(util.uriOrObject(value));
-	}
-
-	/**
-	 * Returns all the attachments for this object
-	 * @returns {Attachment[]} - An array of attachments
-	 */
-	get attachments () {
-		return this._attachments.slice();
-	}
-
-	/**
-	 * Links the members of Top Level (Identified)
-	 */
-	link () {
-		this._attachments = this._sbolDocument.lookupURIs(this._attachments);
-	}
-};
-
-module.exports = Identified;
-
-},{"./compareMavenVersions":253,"./util":329,"urijs":374}],235:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Implementation reference.
- */
-class Implementation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._built = URI();
-    }
-
-    /**
-     * Set the built URI for this Implementation.
-     * @param {string|URI} [built]
-     */
-    set built(built) {
-        this._built = URI(built);
-    }
-
-    /**
-     * Retrieve the built URI for this Implementation.
-     * @returns {URI} [built]
-     */
-    get built() {
-        return this._built;
-    }
-	
-	/**		
-     * Attempt to resolve the members assigned to this Collection by URI.		
-     */		
-    link() {
-		// Call super link to link members of Top Level (Identified)
-		super.link();
-		
-        this._built = this._sbolDocument.lookupURI(this._built);		
-    }		
-}
-
-module.exports = Implementation;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],236:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Interaction.
- */
-class Interaction extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._types = [];
-        this._participations = [];
-    }
-
-    /**
-     * Add a type to this Interaction.
-     * @param {string|URI} [type]
-     */
-    addType(type) {
-        this._types.push(util.uriOrObject(type));
-    }
-
-    /**
-     * Retrieve a list of types for this Interaction.
-     * @returns {URI[]} [types]
-     */
-    get types() {
-        return this._types;
-    }
-    
-    /**
-     * Add a Participation to this Interaction.
-     * @param {string|URI|Paticipation} [participation]
-     */
-    addParticipation(participation) {
-        this._participations.push(util.uriOrObject(participation));
-    }
-
-    /**
-     * Retrieve the list of Participations for this Interaction.
-     * There may be URIs present in this list if the participation(s) have not
-     * yet been resolved.
-     *
-     * @returns {Participation[]}
-     */
-    get participations() {
-        return this._participations;
-    }
-
-    /**
-     * Attempt to resolve participations by URI.
-     */
-    link() {
-        this._participations = this._sbolDocument.lookupURIs(this._participations);
-    }
-}
-
-module.exports = Interaction;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],237:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 MapsTo.
- */
-class MapsTo extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._refinement = URI();
-        this._remote = URI();
-        this._local = URI();
-    }
-
-    /**
-     * Set the refinement property for this MapsTo.
-     * @param {string|URI} [refinement]
-     */
-    set refinement(refinement) {
-        this._refinement = URI(refinement);
-    }
-
-    /**
-     * Retrieve the refinement property for this MapsTo.
-     * @returns {URI} - refinement
-     */
-    get refinement() {
-        return this._refinement;
-    }
-
-    /**
-     * Set the remote component for this MapsTo.
-     * @param {string|URI|Component|FunctionalComponent} [remote]
-     */
-    set remote(remote) {
-        this._remote = util.uriOrObject(remote);
-    }
-
-    /**
-     * Retrieve the remote component for this MapsTo.
-     * @returns {URI|Component|FunctionalComponent} [remote]
-     */
-    get remote() {
-        return this._remote;
-    }
-
-    /**
-     * Set the local component for this MapsTo.
-     * @param {string|URI|Component|FunctionalComponent} [local]
-     */
-    set local(local) {
-        this._local = util.uriOrObject(local);
-    }
-
-    /**
-     * Retrieve the local component for this MapsTo.
-     * @returns {URI|Component|FunctionalComponent} [local]
-     */
-    get local() {
-        return this._local;
-    }
-
-    /**
-     * Attempt to resolve the local and remote components by URI.
-     */
-    link() {
-        this._remote = this._sbolDocument.lookupURI(this._remote);
-        this._local = this._sbolDocument.lookupURI(this._local);
-    }
-}
-
-module.exports = MapsTo;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],238:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Model reference.
- */
-class Model extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._source = URI();
-        this._language = URI();
-        this._framework = URI();
-    }
-
-    /**
-     * Set the source URI for this Model.
-     * @param {string|URI} [source]
-     */
-    set source(source) {
-        this._source = URI(source);
-    }
-
-    /**
-     * Retrieve the source URI for this Model.
-     * @returns {URI} [source]
-     */
-    get source() {
-        return this._source;
-    }
-
-    /**
-     * Set the language for this Model.
-     * @param {string|URI} [language]
-     */
-    set language(language) {
-        this._language = URI(language);
-    }
-
-    /**
-     * Retrieve the language for this Model.
-     * @returns {URI} [language]
-     */
-    get language() {
-        return this._language;
-    }
-
-    /**
-     * Set the framework for this Model.
-     * @param {string|URI} [framework]
-     */
-    set framework(framework) {
-        this._framework = URI(framework);
-    }
-
-    /**
-     * Retrieve the framework for this Model.
-     * @returns {URI} [framework]
-     */
-    get framework() {
-        return this._framework;
-    }
-}
-
-module.exports = Model;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],239:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 module instantiation.
- */
-class Module extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._definition = URI();
-        this._mappings = [];
-    }
-
-    /**
-     * Set the ModuleDefinition for this Module.
-     * @param {string|URI|ModuleDefinition} [definition]
-     */
-    set definition(definition) {
-        this._definition = util.uriOrObject(definition);
-    }
-
-    /**
-     * Retrieve the ModuleDefinition for this Module.  Returns either a
-     * URI or a ModuleDefinition, depending on whether the URI has been
-     * resolved by link().
-     *
-     * @returns {URI|ModuleDefinition}
-     */
-    get definition() {
-        return this._definition;
-    }
-
-    /**
-     * Add a MapsTo to this Module.
-     * @param {string|URI|MapsTo} [mapping]
-     */
-    addMapping(mapping) {
-        this._mappings.push(util.uriOrObject(mapping));
-    }
-
-    /**
-     * Retrieve the list of mappings assigned to this Module.  There may be
-     * URIs present in this list if the mapping(s) have not yet been resolved.
-     *
-     * @returns {MapsTo[]}
-     */
-    get mappings() {
-        return this._mappings.slice(0);
-    }
-
-    /**
-     * Attempt to resolve the ModuleDefinition and mappings by URI.
-     */
-    link() {
-        this._definition = this._sbolDocument.lookupURI(this._definition);
-        this._mappings = this._sbolDocument.lookupURIs(this._mappings);
-    }
-}
-
-module.exports = Module;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],240:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 ModuleDefinition.
- */
-class ModuleDefinition extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._roles = [];
-        this._modules = [];
-        this._functionalComponents = [];
-        this._interactions = [];
-	this._models = [];
-    }
-
-    /**
-     * Assign a role to this ModuleDefinition.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-    /**
-     * Add a Module to this ModuleDefinition.
-     * @param {string|URI|Module} [module]
-     */
-    addModule(module) {
-        this._modules.push(util.uriOrObject(module));
-    }
-
-    /**
-     * Add a FunctionalComponent to this ModuleDefinition.
-     * @param {string|URI|FunctionalComponent} [component]
-     */
-    addFunctionalComponent(component) {
-        this._functionalComponents.push(util.uriOrObject(component));
-    }
-
-    /**
-     * Add an Interaction to this ModuleDefinition.
-     * @param {string|URI|Interaction} [interaction]
-     */
-    addInteraction(interaction) {
-        this._interactions.push(util.uriOrObject(interaction));
-    }
-
-    /**
-     * Add an Model to this ModuleDefinition.
-     * @param {string|URI|Model} [model]
-     */
-    addModel(model) {
-        this._models.push(util.uriOrObject(model));
-    }
-
-    /**
-     * Retrieve the list of roles assigned to this ModuleDefinition
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    /**
-     * Retrieve the list of modules assigned to this ModuleDefinition.  There
-     * may be URIs present in this list if the module(s) have not yet been
-     * resolved.
-     *
-     * @returns {Module[]}
-     */
-    get modules() {
-        return this._modules.slice(0);
-    }
-
-    /**
-     * Retrieve the list of FunctionalComponents assigned to this
-     * ModuleDefinition.  There may be URIs present in this list if the
-     * component(s) have not yet been resolved.
-     *
-     * @returns {FunctionalComponent[]}
-     */
-    get functionalComponents() {
-        return this._functionalComponents.slice(0);
-    }
-
-    /**
-     * Retrieve the list of Interactions assigned to this ModuleDefinition.
-     * There may be URIs present in this list if the interaction(s) have not
-     * yet been resolved.
-     *
-     * @returns {Interaction[]}
-     */
-    get interactions() {
-        return this._interactions.slice(0);
-    }
-
-    /**
-     * Retrieve the list of Models assigned to this ModuleDefinition.
-     * There may be URIs present in this list if the model(s) have not
-     * yet been resolved.
-     *
-     * @returns {Model[]}
-     */
-    get models() {
-        return this._models.slice(0);
-    }
-
-    /**
-     * Attempt to resolve the Modules, FunctionalComponents, and Interactions
-     * assigned to this ModuleDefinition by URI.
-     */
-    link() {
-		// Call super link to link members of Top Level (Identified)
-		super.link();
-
-        this._modules = this._sbolDocument.lookupURIs(this._modules);
-        this._functionalComponents = this._sbolDocument.lookupURIs(this._functionalComponents);
-        this._interactions = this._sbolDocument.lookupURIs(this._interactions);
-        this._models = this._sbolDocument.lookupURIs(this._models);
-    }
-}
-
-module.exports = ModuleDefinition;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],241:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent a participation in an Interaction.
- */
-class Participation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._roles = [];
-        this._participant = URI();
-    }
-
-    /**
-     * Assign a role to this Participation.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-    /**
-     * Retrieve the list of roles assigned to this Participation.
-     * @returns {URI[]} [roles]
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    /**
-     * Set the participant FunctionalComponent for this Participation.
-     * @param {string|URI|FunctionalComponent} [participant]
-     */
-    set participant(participant) {
-        this._participant = util.uriOrObject(participant);
-    }
-
-    /**
-     * Retrieve the participant FunctionalComponent for this Participation.  May return
-     * a URI if the participant FunctionalComponent has not yet been resolved.
-     *
-     * @returns {URI|FunctionalComponent}
-     */
-    get participant() {
-        return this._participant;
-    }
-
-    /**
-     * Attempt to resolve all participants by URI.
-     */
-    link() {
-        this._participant = this._sbolDocument.lookupURI(this._participant);
-    }
-}
-
-module.exports = Participation;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],242:[function(require,module,exports){
-
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Represents a PROV-O Activity as described in 12.8 "Adding Provenance"
- */
-class ProvActivity extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._startedAtTime = null
-        this._endedAtTime = null
-        this._usages = []
-        this._associations = []
-        this._wasInformedBys = []
-    }
-
-    set startedAtTime(startedAtTime) {
-        this._startedAtTime = startedAtTime ? new Date(startedAtTime) : null
-    }
-
-    get startedAtTime() {
-        return this._startedAtTime ? new Date(this._startedAtTime) : null
-    }
-
-    set endedAtTime(endedAtTime) {
-        this._endedAtTime = endedAtTime ? new Date(endedAtTime) : null
-    }
-
-    get endedAtTime() {
-        return this._endedAtTime ? new Date(this._endedAtTime) : null
-    }
-
-    addUsage(usage) {
-        this._usages.push(usage)
-    }
-
-    get usages() {
-        return this._usages.slice(0)
-    }
-
-    addAssociation(association) {
-        this._associations.push(association)
-    }
-
-    get associations() {
-        return this._associations.slice(0)
-    }
-  
-    addWasInformedBy(wasInformedBy) {
-        this._wasInformedBys.push(wasInformedBy)
-    }
-
-    get wasInformedBys() {
-        return this._wasInformedBys.slice(0)
-    }
-    
-    link() {
-		// Call super link to link members of Top Level (Identified)
-		super.link();
-		
-	this._usages = this._sbolDocument.lookupURIs(this._usages)
-	this._associations = this._sbolDocument.lookupURIs(this._associations)
-	this._wasInformedBys = this._sbolDocument.lookupURIs(this._wasInformedBys)
-    }
-}
-
-module.exports = ProvActivity;
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],243:[function(require,module,exports){
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Represents a PROV-O Association as described in 12.8 "Adding Provenance"
- */
-class ProvAgent extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-    }
-}
-
-module.exports = ProvAgent;
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],244:[function(require,module,exports){
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Represents a PROV-O Association as described in 12.8 "Adding Provenance"
- */
-class ProvAssociation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._agent = new URI()
-        this._plan = new URI()
-        this._roles = []
-    }
-
-    set agent(agent) {
-        this._agent = new URI(agent)
-    }
-
-    get agent() {
-        return this._agent
-    }
-
-    set plan(plan) {
-        this._plan = new URI(plan)
-    }
-
-    get plan() {
-        return this._plan
-    }
-
-    /**
-     * Assign a role to this Association.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-     /**
-     * Retrieve the list of roles assigned to this Association.
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    link() {
-	this._agent = this._sbolDocument.lookupURI(this._agent);
-	this._plan = this._sbolDocument.lookupURI(this._plan);
-    }
-}
-
-module.exports = ProvAssociation;
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],245:[function(require,module,exports){
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Represents a PROV-O Plan as described in 12.8 "Adding Provenance"
- */
-class ProvPlan extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-    }
-}
-
-module.exports = ProvPlan;
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],246:[function(require,module,exports){
-
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    xml = require('xml'),
-    util = require('./util');
-
-/**
- * Represents a PROV-O Usage as described in 12.8 "Adding Provenance"
- */
-class ProvUsage extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._entity = new URI()
-        this._roles = []
-    }
-
-    set entity(entity) {
-        this._entity = new URI(entity)
-    }
-
-    get entity() {
-        return this._entity
-    }
-
-    /**
-     * Assign a role to this Usage.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-     /**
-     * Retrieve the list of roles assigned to this Usage.
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    link() {
-		this._entity = this._sbolDocument.lookupURI(this._entity);
-    }
-}
-
-module.exports = ProvUsage;
-
-},{"./Identified":234,"./util":329,"urijs":374,"xml":377}],247:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Range location.
- */
-class Range extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._start = 0;
-        this._end = 0;
-        this._orientation = URI();
-    }
-
-    /**
-     * Set the start property for this Range.
-     * @param {Integer} [start]
-     */
-    set start(start) {
-        this._start = start;
-    }
-
-    /**
-     * Retrieve the start property for this Range.
-     * @returns {Integer}
-     */
-    get start() {
-        return this._start;
-    }
-
-    /**
-     * Set the end property for this Range.
-     * @param {Integer} [end]
-     */
-    set end(end) {
-        this._end = end;
-    }
-
-    /**
-     * Retrieve the end property for this Range.
-     * @returns {Integer}
-     */
-    get end() {
-        return this._end;
-    }
-
-    /**
-     * Set the orientation property for this Range.
-     * @param {string|URI} [orientation]
-     */
-    set orientation(orientation) {
-        this._orientation = util.uriOrObject(orientation);
-    }
-
-    /**
-     * Retrieve the orientation property for this Range.
-     * @returns {URI}
-     */
-    get orientation() {
-        return this._orientation;
-    }
-}
-
-module.exports = Range;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],248:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var fs = require('fs'),
-    URI = require('urijs'),
-    assert = require('assert');
-
-var ModuleDefinition = require('./ModuleDefinition'),
-    Module = require('./Module'),
-    MapsTo = require('./MapsTo'),
-    Collection = require('./Collection'),
-    Model = require('./Model'),
-    Attachment = require('./Attachment'),
-    Implementation = require('./Implementation'),
-    ComponentDefinition = require('./ComponentDefinition'),
-    Sequence = require('./Sequence'),
-    FunctionalComponent = require('./FunctionalComponent'),
-    Interaction = require('./Interaction'),
-    Participation = require('./Participation'),
-    Range = require('./Range'),
-    SequenceAnnotation = require('./SequenceAnnotation'),
-    Component = require('./Component'),
-    SequenceConstraint = require('./SequenceConstraint'),
-    Cut = require('./Cut'),
-    GenericLocation = require('./GenericLocation'),
-    GenericTopLevel = require('./GenericTopLevel'),
-    CombinatorialDerivation = require('./CombinatorialDerivation'),
-    VariableComponent = require('./VariableComponent'),
-    ProvActivity = require('./ProvActivity'),
-    ProvAssociation = require('./ProvAssociation'),
-    ProvAgent = require('./ProvAgent'),
-    ProvPlan = require('./ProvPlan'),
-    ProvUsage = require('./ProvUsage')
-    CombinatorialDerivation = require('./CombinatorialDerivation'),
-    VariableComponent = require('./VariableComponent')
-
-/**
- * Class to represent an SBOL2 document in memory.
- */
-class SBOLDocument
-{
-    constructor() {
-
-		this._attachments = [];
-        this._collections = [];
-        this._moduleDefinitions = [];
-        this._modules = [];
-        this._mappings = [];
-        this._models = [];
-        this._implementations = [];
-        this._componentDefinitions = [];
-        this._sequences = [];
-        this._genericTopLevels = [];
-        this._functionalComponents = [];
-        this._interactions = [];
-        this._participations = [];
-        this._ranges = [];
-        this._cuts = [];
-        this._genericLocations = [];
-        this._sequenceAnnotations = [];
-        this._sequenceConstraints = [];
-        this._variableComponents = [];
-        this._combinatorialDerivations = [];
-        this._components = [];
-        this._URIs = {};
-        this._unresolvedURIs = {};
-
-
-        this._provActivities = [];
-        this._provAssociations = [];
-        this._provUsages = [];
-        this._provPlans = [];
-        this._provAgents = [];
-
-    }
-
-    /**
-     * Create a new Collection in the document.
-     * @param {string} [uri] - The URI of the Collection
-     * @returns {Collection}
-     */
-    collection(uri) {
-        var collection = new Collection(this, uri);
-        this._collections.push(collection);
-        return collection;
-    }
-
-    /**
-     * Create a new Model in the document.
-     * @param {string} [uri] - The URI of the Model
-     * @returns {Model}
-     */
-    model(uri) {
-        var model = new Model(this, uri);
-        this._models.push(model);
-        return model;
-    }
-
-	/**
-     * Create a new Attachment in the document.
-     * @param {string} [uri] - The URI of the Attachment
-     * @returns {Attachment}
-     */
-    attachment(uri) {
-        var attachment = new Attachment(this, uri);
-        this._attachments.push(attachment);
-        return attachment;
-    }
-
-    /**
-     * Create a new Implementation in the document.
-     * @param {string} [uri] - The URI of the Implementation
-     * @returns {Implementation}
-     */
-    implementation(uri) {
-        var implementation = new Implementation(this, uri);
-        this._implementations.push(implementation);
-        return implementation;
-    }
-
-    /**
-     * Create a new ModuleDefinition in the document.
-     * @param {string} [uri] - The URI of the ModuleDefinition
-     * @returns {ModuleDefinition}
-     */
-    moduleDefinition(uri) {
-        var moduleDefinition = new ModuleDefinition(this, uri);
-        this._moduleDefinitions.push(moduleDefinition);
-        return moduleDefinition;
-    }
-
-    /**
-     * Create a new Module in the document.
-     * @param {string} [uri] - The URI of the Module
-     * @returns {Module}
-     */
-    module(uri) {
-        var module = new Module(this, uri);
-        this._modules.push(module);
-        return module;
-    }
-
-    /**
-     * Create a new Mapping in the document.
-     * @param {string} [uri] - The URI of the Mapping
-     * @returns {Mapping}
-     */
-    mapping(uri) {
-        var mapping = new MapsTo(this, uri);
-        this._mappings.push(mapping);
-        return mapping;
-    }
-
-    /**
-     * Create a new ComponentDefinition in the document.
-     * @param {string} [uri] - The URI of the ComponentDefinition
-     * @returns {ComponentDefinition}
-     */
-    componentDefinition(uri) {
-        var componentDefinition = new ComponentDefinition(this, uri);
-        this._componentDefinitions.push(componentDefinition);
-        return componentDefinition;
-    }
-
-    /**
-     * Create a new Sequence in the document.
-     * @param {string} [uri] - The URI of the Sequence
-     * @returns {Sequence}
-     */
-    sequence(uri) {
-        var sequence = new Sequence(this, uri);
-        this._sequences.push(sequence);
-        return sequence;
-    }
-
-    /**
-     * Create a new CombinatorialDerivation in the document.
-     * @param {string} [uri] - The URI of the CombinatorialDerivation
-     * @returns {CombinatorialDerivation}
-     */
-    combinatorialDerivation(uri) {
-        var combinatorialDerivation = new CombinatorialDerivation(this, uri);
-        this._combinatorialDerivations.push(combinatorialDerivation);
-        return combinatorialDerivation;
-    }
-
-    /**
-     * Create a new VariableComponent in the document.
-     * @param {string} [uri] - The URI of the VariableComponent
-     * @returns {VariableComponent}
-     */
-    variableComponent(uri) {
-        var variableComponent = new VariableComponent(this, uri);
-        this._variableComponents.push(variableComponent);
-        return variableComponent;
-    }
-
-    /**
-     * Create a new GenericTopLevel in the document.
-     * @param {string} [uri] - The URI of the Sequence
-     * @returns {Sequence}
-     */
-    genericTopLevel(uri,rdfType) {
-        var genericTopLevel = new GenericTopLevel(this, uri, rdfType);
-        this._genericTopLevels.push(genericTopLevel);
-        return genericTopLevel;
-    }
-
-    /**
-     * Create a new FunctionalComponent in the document.
-     * @param {string} [uri] - The URI of the FunctionalComponent
-     * @returns {FunctionalComponent}
-     */
-    functionalComponent(uri) {
-        var functionalComponent = new FunctionalComponent(this, uri);
-        this._functionalComponents.push(functionalComponent);
-        return functionalComponent;
-    }
-
-    /**
-     * Create a new Interaction in the document.
-     * @param {string} [uri] - The URI of the Interaction
-     * @returns {Interaction}
-     */
-    interaction(uri) {
-        var interaction = new Interaction(this, uri);
-        this._interactions.push(interaction);
-        return interaction;
-    }
-
-    /**
-     * Create a new Participation in the document.
-     * @param {string} [uri] - The URI of the Participation
-     * @returns {Participation}
-     */
-    participation(uri) {
-        var participation = new Participation(this, uri);
-        this._participations.push(participation);
-        return participation;
-    }
-
-    /**
-     * Create a new Range in the document.
-     * @param {string} [uri] - The URI of the Range
-     * @returns {Range}
-     */
-    range(uri) {
-        var range = new Range(this, uri);
-        this._ranges.push(range);
-        return range;
-    }
-
-    /**
-     * Create a new Cut in the document.
-     * @param {string} [uri] - The URI of the Cut
-     * @returns {Cut}
-     */
-    cut(uri) {
-        var cut = new Cut(this, uri);
-        this._cuts.push(cut);
-        return cut;
-    }
-
-    /**
-     * Create a new GenericLocation in the document.
-     * @param {string} [uri] - The URI of the GenericLocation
-     * @returns {GenericLocation}
-     */
-    genericLocation(uri) {
-        var genericLocation = new GenericLocation(this, uri);
-        this._genericLocations.push(genericLocation);
-        return genericLocation;
-    }
-
-    /**
-     * Create a new SequenceAnnotation in the document.
-     * @param {string} [uri] - The URI of the SequenceAnnotation
-     * @returns {SequenceAnnotation}
-     */
-    sequenceAnnotation(uri) {
-        var sequenceAnnotation = new SequenceAnnotation(this, uri);
-        this._sequenceAnnotations.push(sequenceAnnotation);
-        return sequenceAnnotation;
-    }
-
-    /**
-     * Create a new Component in the document.
-     * @param {string} [uri] - The URI of the Component
-     * @returns {Component}
-     */
-    component(uri) {
-        var component = new Component(this, uri);
-        this._components.push(component);
-        return component;
-    }
-
-    /**
-     * Create a new SequenceConstraint in the document.
-     * @param {string} [uri] - The URI of the SequenceConstraint
-     * @returns {SequenceConstraint}
-     */
-    sequenceConstraint(uri) {
-        var sequenceConstraint = new SequenceConstraint(this, uri);
-        this._sequenceConstraints.push(sequenceConstraint);
-        return sequenceConstraint;
-    }
-
-    /**
-     * Create a new provenance activity in the document
-     * @returns {ProvActivity}
-     */
-    provActivity(uri) {
-        var activity = new ProvActivity(this, uri);
-        this._provActivities.push(activity);
-        return activity;
-    }
-
-    /**
-     * Create a new provenance association in the document
-     * @returns {ProvAssociation}
-     */
-    provAssociation(uri) {
-        var association = new ProvAssociation(this, uri);
-        this._provAssociations.push(association);
-        return association;
-    }
-
-    /**
-     * Create a new provenance agent in the document
-     * @returns {ProvAgent}
-     */
-    provAgent(uri) {
-        var agent = new ProvAgent(this, uri);
-        this._provAgents.push(agent);
-        return agent;
-    }
-
-    /**
-     * Create a new provenance plan in the document
-     * @returns {ProvPlan}
-     */
-    provPlan(uri) {
-        var plan = new ProvPlan(this, uri);
-        this._provPlans.push(plan);
-        return plan;
-    }
-
-    /**
-     * Create a new provenance usage in the document
-     * @returns {ProvUsage}
-     */
-    provUsage(uri) {
-        var usage = new ProvUsage(this, uri);
-        this._provUsages.push(usage);
-        return usage;
-    }
-
-    /**
-     * Attempt to resolve any unresolved URIs in the document, replacing them
-     * with their instantiated object.
-     */
-    link() {
-        //this.models
-        //this.sequences
-        //this.genericTopLevels
-        //this.ranges
-        //this.cuts
-        //this.genericLocations
-
-        this.moduleDefinitions.forEach(function(moduleDefinition) {
-            moduleDefinition.link();
-        });
-        
-        this.modules.forEach(function(module) {
-            module.link();
-        });
-        
-        this.mappings.forEach(function(mapping) {
-            mapping.link();
-        });
-
-        this.sequenceAnnotations.forEach(function(sequenceAnnotation) {
-            sequenceAnnotation.link();
-        });
-
-        this.sequenceConstraints.forEach(function(sequenceConstraint) {
-            sequenceConstraint.link();
-        });
-
-        this.componentDefinitions.forEach(function(componentDefinition) {
-            componentDefinition.link();
-        });
-
-        this.functionalComponents.forEach(function(functionalComponent) {
-            functionalComponent.link();
-        });
-
-        this.components.forEach(function(component) {
-            component.link();
-        });
-
-        this.interactions.forEach(function(interaction) {
-            interaction.link();
-        });
-
-        this.participations.forEach(function(participation) {
-            participation.link();
-        });
-
-        this.collections.forEach(function(collection) {
-            collection.link();
-        });
-
-        this.implementations.forEach(function(implementation) {
-            implementation.link();
-        });
-
-		// All classes that inherit from Top Level (Identified) must be linked to link members of Top Level i.e.: attachments
-		this.attachments.forEach(function(attachment) {
-			attachment.link();
-		});
-
-		this.sequences.forEach(function(sequence) {
-			sequence.link();
-		});
-
-		this.models.forEach(function(model) {
-			model.link();
-		});
-
-		this.genericTopLevels.forEach(function(genericTopLevel) {
-			genericTopLevel.link();
-		});
-
-        this.provActivities.forEach(function(activity) {
-            activity.link();
-        });
-
-		this.provPlans.forEach(function(provPlan) {
-			provPlan.link();
-		});
-
-		this.provAgents.forEach(function(provAgent) {
-			provAgent.link();
-		});
-
-		this.provAssociations.forEach(function(association) {
-			association.link();
-		});
-
-		this.provUsages.forEach(function(usage) {
-			usage.link();
-		});
-
-        this.combinatorialDerivations.forEach(function(derivation) {
-            derivation.link();
-        });
-
-        this.variableComponents.forEach(function(component) {
-            component.link();
-        });
-    }
-
-    /**
-     * Returns a list of all Collections in the document
-     * @returns {Collection[]}
-     */
-    get collections() {
-        return this._collections.slice(0);
-    }
-
-    /**
-     * Returns a list of all ModuleDefinitions in the document
-     * @returns {ModuleDefinition[]}
-     */
-    get moduleDefinitions() {
-        return this._moduleDefinitions.slice(0);
-    }
-
-    /**
-     * Returns a list of all Modules in the document
-     * @returns {Module[]}
-     */
-    get modules() {
-        return this._modules.slice(0);
-    }
-
-    /**
-     * Returns a list of all FunctionalComponents in the document
-     * @returns {FunctionalComponent[]}
-     */
-    get functionalComponents() {
-        return this._functionalComponents.slice(0);
-    }
-
-    /**
-     * Returns a list of all Mappings in the document
-     * @returns {Mapping[]}
-     */
-    get mappings() {
-        return this._mappings.slice(0);
-    }
-
-    /**
-     * Returns a list of all ComponentDefinitions in the document
-     * @returns {ComponentDefinition[]}
-     */
-    get componentDefinitions() {
-        return this._componentDefinitions.slice(0);
-    }
-
-    /**
-     * Returns a list of all SequenceAnnotations in the document
-     * @returns {SequenceAnnotation[]}
-     */
-    get sequenceAnnotations() {
-        return this._sequenceAnnotations.slice(0);
-    }
-
-    /**
-     * Returns a list of all Interactions in the document
-     * @returns {Interaction[]}
-     */
-    get interactions() {
-        return this._interactions.slice(0);
-    }
-
-    /**
-     * Returns a list of all Participations in the document
-     * @returns {Participation[]}
-     */
-    get participations() {
-        return this._participations.slice(0);
-    }
-
-    /**
-     * Returns a list of all Sequences in the document
-     * @returns {Sequence[]}
-     */
-    get sequences() {
-        return this._sequences.slice(0);
-    }
-
-    /**
-     * Returns a list of all GenericTopLevels in the document
-     * @returns {GenericTopLevel[]}
-     */
-    get genericTopLevels() {
-        return this._genericTopLevels.slice(0);
-    }
-
-    /**
-     * Returns a list of all SequenceConstraints in the document
-     * @returns {SequenceConstraint[]}
-     */
-    get sequenceConstraints() {
-        return this._sequenceConstraints.slice(0);
-    }
-
-    /**
-     * Returns a list of all Models in the document
-     * @returns {Model[]}
-     */
-    get models() {
-        return this._models.slice(0);
-    }
-
-	/**
-     * Returns a list of all Attachments in the document
-     * @returns {Attachment[]}
-     */
-    get attachments() {
-        return this._attachments.slice();
-    }
-
-    /**
-     * Returns a list of all Implementations in the document
-     * @returns {Implementation[]}
-     */
-    get implementations() {
-        return this._implementations.slice(0);
-    }
-
-    /**
-     * Returns a list of all Components in the document
-     * @returns {Component[]}
-     */
-    get components() {
-        return this._components.slice(0);
-    }
-
-    /**
-     * Return a list of all provenance activities in the document
-     * @returns {ProvActivity[]}
-     */
-    get provActivities() {
-        return this._provActivities.slice(0)
-    }
-
-    /**
-     * Return a list of all provenance association in the document
-     * @returns {ProvAssociation[]}
-     */
-    get provAssociations() {
-        return this._provAssociations.slice(0)
-    }
-
-    /**
-     * Return a list of all provenance usages in the document
-     * @returns {ProvUsage[]}
-     */
-    get provUsages() {
-        return this._provUsages.slice(0)
-    }
-
-    /**
-     * Return a list of all provenance plans in the document
-     * @returns {ProvPlan[]}
-     */
-    get provPlans() {
-        return this._provPlans.slice(0)
-    }
-
-    /**
-     * Return a list of all provenance agent in the document
-     * @returns {ProvAgent[]}
-     */
-    get provAgents() {
-        return this._provAgents.slice(0)
-    }
-
-    get combinatorialDerivations() {
-        return this._combinatorialDerivations.slice();
-    }
-
-    get variableComponents() {
-        return this._variableComponents.slice();
-    }
-
-    /**
-     * Map a URI to an object, such that lookupURI will return the object and
-     * the URI will be removed from unresolvedURIs if present.
-     *
-     * @param {string|URI} uri - The URI to map
-     * @param {*} object - The object to map to the URI
-     */
-    mapURI(uri, object) {
-
-        if(uri instanceof URI)
-            uri = uri.toString();
-
-        assert(typeof uri === 'string')
-
-        if(this._URIs[uri] !== undefined) {
-            //console.warn('Replacing URI: ' + uri);
-        }
-
-        this._URIs[uri] = object;
-
-        if(this._unresolvedURIs[uri]) {
-            //console.log('Resolved URI: ' + uri);
-        }
-
-        delete this._unresolvedURIs[uri]
-    }
-
-    /**
-     * The reverse of mapURI.  Unmap a URI from an object, such that lookupURI
-     * will no longer return the object.
-     *
-     * @param {string|URI} uri - The URI to unmap
-     * @param {*} object - The object to unmap from the URI
-     */
-    unmapURI(uri, object) {
-
-        if(this._URIs[uri] === object)
-            delete this._URIs[uri];
-    }
-
-    /**
-     * Return the corresponding object for a URI, if resolved.  If the URI
-     * has not been resolved, it will be returned unmodified.
-     *
-     * @param {string|URI} uri
-     * @returns {Array}
-     */
-    lookupURI(uri) {
-
-        if(typeof(uri) === 'string')
-            uri = URI(uri);
-
-        if(! (uri instanceof URI))
-            return uri
-
-        assert(uri instanceof URI)
-
-        uri = uri.toString();
-
-        if(uri === '')
-            return uri
-
-        assert(typeof uri === 'string')
-        assert(uri !== '[object Object]')
-
-        var object = this._URIs[uri];
-
-        if(object === undefined) {
-
-            this._unresolvedURIs[uri] = true
-
-            return URI(uri)
-
-        } else {
-
-            delete this._unresolvedURIs[uri]
-            return object
-
-        }
-    }
-
-    /**
-     * Map a list of URIs to their corresponding objects, if resolved. 
-     * Unresolved URIs will be returned unmodified.
-     * @param {URI[]} uris
-     * @returns {Array}
-     */
-    lookupURIs(uris) {
-        return uris.map((uri) => this.lookupURI(uri))
-    }
-
-    /**
-     * Returns a list of all unresolved URIs in the document.
-     * @returns {string[]}
-     */
-    get unresolvedURIs() {
-        return Object.keys(this._unresolvedURIs)
-    } 
-
-    toDisplayList() {
-
-        var displayList = {
-            segments: []
-        };
-
-        this.componentDefinitions.forEach(function(componentDefinition) {
-
-            var segment = {
-                sequence: []
-            };
-
-            displayList.segments.push(segment);
-
-            componentDefinition.sequenceAnnotations.forEach(function(sequenceAnnotation) {
-
-                var component = sequenceAnnotation.getComponent();
-
-                segment.sequence.push({
-                    name: component.getName()
-                });
-
-
-
-            });
-        });
-
-        return displayList;
-    }
-
-    /**
-     * Load a new SBOL document from an RDF/XML string.
-     *
-     * @param {string} rdf - A string containing valid RDF/XML
-     * @param {function(err: Error, sbol: SBOLDocument)} callback
-     */
-    static loadRDF(rdf, callback) {
-
-        var sbolDocument = new SBOLDocument();
-
-        sbolDocument.loadRDF(rdf, (err) => {
-
-            if(err)
-                callback(err);
-            else
-                callback(null, sbolDocument);
-
-        })
-    }
-
-    /**
-     * Load a new SBOL document from an RDF/XML file.
-     *
-     * @param {string} filename - The name of the file
-     * @param {function(err: Error, sbol: SBOLDocument)} callback
-     */
-    static loadRDFFile(filename, callback) {
-
-        fs.readFile(filename, function(err, file) {
-
-            SBOLDocument.loadRDF(file + '', callback);
-        })
-    }
-
-    /**
-     * Load RDF/XML into the document.  The existing contents of the document
-     * will be preserved.
-     *
-     * @param {string} rdf - A string containing valid RDF/XML
-     * @param {function(err: Error)} callback
-     */
-    loadRDF(rdf, callback) {
-
-        var load = require('./load/rdf/loadRDF');
-
-        load(this, rdf, callback);
-    }
-
-    /**
-     * Serialize the document to SBOL RDF/XML
-     * @returns {string}
-     */
-    serializeXML() {
-        var args = Array.prototype.slice.call(arguments, 0);
-        return require('./serialize/xml/serializeXML').apply(this, [this].concat(args));
-    }
-
-    /**
-     * Serialize the document to JSON
-     * @returns {string}
-     */
-    serializeJSON() {
-        var args = Array.prototype.slice.call(arguments, 0);
-        return require('./serialize/json/serializeJSON').apply(this, [this].concat(args));
-    }
-}
-
-SBOLDocument.terms = require('./terms');
-
-SBOLDocument.URI = URI;
-
-module.exports = SBOLDocument;
-
-},{"./Attachment":225,"./Collection":226,"./CombinatorialDerivation":227,"./Component":228,"./ComponentDefinition":229,"./Cut":230,"./FunctionalComponent":231,"./GenericLocation":232,"./GenericTopLevel":233,"./Implementation":235,"./Interaction":236,"./MapsTo":237,"./Model":238,"./Module":239,"./ModuleDefinition":240,"./Participation":241,"./ProvActivity":242,"./ProvAgent":243,"./ProvAssociation":244,"./ProvPlan":245,"./ProvUsage":246,"./Range":247,"./Sequence":249,"./SequenceAnnotation":250,"./SequenceConstraint":251,"./VariableComponent":252,"./load/rdf/loadRDF":277,"./serialize/json/serializeJSON":292,"./serialize/xml/serializeXML":327,"./terms":328,"assert":400,"fs":385,"urijs":374}],249:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 Sequence.
- */
-class Sequence extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._elements = '';
-        this._encoding = URI();
-    }
-
-    /**
-     * Set the sequence elements for this sequence.
-     *
-     * The format of the elements is dependent on the encoding.  For example,
-     * if this is a nucleotide sequence, the elements should be a string of
-     * nucleotide base pairs.
-     *
-     * @param {string} [elements]
-     */
-    set elements(elements) {
-        this._elements = elements;
-    }
-
-    /**
-     * Retrieve the sequence elements for this sequence.
-     * @returns {string} [elements]
-     */
-    get elements() {
-        return this._elements;
-    }
-
-    /**
-     * Set the sequence encoding for this sequence.
-     * @param {string|URI} [encoding]
-     */
-    set encoding(encoding) {
-        this._encoding = URI(encoding);
-    }
-
-    /**
-     * Retrieve the sequence encoding for this sequence.
-     * @returns {URI} [encoding]
-     */
-    get encoding() {
-        return this._encoding;
-    }
-}
-
-module.exports = Sequence;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],250:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util'),
-    Range = require('./Range'),
-    Cut = require('./Cut'),
-    GenericLocation = require('./GenericLocation');
-
-/**
- * Class to represent an SBOL2 SequenceAnnotation.
- */
-class SequenceAnnotation extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._locations = [];
-        this._component = URI();
-        this._roles = [];
-    }
-
-    /**
-     * Add a location to this SequenceAnnotation.
-     * @param {string|URI|Range|Cut|GenericLocation} [location]
-     */
-    addLocation(location) {
-        this._locations.push(util.uriOrObject(location));
-    }
-
-    /**
-     * Set the component for this SequenceAnnotation.
-     * @param {string|URI|Component} [component]
-     */
-    set component(component) {
-        this._component = util.uriOrObject(component);
-    }
-
-    /**
-     * Retrieve the component for this SequenceAnnotation.  May return a URI
-     * if the Component has not yet been resolved.
-     *
-     * @returns {URI|Component}
-     */
-    get component() {
-        return this._component;
-    }
-
-    /**
-     * Retrieve the list of locations assigned to this SequenceAnnotation.
-     * There may be URIs present in this list if the location(s) have not yet
-     * been resolved.
-     *
-     * @returns {Location[]}
-     */
-    get locations() {
-        return this._locations.slice(0);
-    }
-
-    /**
-     * Retrieve the list of range locations assigned to this SequenceAnnotation.
-     * @returns {Range[]}
-     */
-    get ranges() {
-        return this._locations.filter(function(location) {
-            return location instanceof Range;
-        });
-    }
-
-    /**
-     * Retrieve the list of cut locations assigned to this SequenceAnnotation.
-     * @returns {Range[]}
-     */
-    get cuts() {
-        return this._locations.filter(function(location) {
-            return location instanceof Cut;
-        });
-    }
-
-    /**
-     * Retrieve the list of generic locations assigned to this SequenceAnnotation.
-     * @returns {Range[]}
-     */
-    get genericLocations() {
-        return this._locations.filter(function(location) {
-            return location instanceof GenericLocation;
-        });
-    }
-
-    /**
-     * Assign a role to this SequenceAnnotation.
-     * @param {string|URI} [role]
-     */
-    addRole(role) {
-        this._roles.push(URI(role));
-    }
-
-    /**
-     * Retrieve the list of roles assigned to this SequenceAnnotation.
-     * @returns {URI[]}
-     */
-    get roles() {
-        return this._roles.slice(0);
-    }
-
-    /**
-     * Attempt to resolve the location(s) and component by URI.
-     */
-    link() {
-        this._locations = this._sbolDocument.lookupURIs(this._locations);
-        this._component = this._sbolDocument.lookupURI(this._component);
-    }
-}
-
-module.exports = SequenceAnnotation;
-
-
-
-},{"./Cut":230,"./GenericLocation":232,"./Identified":234,"./Range":247,"./util":329,"urijs":374}],251:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent an SBOL2 SequenceConstraint.
- */
-class SequenceConstraint extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._restriction = URI();
-        this._subject = URI();
-        this._object = URI();
-    }
-
-    /**
-     * Set the restriction specifier for this SequenceConstraint.
-     * @param {string|URI} [restriction]
-     */
-    set restriction(restriction) {
-        this._restriction = URI(restriction);
-    }
-
-    /**
-     * Retrieve the restriction specifier for this SequenceConstraint.
-     * @returns {URI} [restriction]
-     */
-    get restriction() {
-        return this._restriction;
-    }
-
-    /**
-     * Set the subject Component for this SequenceConstraint.
-     * @param {string|URI|Component} [subject]
-     */
-    set subject(subject) {
-        this._subject = util.uriOrObject(subject);
-    }
-
-    /**
-     * Retrieve the subject Component for this SequenceConstraint.  May return
-     * a URI if the subject Component has not yet been resolved.
-     *
-     * @returns {URI|Component}
-     */
-    get subject() {
-        return this._subject;
-    }
-
-    /**
-     * Set the object Component for this SequenceConstraint.
-     * @param {string|URI|Component} [object]
-     */
-    set object(object) {
-        this._object = util.uriOrObject(object);
-    }
-
-    /**
-     * Retrieve the object Component for this SequenceConstraint.  May return
-     * a URI if the object Component has not yet been resolved.
-     *
-     * @returns {URI|Component}
-     */
-    get object() {
-        return this._object;
-    }
-
-    /* Attempt to resolve the subject and object Components by URI.
-     */
-    link() {
-        this._subject = this._sbolDocument.lookupURI(this._subject);
-        this._object = this._sbolDocument.lookupURI(this._object);
-    }
-}
-
-module.exports = SequenceConstraint;
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],252:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs'),
-    Identified = require('./Identified'),
-    util = require('./util');
-
-/**
- * Class to represent a Variable component (SEP 007)
- */
-class VariableComponent extends Identified
-{
-    constructor(sbolDocument, uri) {
-
-        super(sbolDocument, uri);
-
-        this._variable = URI();
-        this._operator = URI();
-        this._variants = [];
-        this._variantCollections = [];
-        this._variantDerivations = [];
-    }
-
-    /**
-     * Set the variable for this VariableComponent.
-     * @param {string|URI|Component} [component]
-     */
-    set variable(variable) {
-        this._variable = util.uriOrObject(variable);
-    }
-
-    /**
-     * Retrieve the variable for this derivation.  Returns either a
-     * URI or a Component, depending on whether the URI has been
-     * resolved by link().
-     *
-     * @returns {URI|Component}
-     */
-    get variable() {
-        return this._variable;
-    }
-
-    /**
-     * Set the operator property for this VariableComponent.
-     * @param {string|URI} [operator]
-     */
-    set operator(operator) {
-        this._operator = URI(operator);
-    }
-
-    /**
-     * Retrieve the operator property for this VariableComponent.
-     * @returns {URI} [operator]
-     */
-    get operator() {
-        return this._operator;
-    }
-
-    /**
-     * Add a VariantCollection to this VariableComponent
-     * @param {string|URI|Collection} [variantCollection]
-     */
-    addVariantCollection(variantCollection) {
-        this._variantCollections.push(variantCollection);
-    }
-
-    get variantCollections() {
-        return this._variantCollections.slice();
-    }
-
-    /**
-     * Add a Variant to this VariableComponent
-     * @param {string|URI|ComponentDefinition} [variant]
-     */
-    addVariant(variant) {
-        this._variants.push(variant);
-    }
-
-    /**
-     * Retrieve the variants for this derivation.  Returns either a 
-     * list of URIs or Components, depending on whether they have been
-     * resolved by link().
-     *
-     * @returns {URI[]|Component[]}
-     */
-    get variants() {
-        return this._variants.slice();
-    }
-
-    /**
-     * Add a VariantDerivation to this VariableComponent
-     * @param {string|URI|ComponentDefinition} [variantDerivation]
-     */
-    addVariantDerivation(variantDerivation) {
-        this._variantDerivations.push(variantDerivation)
-    }
-
-    get variantDerivations() {
-        return this._variantDerivations.slice();
-    }
-
-    /**
-     * Attempt to resolve the URIs linked to this variable component
-     */
-    link() {
-        this._variable = this._sbolDocument.lookupURI(this._variable);
-        this._variantDerivations = this._sbolDocument.lookupURIs(this._variantDerivations);
-        this._variantCollections = this._sbolDocument.lookupURIs(this._variantCollections);
-        this._variants = this._sbolDocument.lookupURIs(this._variants);
-    }
-}
-
-module.exports = VariableComponent;
-
-
-
-},{"./Identified":234,"./util":329,"urijs":374}],253:[function(require,module,exports){
-
-
-// Source: https://gist.github.com/danielflower/3656539
-//
-
-/**
- * Compares two Maven version strings and returns value suitable for use in Array.sort.
- * @param {String} v1
- * @param {String} v2
- * @return {Number} Negative number if v1 is older than v2; positive number if v1 is newer than v2; 0 if equal.
- */
-module.exports = function (v1, v2) {
-    // Strategy: pad each part of the version with zeros so strings are same length, then do string compare.
-    // Snapshot version have an extra 0 put on the end, whereas release versions have a 1 on the end
-    // e.g. 1.5-SNAPSHOT vs. 1.10.0 => 1.05.0.a vs. 1.10.0.c
-
-    // e.g. 1.5 => [1,5]
-    var v1Bits = v1.split(".");
-    var v2Bits = v2.split(".");
-    var v1OriginalLength = v1Bits.length;
-    var v2OriginalLength = v2Bits.length;
-
-    // equalise the number of parts, e.g. [1, 5] => [1,5,0]
-    while (v1Bits.length < v2Bits.length) {
-        v1Bits.push("0");
-    }
-    while (v2Bits.length < v1Bits.length) {
-        v2Bits.push("0");
-    }
-
-    // Change snapshot versions to have an extra ".0" and release versions to have an extra ".1"
-    function alterBasedOnSnapshotOrReleaseVersion(bits, potentialTextPosition) {
-        if (bits[potentialTextPosition].indexOf("-SNAPSHOT") > 0) {
-            bits[potentialTextPosition] = bits[potentialTextPosition].replace("-SNAPSHOT", "");
-            bits.push("0");
-        } else if (bits[potentialTextPosition].indexOf("-") > 0) {
-            bits[potentialTextPosition] = bits[potentialTextPosition].replace(/\-.*/, "");
-            bits.push("1");
-        } else {
-            bits.push("2");
-        }
-    }
-    alterBasedOnSnapshotOrReleaseVersion(v1Bits, v1OriginalLength - 1);
-    alterBasedOnSnapshotOrReleaseVersion(v2Bits, v2OriginalLength - 1);
-
-    // pad with zeros, e.g. [1,5,0] => [1,05,0]
-    for (var i = 0; i < v1Bits.length; i++) {
-        var targetLength = Math.max(v1Bits[i].length, v2Bits[i].length);
-        while (v1Bits[i].length < targetLength) {
-            v1Bits[i] = "0" + v1Bits[i];
-        }
-        while (v2Bits[i].length < targetLength) {
-            v2Bits[i] = "0" + v2Bits[i];
-        }
-    }
-
-    // back to normal, e.g. [1,05,0] => 1.05.0
-    var transformed1 = v1Bits.join(".");
-    var transformed2 = v2Bits.join(".");
-
-    //console.log("v1: " + v1 + "=>" + transformed1 + ", v2: " + v2 + "=>" + transformed2);
-
-    return transformed1.localeCompare(transformed2);
-};
-
-
-
-},{}],254:[function(require,module,exports){
-
-function addAnnotation(identified, predicateNode, objectNode) {
-
-    if(predicateNode.interfaceName !== 'NamedNode') {
-        throw new Error('Expected NamedNode for predicate')
-    }
-
-    if(objectNode.interfaceName === 'NamedNode') {
-
-        identified.addUriAnnotation(
-            predicateNode.toString(), objectNode.toString()
-        )
-        
-    } else {
-
-        identified.addStringAnnotation(
-            predicateNode.toString(), objectNode.toString()
-        )
-
-    }
-
-}
-
-module.exports = addAnnotation
-
-
-
-},{}],255:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadAttachment(sbolDocument, attachment, triples) {
-
-    loadIdentified(sbolDocument, attachment, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#source':
-                attachment.source = object;
-                break;
-
-            case 'http://sbols.org/v2#format':
-                attachment.format = object;
-                break;
-
-            case 'http://sbols.org/v2#size':
-                attachment.size = object;
-                break;
-
-		    case 'http://sbols.org/v2#hash':
-			    attachment.hash = object;
-			    break;
-
-            default:
-                addAnnotation(attachment, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],256:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadCollection(sbolDocument, collection, triples) {
-
-    loadIdentified(sbolDocument, collection, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#member':
-                collection.addMember(object)
-                break;
-
-            default:
-                addAnnotation(collection, triple.predicate, triple.object)
-                break;
-        }
-    })
-
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],257:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadCombinatorialDerivation(sbolDocument, combinatorialDerivation, triples) {
-
-    loadIdentified(sbolDocument, combinatorialDerivation, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#template':
-                combinatorialDerivation.template = object;
-                break;
-
-            case 'http://sbols.org/v2#variableComponent':
-                combinatorialDerivation.addVariableComponent(object);
-                break;
-
-            case 'http://sbols.org/v2#strategy':
-                combinatorialDerivation.strategy = object;
-                break;
-
-            default:
-                addAnnotation(combinatorialDerivation, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],258:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadComponent(sbolDocument, component, triples) {
-
-    loadIdentified(sbolDocument, component, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#definition':
-                component.definition = object;
-                break;
-
-            case 'http://sbols.org/v2#access':
-                component.access = object;
-                break;
-
-            case 'http://sbols.org/v2#role':
-                component.addRole(object)
-                break;
-
-            case 'http://sbols.org/v2#roleIntegration':
-                component.roleIntegration = object
-                break;
-
-            case 'http://sbols.org/v2#mapsTo':
-                component.addMapping(object);
-                break;
-
-            default:
-                addAnnotation(component, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],259:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadComponentDefinition(sbolDocument, componentDefinition, triples) {
-
-    loadIdentified(sbolDocument, componentDefinition, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#type':
-                componentDefinition.addType(object);
-                break;
-
-            case 'http://sbols.org/v2#role':
-                componentDefinition.addRole(object);
-                break;
-
-            case 'http://sbols.org/v2#component':
-                componentDefinition.addComponent(object);
-                break;
-
-            case 'http://sbols.org/v2#sequenceAnnotation':
-                componentDefinition.addSequenceAnnotation(object);
-                break;
-
-            case 'http://sbols.org/v2#sequenceConstraint':
-                componentDefinition.addSequenceConstraint(object);
-                break;
-
-            case 'http://sbols.org/v2#sequence':
-                componentDefinition.addSequence(object);
-                break;
-
-            default:
-                addAnnotation(componentDefinition, triple.predicate, triple.object)
-                break;
-        };
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],260:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadCut(sbolDocument, cut, triples) {
-
-    loadIdentified(sbolDocument, cut, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#at':
-                cut.at = parseInt(object);
-                break;
-
-            case 'http://sbols.org/v2#orientation':
-                cut.orientation = object;
-                break;
-
-            default:
-                addAnnotation(cut, triple.predicate, triple.object)
-                break;
-        };
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],261:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadFunctionalComponent(sbolDocument, functionalComponent, triples) {
-
-    loadIdentified(sbolDocument, functionalComponent, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#definition':
-                functionalComponent.definition = object;
-                break;
-
-            case 'http://sbols.org/v2#access':
-                functionalComponent.access = object;
-                break;
-
-            case 'http://sbols.org/v2#direction':
-                functionalComponent.direction = object;
-                break;
-
-            case 'http://sbols.org/v2#mapsTo':
-                module.addMapping(object);
-                break;
-
-            default:
-                addAnnotation(functionalComponent, triple.predicate, triple.object)
-                break;
-        }
-    });
-
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],262:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadGenericLocation(sbolDocument, genericLocation, triples) {
-
-    loadIdentified(sbolDocument, genericLocation, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#orientation':
-                genericLocation.orientation = object;
-                break;
-	    // Added for backwards compatibility to a libSBOLj bug
-            case 'http://sbols.org/v2#Orientation':
-                genericLocation.orientation = object;
-                break;
-
-            default:
-                addAnnotation(genericLocation, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],263:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadGenericTopLevel(sbolDocument, genericTopLevel, triples) {
-
-    loadIdentified(sbolDocument, genericTopLevel, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-	
-        addAnnotation(genericTopLevel, triple.predicate, triple.object);
-
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],264:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-module.exports = function loadIdentified(sbolDocument, identified, triples) {
-
-    return triples.filter((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type':
-                break;
-
-            case 'http://purl.org/dc/terms/title':
-                identified.name = object;
-                break;
-
-            case 'http://purl.org/dc/terms/description':
-                identified.description = object;
-                break;
-
-            case 'http://sbols.org/v2#displayId':
-                identified.displayId = object;
-                break;
-
-            case 'http://sbols.org/v2#persistentIdentity':
-                identified.persistentIdentity = object;
-                break;
-
-            case 'http://sbols.org/v2#version':
-                identified.version = object;
-                break;
-
-            case 'http://www.w3.org/ns/prov#wasDerivedFrom':
-                identified.wasDerivedFrom = object;
-                break;
-
-            case 'http://www.w3.org/ns/prov#wasGeneratedBy':
-                identified.wasGeneratedBy = object;
-                break;
-
-            case 'http://sbols.org/v2#name':
-                identified.name = object;
-                break;
-
-            case 'http://sbols.org/v2#description':
-                identified.description = object;
-            break;
-
-		case 'http://sbols.org/v2#attachment':
-			identified.addAttachment(object);
-			break;
-
-            default:
-                return true;
-        };
-
-    });
-}
-
-
-
-},{}],265:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadImplementation(sbolDocument, implementation, triples) {
-
-    loadIdentified(sbolDocument, implementation, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#built':
-                implementation.built = object;
-                break;
-
-            default:
-                addAnnotation(implementation, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],266:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadInteraction(sbolDocument, interaction, triples) {
-
-    loadIdentified(sbolDocument, interaction, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#type':
-                interaction.addType(object);
-                break;
-
-            case 'http://sbols.org/v2#participation':
-                interaction.addParticipation(object);
-                break;
-
-            default:
-                addAnnotation(interaction, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],267:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadMapping(sbolDocument, mapping, triples) {
-
-    loadIdentified(sbolDocument, mapping, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#refinement':
-                mapping.refinement = object;
-                break;
-
-            case 'http://sbols.org/v2#remote':
-                mapping.remote = object;
-                break;
-
-            case 'http://sbols.org/v2#local':
-                mapping.local = object;
-                break;
-
-            default:
-                addAnnotation(mapping, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],268:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadModel(sbolDocument, model, triples) {
-
-    loadIdentified(sbolDocument, model, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#source':
-                model.source = object;
-                break;
-
-            case 'http://sbols.org/v2#language':
-                model.language = object;
-                break;
-
-            case 'http://sbols.org/v2#framework':
-                model.framework = object;
-                break;
-
-            default:
-                addAnnotation(model, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],269:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadModule(sbolDocument, module, triples) {
-
-    loadIdentified(sbolDocument, module, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#definition':
-                module.definition = object;
-                break;
-
-            case 'http://sbols.org/v2#mapsTo':
-                module.addMapping(object);
-                break;
-
-            default:
-                addAnnotation(module, triple.predicate, triple.object)
-                break;
-        }
-    });
-
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],270:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadModuleDefinition(sbolDocument, moduleDefinition, triples) {
-
-    loadIdentified(sbolDocument, moduleDefinition, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#role':
-                moduleDefinition.addRole(object);
-                break;
-
-            case 'http://sbols.org/v2#module':
-                moduleDefinition.addModule(object);
-                break;
-
-            case 'http://sbols.org/v2#functionalComponent':
-                moduleDefinition.addFunctionalComponent(object);
-                break;
-
-            case 'http://sbols.org/v2#interaction':
-                moduleDefinition.addInteraction(object);
-                break;
-
-            case 'http://sbols.org/v2#model':
-                moduleDefinition.addModel(object);
-                break;
-
-            default:
-                addAnnotation(moduleDefinition, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],271:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadParticipation(sbolDocument, participation, triples) {
-
-    loadIdentified(sbolDocument, participation, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#role':
-                participation.addRole(object);
-                break;
-
-            case 'http://sbols.org/v2#participant':
-                participation.participant = object;
-                break;
-
-            default:
-                addAnnotation(participation, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],272:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadProvActivity(sbolDocument, activity, triples) {
-
-    loadIdentified(sbolDocument, activity, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://www.w3.org/ns/prov#startedAtTime':
-                activity.startedAtTime = object;
-                break;
-
-            case 'http://www.w3.org/ns/prov#endedAtTime':
-                activity.endedAtTime = object;
-                break;
-
-            case 'http://www.w3.org/ns/prov#qualifiedUsage':
-                activity.addUsage(object);
-                break;
-
-            case 'http://www.w3.org/ns/prov#qualifiedAssociation':
-                activity.addAssociation(object);
-                break;
-
-            case 'http://www.w3.org/ns/prov#wasInformedBy':
-                activity.addWasInformedBy(object);
-                break;
-
-            default:
-                addAnnotation(activity, triple.predicate, triple.object)
-                break;
-        };
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],273:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadProvAgent(sbolDocument, agent, triples) {
-
-    loadIdentified(sbolDocument, agent, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-            default:
-                addAnnotation(agent, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],274:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadProvAssociation(sbolDocument, association, triples) {
-
-    loadIdentified(sbolDocument, association, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://www.w3.org/ns/prov#hadRole':
-                association.addRole(object);
-                break;
-
-            case 'http://www.w3.org/ns/prov#hadPlan':
-                association.plan = object;
-                break;
-
-            case 'http://www.w3.org/ns/prov#agent':
-                association.agent = object;
-                break;
-
-            default:
-                addAnnotation(association, triple.predicate, triple.object)
-                break;
-        };
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],275:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadProvPlan(sbolDocument, plan, triples) {
-
-    loadIdentified(sbolDocument, plan, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-            default:
-                addAnnotation(plan, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],276:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadProvUsage(sbolDocument, usage, triples) {
-
-    loadIdentified(sbolDocument, usage, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://www.w3.org/ns/prov#hadRole':
-                usage.addRole(object);
-                break;
-
-            case 'http://www.w3.org/ns/prov#entity':
-                usage.entity = object;
-                break;
-
-            default:
-                addAnnotation(usage, triple.predicate, triple.object)
-                break;
-        };
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],277:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var SBOLDocument = require('../../SBOLDocument'),
-    rdf = require('rdf-ext'),
-    RdfXmlParser = require('rdf-parser-rdfxml'),
-    loadModuleDefinition = require('./loadModuleDefinition'),
-    loadModule = require('./loadModule'),
-    loadMapping = require('./loadMapping'),
-    loadCollection = require('./loadCollection'),
-    loadComponent = require('./loadComponent'),
-    loadComponentDefinition = require('./loadComponentDefinition'),
-    loadFunctionalComponent = require('./loadFunctionalComponent'),
-    loadInteraction = require('./loadInteraction'),
-    loadModel = require('./loadModel'),
-	loadAttachment = require('./loadAttachment'),
-    loadImplementation = require('./loadImplementation'),
-    loadParticipation = require('./loadParticipation'),
-    loadRange = require('./loadRange'),
-    loadCut = require('./loadCut'),
-    loadGenericLocation = require('./loadGenericLocation'),
-    loadSequence = require('./loadSequence'),
-    loadSequenceAnnotation = require('./loadSequenceAnnotation'),
-    loadSequenceConstraint = require('./loadSequenceConstraint'),
-    loadCombinatorialDerivation = require('./loadCombinatorialDerivation'),
-    loadVariableComponent = require('./loadVariableComponent'),
-    loadProvActivity = require('./loadProvActivity'),
-    loadProvAssociation = require('./loadProvAssociation'),
-    loadProvUsage = require('./loadProvUsage'),
-    loadProvPlan = require('./loadProvPlan'),
-    loadProvAgent = require('./loadProvAgent'),
-    loadGenericTopLevel = require('./loadGenericTopLevel');
-    loadCombinatorialDerivation = require('./loadCombinatorialDerivation'),
-    loadVariableComponent = require('./loadVariableComponent')
-
-var RdfGraphArray = require('rdf-graph-array').Graph
-
-module.exports = function load(sbolDocument, sources, callback) {
-
-    if(!Array.isArray(sources))
-        sources = [ sources ]
-
-    var parser = new RdfXmlParser();
-
-    var graph = new RdfGraphArray([])
-
-    loadNextSource()
-
-    function loadNextSource() {
-
-        parser.parse(sources[0], function(err, graph) {
-
-            if(err)
-                return callback(err);
-
-            sources = sources.slice(1)
-
-            if(sources.length === 0) {
-
-                loadRDFGraph(sbolDocument, graph);
-
-                callback(null);
-
-            } else {
-
-                loadNextSource()
-
-            }
-
-        }, undefined, undefined, graph);
-
-    }
-}
-
-function loadRDFGraph(sbolDocument, graph) {
-
-    var a = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
-
-    graph.match(null, a, 'http://sbols.org/v2#ModuleDefinition').forEach(
-        (triple) => loadModuleDefinition(sbolDocument, sbolDocument.moduleDefinition(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Module').forEach(
-        (triple) => loadModule(sbolDocument, sbolDocument.module(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#MapsTo').forEach(
-        (triple) => loadMapping(sbolDocument, sbolDocument.mapping(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#FunctionalComponent').forEach(
-        (triple) => loadFunctionalComponent(sbolDocument, sbolDocument.functionalComponent(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Collection').forEach(
-        (triple) => loadCollection(sbolDocument, sbolDocument.collection(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#ComponentDefinition').forEach(
-        (triple) => loadComponentDefinition(sbolDocument, sbolDocument.componentDefinition(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Interaction').forEach(
-        (triple) => loadInteraction(sbolDocument, sbolDocument.interaction(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Participation').forEach(
-        (triple) => loadParticipation(sbolDocument, sbolDocument.participation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Model').forEach(
-        (triple) => loadModel(sbolDocument, sbolDocument.model(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-	graph.match(null, a, 'http://sbols.org/v2#Attachment').forEach(
-        (triple) => loadAttachment(sbolDocument, sbolDocument.attachment(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Implementation').forEach(
-        (triple) => loadImplementation(sbolDocument, sbolDocument.implementation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Sequence').forEach(
-        (triple) => loadSequence(sbolDocument, sbolDocument.sequence(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Range').forEach(
-        (triple) => loadRange(sbolDocument, sbolDocument.range(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Cut').forEach(
-        (triple) => loadCut(sbolDocument, sbolDocument.cut(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#GenericLocation').forEach(
-        (triple) => loadGenericLocation(sbolDocument, sbolDocument.genericLocation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#SequenceAnnotation').forEach(
-        (triple) => loadSequenceAnnotation(sbolDocument, sbolDocument.sequenceAnnotation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#Component').forEach(
-        (triple) => loadComponent(sbolDocument, sbolDocument.component(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#SequenceConstraint').forEach(
-        (triple) => loadSequenceConstraint(sbolDocument, sbolDocument.sequenceConstraint(triple.subject.toString()), graph.match(triple.subject))
-    );
-    graph.match(null, a, 'http://sbols.org/v2#VariableComponent').forEach(
-        (triple) => loadVariableComponent(sbolDocument, sbolDocument.variableComponent(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://sbols.org/v2#CombinatorialDerivation').forEach(
-        (triple) => loadCombinatorialDerivation(sbolDocument, sbolDocument.combinatorialDerivation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://www.w3.org/ns/prov#Activity').forEach(
-        (triple) => loadProvActivity(sbolDocument, sbolDocument.provActivity(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://www.w3.org/ns/prov#Association').forEach(
-        (triple) => loadProvAssociation(sbolDocument, sbolDocument.provAssociation(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://www.w3.org/ns/prov#Agent').forEach(
-        (triple) => loadProvAgent(sbolDocument, sbolDocument.provAgent(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://www.w3.org/ns/prov#Plan').forEach(
-        (triple) => loadProvPlan(sbolDocument, sbolDocument.provPlan(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, 'http://www.w3.org/ns/prov#Usage').forEach(
-        (triple) => loadProvUsage(sbolDocument, sbolDocument.provUsage(triple.subject.toString()), graph.match(triple.subject))
-    );
-
-    graph.match(null, a, null).forEach((triple) => {
-	if (!triple.object.toString().startsWith('http://sbols.org')&&
-	   !triple.object.toString().startsWith('http://www.w3.org/ns/prov')) {
-	    loadGenericTopLevel(sbolDocument, sbolDocument.genericTopLevel(triple.subject.toString(),triple.object.toString()),  graph.match(triple.subject))
-	}
-    });
-    sbolDocument.link();
-
-}
-
-
-},{"../../SBOLDocument":248,"./loadAttachment":255,"./loadCollection":256,"./loadCombinatorialDerivation":257,"./loadComponent":258,"./loadComponentDefinition":259,"./loadCut":260,"./loadFunctionalComponent":261,"./loadGenericLocation":262,"./loadGenericTopLevel":263,"./loadImplementation":265,"./loadInteraction":266,"./loadMapping":267,"./loadModel":268,"./loadModule":269,"./loadModuleDefinition":270,"./loadParticipation":271,"./loadProvActivity":272,"./loadProvAgent":273,"./loadProvAssociation":274,"./loadProvPlan":275,"./loadProvUsage":276,"./loadRange":278,"./loadSequence":279,"./loadSequenceAnnotation":280,"./loadSequenceConstraint":281,"./loadVariableComponent":282,"rdf-ext":335,"rdf-graph-array":348,"rdf-parser-rdfxml":351}],278:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadRange(sbolDocument, range, triples) {
-
-    loadIdentified(sbolDocument, range, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#start':
-                range.start = parseInt(object);
-                break;
-
-            case 'http://sbols.org/v2#end':
-                range.end = parseInt(object);
-                break;
-
-            case 'http://sbols.org/v2#orientation':
-                range.orientation = object;
-                break;
-
-            default:
-                addAnnotation(range, triple.predicate, triple.object);
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],279:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadSequence(sbolDocument, sequence, triples) {
-
-    loadIdentified(sbolDocument, sequence, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#elements':
-                sequence.elements = object;
-                break;
-
-            case 'http://sbols.org/v2#encoding':
-                sequence.encoding = object;
-                break;
-
-            default:
-                addAnnotation(sequence, triple.predicate, triple.object);
-                break;
-        }
-
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],280:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadSequenceAnnotation(sbolDocument, sequenceAnnotation, graph, triple) {
-
-    loadIdentified(sbolDocument, sequenceAnnotation, graph, triple).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#location':
-                sequenceAnnotation.addLocation(object);
-                break;
-
-            case 'http://sbols.org/v2#component':
-                sequenceAnnotation.component = object;
-                break;
-
-            case 'http://sbols.org/v2#role':
-                sequenceAnnotation.addRole(object)
-                break;
-
-            default:
-                addAnnotation(sequenceAnnotation, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],281:[function(require,module,exports){
-
-/*
- * Copyright (C) 2016 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadSequenceConstraint(sbolDocument, sequenceConstraint, triples) {
-
-    loadIdentified(sbolDocument, sequenceConstraint, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#restriction':
-                sequenceConstraint.restriction = object
-                break;
-
-            case 'http://sbols.org/v2#subject':
-                sequenceConstraint.subject = object;
-                break;
-
-            case 'http://sbols.org/v2#object':
-                sequenceConstraint.object = object;
-                break;
-
-            default:
-                addAnnotation(sequenceConstraint, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],282:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var loadIdentified = require('./loadIdentified');
-var addAnnotation = require('./addAnnotation');
-
-module.exports = function loadVariableComponent(sbolDocument, variableComponent, triples) {
-
-    loadIdentified(sbolDocument, variableComponent, triples).forEach((triple) => {
-
-        var predicate = triple.predicate.toString(),
-            object = triple.object.toString();
-
-        switch(predicate) {
-
-            case 'http://sbols.org/v2#variant':
-                variableComponent.addVariant(object)
-                break;
-
-            case 'http://sbols.org/v2#variantCollection':
-                variableComponent.addVariantCollection(object)
-                break;
-
-            case 'http://sbols.org/v2#variantDerivation':
-                variableComponent.addVariantDerivation(object)
-                break;
-
-            case 'http://sbols.org/v2#variable':
-                variableComponent.variable = object;
-                break;
-
-            case 'http://sbols.org/v2#operator':
-                variableComponent.operator = object;
-                break;
-
-            default:
-                addAnnotation(variableComponent, triple.predicate, triple.object)
-                break;
-        }
-    });
-}
-
-
-
-},{"./addAnnotation":254,"./loadIdentified":264}],283:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeAttachment(sbolDocument, attachment) {
-
-    return extend(serializeIdentified(sbolDocument, attachment), {
-        source: attachment.source.uri ? implementation.source.uri.toString() : implementation.source.toString(),
-		format: attachment.format.uri ? implementation.format.uri.toString() : implementation.format.toString(),
-		size: attachment.size,
-		hash: attachment.hash
-    });
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],284:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeCollection(sbolDocument, collection) {
-
-    var out = {}
-
-    if(collection.members.length > 0) {
-        out.models = collection.members.map(function(member) {
-            return member.uri?member.uri.toString():member.toString();
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, collection), out);
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],285:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeMapping = require('./serializeMapping');
-
-module.exports = function serializeComponent(sbolDocument, component) {
-
-    var out = {};
-
-    if(component.roles.length > 0) {
-        out.roles = component.roles.map(function(role) {
-            return role.toString();
-        });
-    }
-
-    if (component.access.toString() != '') {
-        out.access = component.access.toString()
-    }
-
-    if (component.roleIntegration.toString() != '') {
-        out.roleIntegration = component.roleIntegration.toString()
-    }
-
-    out.definition = component.definition.uri?component.definition.uri.toString():component.definition.toString()
-
-    if(component.mappings.length > 0) {
-
-        out.mapsTos = component.mappings.map(function(mapsTo) {
-            return serializeMapping(sbolDocument, mapsTo);
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, component), out);
-}
-
-
-},{"./serializeIdentified":289,"./serializeMapping":294,"extend":333}],286:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeComponent = require('./serializeComponent'),
-    serializeSequenceAnnotation = require('./serializeSequenceAnnotation'),
-    serializeSequenceConstraint = require('./serializeSequenceConstraint');
-
-module.exports = function serializeComponentDefinition(sbolDocument, componentDefinition) {
-
-    var out = {};
-
-    if(componentDefinition.types.length > 0) {
-        out.types = componentDefinition.types.map(function(type) {
-            return type.toString();
-        });
-    }
-
-    if(componentDefinition.roles.length > 0) {
-        out.roles = componentDefinition.roles.map(function(role) {
-            return role.toString();
-        });
-    }
-
-    if(componentDefinition.components.length > 0) {
-        out.components = componentDefinition.components.map(function(component) {
-            return serializeComponent(sbolDocument, component);
-        });
-    }
-
-    if(componentDefinition.sequenceAnnotations.length > 0) {
-        out.sequenceAnnotations = componentDefinition.sequenceAnnotations.map(function(sequenceAnnotation) {
-            return serializeSequenceAnnotation(sbolDocument, sequenceAnnotation);
-        });
-    }
-
-    if(componentDefinition.sequenceConstraints.length > 0) {
-        out.sequenceConstraints = componentDefinition.sequenceConstraints.map(function(sequenceConstraint) {
-            return serializeSequenceConstraint(sbolDocument, sequenceConstraint);
-        });
-    }
-
-    if(componentDefinition.sequences.length > 0) {
-        out.sequences = componentDefinition.sequences.map(function(sequence) {
-            return sequence.uri?sequence.uri.toString():sequence.toString();
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, componentDefinition), out);
-}
-
-
-},{"./serializeComponent":285,"./serializeIdentified":289,"./serializeSequenceAnnotation":299,"./serializeSequenceConstraint":300,"extend":333}],287:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeFunctionalComponent(sbolDocument, functionalComponent) {
-
-    var out = {};
-
-    if (functionalComponent.access.toString() != '') {
-        out.access = functionalComponent.access.toString()
-    }
-
-    if (functionalComponent.direction.toString() != '') {
-        out.access = functionalComponent.direction.toString()
-    }
-
-    out.definition = functionalComponent.definition.uri?functionalComponent.definition.uri.toString():functionalComponent.definition.toString()
-
-    if(functionalComponent.mappings.length > 0) {
-
-        out.mapsTos = functionalComponent.mappings.map(function(mapsTo) {
-            return serializeMapping(sbolDocument, mapsTo);
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, functionalComponent), out);
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],288:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-  serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeGenericTopLevel(sbolDocument, genericTopLevel) {
-
-    return extend(serializeIdentified(sbolDocument, genericTopLevel), {});
-
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],289:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend');
-
-module.exports = function serializeIdentified(sbolDocument, identified, tagName, properties) {
-
-    var out = {};
-
-    out.uri = identified.uri.toString();
-
-    if(identified.persistentIdentity.toString() !== '')
-        out.persistentIdentity = identified.persistentIdentity.toString();
-
-    if(identified.displayId.toString() !== '')
-        out.displayId = identified.displayId;
-
-    if(identified.version.toString() !== '')
-        out.version = identified.version;
-
-    if(identified.wasDerivedFrom.toString() !== '')
-        out.wasDerivedFrom = identified.wasDerivedFrom.toString();
-
-    if(identified.name.toString() !== '')
-        out.title = identified.title;
-
-    if(identified.description.toString() !== '')
-        out.description = identified.description;
-
-    if(identified.annotations.length > 0) {
-        out.annotations = identified.annotations;
-    }
-
-	if(identified.attachments.length > 0) {
-        out.attachments = identified.attachments;
-    }
-
-    return out;
-}
-
-
-
-},{"extend":333}],290:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeImplementation(sbolDocument, implementation) {
-
-    return extend(serializeIdentified(sbolDocument, implementation), {
-        built: implementation.built.uri ? implementation.built.uri.toString() : implementation.built.toString()
-    });
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],291:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeParticipation = require('./serializeParticipation');
-
-module.exports = function serializeInteraction(sbolDocument, interaction) {
-
-    var out = {};
-
-    if(interaction.types.length > 0) {
-        out.types = interaction.types.map(function(type) {
-            return type.toString();
-        });
-    }
-
-    if(interaction.participations.length > 0) {
-        out.participations = interaction.participations.map(function(participation) {
-            return serializeParticipation(sbolDocument, participation);
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, interaction), out);
-}
-
-
-},{"./serializeIdentified":289,"./serializeParticipation":297,"extend":333}],292:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var serializeModuleDefinition = require('./serializeModuleDefinition'),
-    serializeCollection = require('./serializeCollection'),
-    serializeComponentDefinition = require('./serializeComponentDefinition'),
-    serializeModel = require('./serializeModel'),
-	serializeImplementation = require('./serializeImplementation'),
-    serializeSequence = require('./serializeSequence'),
-    serializeGenericTopLevel = require('./serializeGenericTopLevel'),
-	serializeAttachment = require('./serializeAttachment');
-
-module.exports = function serializeJSON(sbolDocument) {
-
-    var out = {};
-
-    if(sbolDocument.collections.length > 0) {
-        out.collections = sbolDocument.collections.map(function(collection) {
-            return serializeCollection(sbolDocument, collection);
-        });
-    }
-
-    if(sbolDocument.moduleDefinitions.length > 0) {
-        out.moduleDefinitions = sbolDocument.moduleDefinitions.map(function(moduleDefinition) {
-            return serializeModuleDefinition(sbolDocument, moduleDefinition);
-        });
-    }
-
-    if(sbolDocument.models.length > 0) {
-        out.models = sbolDocument.models.map(function(model) {
-            return serializeModel(sbolDocument, model);
-        });
-    }
-
-	if(sbolDocument.implementations.length > 0) {
-        out.implementations = sbolDocument.implementations.map(function(implementation) {
-            return serializeImplementation(sbolDocument, implementation);
-        });
-    }
-
-    if(sbolDocument.componentDefinitions.length > 0) {
-        out.componentDefinitions = sbolDocument.componentDefinitions.map(function(componentDefinition) {
-            return serializeComponentDefinition(sbolDocument, componentDefinition);
-        });
-    }
-
-    if(sbolDocument.sequences.length > 0) {
-        out.sequences = sbolDocument.sequences.map(function(sequence) {
-            return serializeSequence(sbolDocument, sequence);
-        });
-    }
-
-    if(sbolDocument.genericTopLevels.length > 0) {
-        out.genericTopLevels = sbolDocument.genericTopLevels.map(function(genericTopLevel) {
-            return serializeGenericTopLevel(sbolDocument, genericTopLevel);
-        });
-    }
-
-	if (sbolDocument.attachments.length > 0) {
-        out.attachments = sbolDocument.attachments.map(function(attachment) {
-            return serializeAttachment(sbolDocument, attachment);
-        });
-    }
-
-    return JSON.stringify(out, null, 2);
-}
-
-
-
-},{"./serializeAttachment":283,"./serializeCollection":284,"./serializeComponentDefinition":286,"./serializeGenericTopLevel":288,"./serializeImplementation":290,"./serializeModel":295,"./serializeModuleDefinition":296,"./serializeSequence":298}],293:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    Range = require('../../Range'),
-    Cut = require('../../Cut'),
-    GenericLocation = require('../../GenericLocation');
-
-module.exports = function serializeLocation(sbolDocument, location) {
-
-    var out = {};
-
-    if(location instanceof Range) {
-
-        out.start = location.start;
-        out.end = location.end;
-
-    } else if(location instanceof Cut) {
-
-        out.at = location.at.toString();
-
-    } else if(location instanceof GenericLocation) {
-
-    }
-
-    if(location.orientation.toString() !== '') {
-        out.orientation = location.orientation.toString();
-    }
-
-    return extend(serializeIdentified(sbolDocument, location), out);
-}
-
-
-
-},{"../../Cut":230,"../../GenericLocation":232,"../../Range":247,"./serializeIdentified":289,"extend":333}],294:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeMapping(sbolDocument, mapping) {
-
-    var out = {};
-    
-    if (mapping.refinement.toString() != '') {
-        out.access = mapping.refinement.toString()
-    }
-
-    out.remote = mapping.remote.uri?mapping.remote.uri.toString():mapping.remote.toString()
-    
-    out.local = mapping.local.uri?mapping.local.uri.toString():mapping.local.toString()
-
-    return extend(serializeIdentified(sbolDocument, mapping), out);
-}
-
-
-},{"./serializeIdentified":289,"xml":377}],295:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeModel(sbolDocument, model) {
-
-    return extend(serializeIdentified(sbolDocument, model), {
-        source: model.source.toString(),
-        language: model.language.toString(),
-        framework: model.framework.toString()
-    });
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],296:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeFunctionalComponent = require('./serializeFunctionalComponent'),
-    serializeInteraction = require('./serializeInteraction');
-
-module.exports = function serializeModuleDefinition(sbolDocument, moduleDefinition) {
-
-    var out = {};
-
-    if(moduleDefinition.roles.length > 0) {
-        out.roles = moduleDefinition.roles.map(function(role) {
-            return role.toString();
-        });
-    }
-
-    if(moduleDefinition.functionalComponents.length > 0) {
-        out.functionalComponents = moduleDefinition.functionalComponents.map(function(functionalComponent) {
-            return serializeFunctionalComponent(sbolDocument, functionalComponent);
-        });
-    }
-
-    if(moduleDefinition.interactions.length > 0) {
-        out.interactions = moduleDefinition.interactions.map(function(interaction) {
-            return serializeInteraction(sbolDocument, interaction);
-        });
-    }
-
-    if(moduleDefinition.models.length > 0) {
-        out.models = moduleDefinition.models.map(function(model) {
-            return model.uri.toString();
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, moduleDefinition), out);
-}
-
-
-},{"./serializeFunctionalComponent":287,"./serializeIdentified":289,"./serializeInteraction":291,"extend":333}],297:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeParticipation(sbolDocument, participation) {
-
-    var out = {};
-
-    if(participation.roles.length > 0) {
-        out.roles = participation.roles.map(function(role) {
-            return role.toString();
-        });
-    }
-
-    out.participant = participation.participant.uri?participation.participant.uri.toString():participation.participant.toString();
-
-    return extend(serializeIdentified(sbolDocument, participation), out);
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],298:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeSequence(sbolDocument, sequence) {
-
-    return extend(serializeIdentified(sbolDocument, sequence), {
-        elements: sequence.elements,
-        encoding: sequence.encoding.toString()
-    });
-}
-
-
-},{"./serializeIdentified":289,"extend":333}],299:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeLocation = require('./serializeLocation');
-
-module.exports = function serializeSequenceAnnotation(sbolDocument, sequenceAnnotation) {
-
-    var out = {};
-
-    if(sequenceAnnotation.locations.length > 0) {
-        out.locations = sequenceAnnotation.locations.map(function(location) {
-            return serializeLocation(sbolDocument, location);
-        });
-    }
-
-    if(sequenceAnnotation.component && sequenceAnnotation.component.toString() !== '')
-        out.component = sequenceAnnotation.component.uri.toString();
-
-    if(sequenceAnnotation.roles.length > 0) {
-        out.roles = sequenceAnnotation.roles.map(function(role) {
-            return role.toString();
-        });
-    }
-
-    return extend(serializeIdentified(sbolDocument, sequenceAnnotation), out);
-}
-
-
-},{"./serializeIdentified":289,"./serializeLocation":293,"extend":333}],300:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var extend = require('extend'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeLocation = require('./serializeLocation');
-
-module.exports = function serializeSequenceConstraint(sbolDocument, sequenceConstraint) {
-
-    return extend(serializeIdentified(sbolDocument, sequenceConstraint), {
-        restriction: sequenceConstraint.restriction.toString(),
-        subject: sequenceConstraint.subject.toString(),
-        object: sequenceConstraint.object.toString(),
-    });
-}
-
-
-},{"./serializeIdentified":289,"./serializeLocation":293,"extend":333}],301:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    extend = require('extend'),
-    serializeGenericTopLevel = require('./serializeGenericTopLevel');
-
-
-module.exports = function serializeAnnotation(sbolDocument, xmlAttribsRef, annotation) {
-
-    var namespaces = listNamespaces(xmlAttribsRef.namespaces).filter(function(namespace) {
-        return annotation.name.indexOf(namespace.uri) === 0;
-    }).sort((a, b) => {
-        // longest prefixes first
-        return a.prefix.length - b.prefix.length
-    })
-
-    if(namespaces.length > 0) {
-
-        var longestNamespace = namespaces[0]
-
-        return {
-            [longestNamespace.prefix + ':' + annotation.name.slice(longestNamespace.uri.length)]: serializeValue(annotation.type, annotation.value, sbolDocument, xmlAttribsRef)
-        };
-
-    }
-
-    /* no matching namespace
-     */
-
-    var fragmentStart = annotation.name.lastIndexOf('#')
-
-    if(fragmentStart === -1)
-        fragmentStart = annotation.name.lastIndexOf('/')
-
-    if(fragmentStart === -1) {
-        throw new Error('cannot prefixify annotation ' + annotation.name)
-    }
-
-    var namespace = 'ns' + (xmlAttribsRef.lastNamespaceNum ++)
-    var prefix = annotation.name.slice(0, fragmentStart + 1)
-
-    xmlAttribsRef.namespaces['xmlns:' + namespace] = prefix
-
-    return {
-        [namespace + ':' + annotation.name.slice(prefix.length)]: serializeValue(annotation.type, annotation.value, sbolDocument, xmlAttribsRef)
-    }
-
-
-
-
-
-    function serializeValue(type, value, sbolDocument, xmlAttribsRef) {
-
-        if(type === 'string') {
-
-            return value
-
-        } else if(type === 'uri') {
-
-	    var genericTopLevel = sbolDocument.lookupURI(value)
-	    if (genericTopLevel.constructor.name === 'GenericTopLevel') {
-		if (!genericTopLevel.displayId) {
-		    return [ serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel) ]
-		}
-	    }
-
-            return {
-                _attr: {
-                    'rdf:resource': value
-                }
-            }
-
-        } else if(type === 'date') {
-
-            return [
-                {
-                    _attr: {
-                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
-                    }
-                },
-                value
-            ]
-
-        } else if(type === 'html') {
-
-            return [
-                {
-                    _attr: {
-                        'rdf:datatype': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML',
-                    }
-                },
-                value
-            ]
-
-        }
-
-    }
-}
-
-function listNamespaces(xmlAttribs) {
-
-    var namespaces = [];
-
-    Object.keys(xmlAttribs).forEach(function(attrib) {
-
-        var tokens = attrib.split(':');
-
-        if(tokens[0] === 'xmlns') {
-
-            namespaces.push({
-                prefix: tokens[1],
-                uri: xmlAttribs[attrib]
-            })
-        }
-    });
-
-    return namespaces;
-}
-
-
-
-
-
-
-},{"./serializeGenericTopLevel":308,"extend":333,"xml":377}],302:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeAttachment(sbolDocument, xmlAttribsRef, attachment) {
-
-    var properties = [{ 'sbol:source': { _attr: { 'rdf:resource': attachment.source }}}]
-
-    if (attachment.format.toString() !== '') {
-	properties.push({ 'sbol:format': { _attr: { 'rdf:resource': attachment.format }}})
-    }
-    if (attachment.size > 0) {
-	properties.push({ 'sbol:size': attachment.size })
-    }
-    if (attachment.hash.toString() !== '') {
-	properties.push({ 'sbol:hash': attachment.hash })
-    }
-
-    
-    return serializeIdentified(sbolDocument, xmlAttribsRef, attachment, 'sbol:Attachment', properties);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],303:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeCollection(sbolDocument, xmlAttribsRef, collection) {
-
-    var properties = []
-
-    collection.members.forEach(function(member) {
-	if (!member.uri || member.constructor.name != 'GenericTopLevel' || member.displayId) {
-            properties.push({
-		'sbol:member': {
-                    _attr: {
-			'rdf:resource': member.uri?member.uri:member
-                    }
-		}
-            });
-	}
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, collection, 'sbol:Collection', properties)
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],304:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeVariableComponent = require('./serializeVariableComponent');
-
-module.exports = function serializeCombinatorialDerivation(sbolDocument, xmlAttribsRef, combinatorialDerivation) {
-
-    var properties = [
-        { 'sbol:template': { _attr: { 'rdf:resource': combinatorialDerivation.template.uri?combinatorialDerivation.template.uri:combinatorialDerivation.template }}}
-    ];
-
-    if (combinatorialDerivation.strategy.toString() !== '') {
-        properties.push({
-            'sbol:strategy': { _attr: { 'rdf:resource': combinatorialDerivation.strategy }}
-        });
-    }
-
-
-    combinatorialDerivation.variableComponents.forEach(function(variableComponent) {
-        properties.push({
-            'sbol:variableComponent': [
-                serializeVariableComponent(sbolDocument, xmlAttribsRef, variableComponent)
-            ]
-        });
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, combinatorialDerivation, 'sbol:CombinatorialDerivation', properties);
-}
-
-
-},{"./serializeIdentified":309,"./serializeVariableComponent":326,"xml":377}],305:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeMapping = require('./serializeMapping');
-
-module.exports = function serializeComponent(sbolDocument, xmlAttribsRef, component) {
-
-    var properties = [
-        { 'sbol:definition': { _attr: { 'rdf:resource': component.definition.uri?component.definition.uri:component.definition }}},
-        { 'sbol:access': { _attr: { 'rdf:resource': component.access }}},
-    ]
-
-
-    if(component.roleIntegration.toString() !== '') {
-        properties.push(
-            { 'sbol:roleIntegration': { _attr: { 'rdf:resource': component.roleIntegration }}}
-        )
-    }
-
-
-    component.roles.forEach(function(role) {
-        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
-    });
-
-    component.mappings.forEach(function(mapping) {
-        properties.push({
-            'sbol:mapsTo': [
-                serializeMapping(sbolDocument, xmlAttribsRef, mapping)
-            ]
-        });
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, component, 'sbol:Component', properties);
-
-}
-
-
-},{"./serializeIdentified":309,"./serializeMapping":313,"xml":377}],306:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeComponent = require('./serializeComponent'),
-    serializeSequenceAnnotation = require('./serializeSequenceAnnotation'),
-    serializeSequenceConstraint = require('./serializeSequenceConstraint');
-
-module.exports = function serializeComponentDefinition(sbolDocument, xmlAttribsRef, componentDefinition) {
-
-    var properties = [];
-
-    componentDefinition.types.forEach(function(type) {
-        properties.push({ 'sbol:type': { _attr: { 'rdf:resource': type }}});
-    });
-
-    componentDefinition.roles.forEach(function(role) {
-        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
-    });
-
-    componentDefinition.components.forEach(function(component) {
-        properties.push({
-            'sbol:component': [
-                serializeComponent(sbolDocument, xmlAttribsRef, component)
-            ]
-        });
-    });
-
-    componentDefinition.sequenceAnnotations.forEach(function(sequenceAnnotation) {
-        properties.push({
-            'sbol:sequenceAnnotation': [
-                serializeSequenceAnnotation(sbolDocument, xmlAttribsRef, sequenceAnnotation)
-            ]
-        });
-    });
-
-    componentDefinition.sequenceConstraints.forEach(function(sequenceConstraint) {
-        properties.push({
-            'sbol:sequenceConstraint': [
-                serializeSequenceConstraint(sbolDocument, xmlAttribsRef, sequenceConstraint)
-            ]
-        });
-    });
-
-    componentDefinition.sequences.forEach(function(sequence) {
-        properties.push({ 'sbol:sequence': { _attr: { 'rdf:resource': sequence.uri?sequence.uri:sequence }}});
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, componentDefinition, 'sbol:ComponentDefinition', properties);
-}
-
-
-},{"./serializeComponent":305,"./serializeIdentified":309,"./serializeSequenceAnnotation":324,"./serializeSequenceConstraint":325,"xml":377}],307:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeFunctionalComponent(sbolDocument, xmlAttribsRef, functionalComponent) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, functionalComponent, 'sbol:FunctionalComponent', [
-        { 'sbol:definition': { _attr: { 'rdf:resource': functionalComponent.definition.uri?functionalComponent.definition.uri:functionalComponent.definition }}},
-        { 'sbol:access': { _attr: { 'rdf:resource': functionalComponent.access }}},
-        { 'sbol:direction': { _attr: { 'rdf:resource': functionalComponent.direction }}}
-    ]);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],308:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
- extend = require('extend');
-
-module.exports = function serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel) {
-
-    var namespaces = listNamespaces(xmlAttribsRef.namespaces).filter(function(namespace) {
-        return genericTopLevel.rdfType.indexOf(namespace.uri) === 0;
-    });
-
-    var namespace
-    var prefixedName
-    if(namespaces.length === 0) {
-	/* no matching namespace
-	 */
-
-	var fragmentStart = genericTopLevel.rdfType.lastIndexOf('#')
-
-	if(fragmentStart === -1)
-            fragmentStart = genericTopLevel.rdfType.lastIndexOf('/')
-
-	if(fragmentStart === -1) {
-            throw new Error('cannot prefixify genericTopLevel RDF type ' + genericTopLevel.rdfType)
-	}
-
-	var prefix = 'ns' + (xmlAttribsRef.lastNamespaceNum ++)
-	namespace = genericTopLevel.rdfType.slice(0, fragmentStart + 1)
-        prefixedName = prefix + ':' + genericTopLevel.rdfType.slice(namespace.length)
-	xmlAttribsRef.namespaces['xmlns:' + prefix] = namespace
-    } else {
-	namespace = namespaces.sort((a, b) => a.uri.length - b.uri.length)[0];
-	prefixedName = namespace.prefix + ':' + genericTopLevel.rdfType.slice(namespace.uri.length);
-    }
-    var serializeIdentified = require('./serializeIdentified');
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, genericTopLevel, prefixedName, []);
-
-}
-
-function listNamespaces(xmlAttribs) {
-
-    var namespaces = [];
-
-    Object.keys(xmlAttribs).forEach(function(attrib) {
-
-        var tokens = attrib.split(':');
-
-        if(tokens[0] === 'xmlns') {
-
-            namespaces.push({
-                prefix: tokens[1],
-                uri: xmlAttribs[attrib]
-            })
-        }
-    });
-
-    return namespaces;
-}
-
-
-},{"./serializeIdentified":309,"extend":333,"xml":377}],309:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeAnnotation = require('./serializeAnnotation');
-
-module.exports = function serializeIdentified(sbolDocument, xmlAttribsRef, identified, tagName, properties) {
-
-    var tags = [
-        { _attr: { 'rdf:about': identified.uri }}
-    ];
-
-    if(identified.persistentIdentity.toString() !== '') {
-        tags.push({ 'sbol:persistentIdentity': { _attr: { 'rdf:resource': identified.persistentIdentity }}});
-    }
-
-    if(identified.displayId.toString() !== '')
-        tags.push({ 'sbol:displayId': identified.displayId });
-
-    if(identified.version.toString() !== '')
-        tags.push({ 'sbol:version': identified.version });
-
-    if(identified.wasDerivedFrom.toString() !== '')
-        tags.push({ 'prov:wasDerivedFrom': { _attr: { 'rdf:resource': identified.wasDerivedFrom }}});
-
-    if(identified.wasGeneratedBy.toString() !== '')
-        tags.push({ 'prov:wasGeneratedBy': { _attr: { 'rdf:resource': identified.wasGeneratedBy }}});
-
-    if(identified.name.toString() !== '')
-        tags.push({ 'dcterms:title': identified.name });
-
-    if(identified.description.toString() !== '')
-        tags.push({ 'dcterms:description': identified.description });
-
-	identified.attachments.forEach(function(attachment) {
-		tags.push({ 'sbol:attachment': { _attr: { 'rdf:resource': attachment.uri }}});
-	});
-
-    identified.annotations.forEach(function(annotation) {
-        tags.push(serializeAnnotation(sbolDocument, xmlAttribsRef, annotation));
-    });
-
-    return {
-        [tagName]: tags.concat(properties)
-    };
-}
-
-},{"./serializeAnnotation":301,"xml":377}],310:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeImplementation(sbolDocument, xmlAttribsRef, implementation) {
-
-    var properties = []
-
-    if (implementation.built.toString() !== '') {
-	properties.push({'sbol:built': { _attr: { 'rdf:resource': implementation.built.uri?implementation.built.uri:implementation.built }}})
-    }
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, implementation, 'sbol:Implementation', properties);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],311:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeParticipation = require('./serializeParticipation');
-
-module.exports = function serializeInteraction(sbolDocument, xmlAttribsRef, interaction) {
-
-    var properties = [];
-
-    interaction.types.forEach(function(type) {
-
-        properties.push({
-            'sbol:type': {
-                _attr: {
-                    'rdf:resource': type
-                }
-            }
-        });
-
-    });
-
-    interaction.participations.forEach(function(participation) {
-        properties.push({
-            'sbol:participation': [
-                serializeParticipation(sbolDocument, xmlAttribsRef, participation)
-            ]
-        });
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, interaction, 'sbol:Interaction', properties);
-}
-
-
-},{"./serializeIdentified":309,"./serializeParticipation":317,"xml":377}],312:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    Range = require('../../Range'),
-    Cut = require('../../Cut'),
-    GenericLocation = require('../../GenericLocation');
-
-module.exports = function serializeLocation(sbolDocument, xmlAttribsRef, location) {
-
-    if(location instanceof Range) {
-
-        var properties = [
-            { 'sbol:start': location.start },
-            { 'sbol:end': location.end }
-        ];
-
-        if(location.orientation.toString() !== '') {
-            properties.push({
-                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
-            });
-        }
-
-        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:Range', properties);
-
-    } else if(location instanceof Cut) {
-
-        var properties = [{
-            'sbol:at': location.at,
-        }];
-
-        if(location.orientation.toString() !== '') {
-            properties.push({
-                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
-            });
-        }
-
-        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:Cut', properties);
-
-    } else if(location instanceof GenericLocation) {
-
-        var properties = [];
-
-        if(location.orientation.toString() !== '') {
-            properties.push({
-                'sbol:orientation': { _attr: { 'rdf:resource': location.orientation }}
-            });
-        }
-
-        return serializeIdentified(sbolDocument, xmlAttribsRef, location, 'sbol:GenericLocation', properties);
-    }
-}
-
-
-
-},{"../../Cut":230,"../../GenericLocation":232,"../../Range":247,"./serializeIdentified":309,"xml":377}],313:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeMapping(sbolDocument, xmlAttribsRef, mapping) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, mapping, 'sbol:MapsTo', [
-        { 'sbol:refinement': { _attr: { 'rdf:resource': mapping.refinement }}},
-        { 'sbol:remote': { _attr: { 'rdf:resource': mapping.remote.uri?mapping.remote.uri:mapping.remote }}},
-        { 'sbol:local': { _attr: { 'rdf:resource': mapping.local.uri?mapping.local.uri:mapping.local }}},
-    ]);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],314:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeModel(sbolDocument, xmlAttribsRef, model) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, model, 'sbol:Model', [
-        {'sbol:source': { _attr: { 'rdf:resource': model.source }}},
-        {'sbol:language': { _attr: { 'rdf:resource': model.language }}},
-        {'sbol:framework': { _attr: { 'rdf:resource': model.framework }}}
-    ]);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],315:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeMapping = require('./serializeMapping');
-
-module.exports = function serializeModule(sbolDocument, xmlAttribsRef, module) {
-
-    var properties = [
-        { 'sbol:definition': { _attr: { 'rdf:resource': module.definition.uri?module.definition.uri:module.definition }}}
-    ];
-
-    module.mappings.forEach(function(mapping) {
-        properties.push({
-            'sbol:mapsTo': [
-                serializeMapping(sbolDocument, xmlAttribsRef, mapping)
-            ]
-        });
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, module, 'sbol:Module', properties);
-}
-
-
-},{"./serializeIdentified":309,"./serializeMapping":313,"xml":377}],316:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeFunctionalComponent = require('./serializeFunctionalComponent'),
-    serializeInteraction = require('./serializeInteraction'),
-    serializeModule = require('./serializeModule');
-
-module.exports = function serializeModuleDefinition(sbolDocument, xmlAttribsRef, moduleDefinition) {
-
-    var properties = [];
-
-    moduleDefinition.roles.forEach(function(role) {
-
-        properties.push({
-            'sbol:role': {
-                _attr: {
-                    'rdf:resource': role
-                }
-            }
-        });
-
-    });
-
-    moduleDefinition.modules.forEach(function(module) {
-        properties.push({
-            'sbol:module': [
-                serializeModule(sbolDocument, xmlAttribsRef, module)
-            ]
-        });
-    });
-
-    moduleDefinition.functionalComponents.forEach(function(functionalComponent) {
-        properties.push({
-            'sbol:functionalComponent': [
-                serializeFunctionalComponent(sbolDocument, xmlAttribsRef, functionalComponent)
-            ]
-        });
-    });
-
-    moduleDefinition.interactions.forEach(function(interaction) {
-        properties.push({
-            'sbol:interaction': [
-                serializeInteraction(sbolDocument, xmlAttribsRef, interaction)
-            ]
-        });
-    });
-
-    moduleDefinition.models.forEach(function(model) {
-        properties.push({ 'sbol:model': { _attr: { 'rdf:resource': model.uri?model.uri:model }}});
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, moduleDefinition, 'sbol:ModuleDefinition', properties);
-}
-
-
-},{"./serializeFunctionalComponent":307,"./serializeIdentified":309,"./serializeInteraction":311,"./serializeModule":315,"xml":377}],317:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeParticipation(sbolDocument, xmlAttribsRef, participation) {
-
-    var properties = [];
-
-    participation.roles.forEach(function(role) {
-
-        properties.push({
-            'sbol:role': {
-                _attr: {
-                    'rdf:resource': role
-                }
-            }
-        });
-
-    });
-
-    properties.push({ 'sbol:participant': { _attr: { 'rdf:resource': participation.participant.uri?participation.participant.uri:participation.participant }}})
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, participation, 'sbol:Participation', properties);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],318:[function(require,module,exports){
-
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeProvAssociation = require('./serializeProvAssociation'),
-    serializeProvUsage = require('./serializeProvUsage')
-
-module.exports = function serializeProvActivity(sbolDocument, xmlAttribsRef, activity) {
-
-    var attr = []
-
-    if(activity.startedAtTime) {
-
-        attr.push({
-            'prov:startedAtTime': [
-                {
-                    _attr: {
-                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
-                    }
-                },
-                activity.startedAtTime.toISOString()
-            ]
-        })
-
-    }
-
-    if(activity.endedAtTime) {
-
-        attr.push({
-            'prov:endedAtTime': [
-                {
-                    _attr: {
-                        'rdf:datatype': 'http://www.w3.org/2001/XMLSchema#dateTime'
-                    }
-                },
-                activity.endedAtTime.toISOString()
-            ]
-        })
-
-    }
-
-    activity.usages.forEach((usage) => {
-        attr.push({ 'prov:qualifiedUsage': [
-            serializeProvUsage(sbolDocument, xmlAttribsRef, usage)
-        ]})
-    })
- 
-    activity.associations.forEach((association) => {
-        attr.push({ 'prov:qualifiedAssociation': [
-            serializeProvAssociation(sbolDocument, xmlAttribsRef, association)
-        ]})
-    })
- 
-    activity.wasInformedBys.forEach((wasInformedBy) => {
-        attr.push({ 'prov:wasInformedBy': { _attr: { 'rdf:resource': wasinformedBy.uri?wasInformedBy.uri:wasInformedBy}}});
-    })
-        
-    return serializeIdentified(sbolDocument, xmlAttribsRef, activity, 'prov:Activity', attr)
-
-}
-
-
-},{"./serializeIdentified":309,"./serializeProvAssociation":320,"./serializeProvUsage":322,"xml":377}],319:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeProvAgent(sbolDocument, xmlAttribsRef, agent) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, agent, 'prov:Agent', []);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],320:[function(require,module,exports){
-
-
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified')
-
-module.exports = function serializeProvAssociation(sbolDocument, xmlAttribsRef, association) {
-
-    var attr = []
-
-    attr.push({
-        'prov:agent': {
-            _attr: {
-                'rdf:resource': association.agent.uri?association.agent.uri:association.agent
-            }
-        }
-    })
-
-    if (association.plan) {
-	attr.push({
-            'prov:hadPlan': {
-		_attr: {
-                    'rdf:resource': association.plan.uri?association.plan.uri:association.plan
-		}
-            }
-	})
-    }
-    
-    association.roles.forEach(function(role) {
-	attr.push({
-            'prov:hadRole': {
-		_attr: {
-                    'rdf:resource': role
-		}
-            }
-	})
-    })
-        
-    return serializeIdentified(sbolDocument, xmlAttribsRef, association, 'prov:Association', attr)
-
-}
-
-},{"./serializeIdentified":309,"xml":377}],321:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeProvPlan(sbolDocument, xmlAttribsRef, plan) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, plan, 'prov:Plan', []);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],322:[function(require,module,exports){
-
-
-/*
- * Copyright (C) 2017 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified')
-
-module.exports = function serializeProvUsage(sbolDocument, xmlAttribsRef, usage) {
-
-    var attr = []
-
-    attr.push({
-        'prov:entity': {
-            _attr: {
-                'rdf:resource': usage.entity.uri?usage.entity.uri:usage.entity
-            }
-        }
-    })
-
-    usage.roles.forEach(function(role) {
-	attr.push({
-            'prov:hadRole': {
-		_attr: {
-                    'rdf:resource': role
-		}
-            }
-	})
-    })
-        
-    return serializeIdentified(sbolDocument, xmlAttribsRef, usage, 'prov:Usage', attr)
-
-}
-
-},{"./serializeIdentified":309,"xml":377}],323:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified');
-
-module.exports = function serializeSequence(sbolDocument, xmlAttribsRef, sequence) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, sequence, 'sbol:Sequence', [
-        { 'sbol:elements': sequence.elements },
-        { 'sbol:encoding': { _attr: { 'rdf:resource': sequence.encoding }}},
-    ]);
-}
-
-
-},{"./serializeIdentified":309,"xml":377}],324:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeLocation = require('./serializeLocation');
-
-module.exports = function serializeSequenceAnnotation(sbolDocument, xmlAttribsRef, sequenceAnnotation) {
-
-    var properties = [];
-
-    sequenceAnnotation.locations.forEach(function(location) {
-
-        properties.push({
-            'sbol:location': [
-                serializeLocation(sbolDocument, xmlAttribsRef, location)
-            ]
-        });
-
-    });
-
-    if(sequenceAnnotation.component.toString() !== '')
-    {
-        properties.push(
-            { 'sbol:component': { _attr: { 'rdf:resource': sequenceAnnotation.component.uri?sequenceAnnotation.component.uri:sequenceAnnotation.component }}}
-        );
-    }
-
-    sequenceAnnotation.roles.forEach(function(role) {
-        properties.push({ 'sbol:role': { _attr: { 'rdf:resource': role }}});
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, sequenceAnnotation, 'sbol:SequenceAnnotation', properties);
-}
-
-
-},{"./serializeIdentified":309,"./serializeLocation":312,"xml":377}],325:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeLocation = require('./serializeLocation');
-
-module.exports = function serializeSequenceConstraint(sbolDocument, xmlAttribsRef, sequenceConstraint) {
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, sequenceConstraint, 'sbol:SequenceConstraint', [
-
-        { 'sbol:restriction': { _attr: { 'rdf:resource': sequenceConstraint.restriction }}},
-        { 'sbol:subject': { _attr: { 'rdf:resource': sequenceConstraint.subject.uri?sequenceConstraint.subject.uri:sequenceConstraint.subject }}},
-        { 'sbol:object': { _attr: { 'rdf:resource': sequenceConstraint.object.uri?sequenceConstraint.object.uri:sequenceConstraint.object }}}
-    ]);
-}
-
-
-},{"./serializeIdentified":309,"./serializeLocation":312,"xml":377}],326:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    serializeIdentified = require('./serializeIdentified'),
-    serializeMapping = require('./serializeMapping');
-
-module.exports = function serializeVariableComponent(sbolDocument, xmlAttribsRef, component) {
-
-    var properties = [
-        { 'sbol:variable': { _attr: { 'rdf:resource': component.variable.uri?component.variable.uri:component.variable }}},
-        { 'sbol:operator': { _attr: { 'rdf:resource': component.operator }}},
-    ]
-
-    component.variants.forEach(function(variant) {
-        properties.push({ 'sbol:variant': { _attr: { 'rdf:resource': variant.uri ? variant.uri : variant }}});
-    });
-
-    component.variantCollections.forEach(function(variantCollection) {
-        properties.push({ 'sbol:variantCollection': { _attr: { 'rdf:resource': variantCollection.uri ? variantCollection.uri : variantCollection }}});
-    });
-
-    component.variantDerivations.forEach(function(variantDerivation) {
-        properties.push({ 'sbol:variantDerivation': { _attr: { 'rdf:resource': variantDerivation.uri ? variantDerivation.uri : variantDerivation }}});
-    });
-
-    return serializeIdentified(sbolDocument, xmlAttribsRef, component, 'sbol:VariableComponent', properties);
-
-}
-
-
-},{"./serializeIdentified":309,"./serializeMapping":313,"xml":377}],327:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var xml = require('xml'),
-    extend = require('extend'),
-    serializeModuleDefinition = require('./serializeModuleDefinition'),
-    serializeCollection = require('./serializeCollection'),
-    serializeComponentDefinition = require('./serializeComponentDefinition'),
-    serializeModel = require('./serializeModel'),
-	serializeAttachment = require('./serializeAttachment'),
-    serializeImplementation = require('./serializeImplementation'),
-    serializeSequence = require('./serializeSequence'),
-    serializeGenericTopLevel = require('./serializeGenericTopLevel'),
-    serializeProvActivity = require('./serializeProvActivity'),
-    serializeProvPlan = require('./serializeProvPlan'),
-    serializeProvAgent = require('./serializeProvAgent'),
-    serializeCombinatorialDerivation = require('./serializeCombinatorialDerivation'),
-    serializeVariableComponent = require('./serializeVariableComponent');
-
-module.exports = function serializeXML(sbolDocument, attribs) {
-
-    var xmlAttribs = extend({
-
-        'xmlns:rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-        'xmlns:dcterms': 'http://purl.org/dc/terms/',
-        'xmlns:prov': 'http://www.w3.org/ns/prov#',
-        'xmlns:sbol': 'http://sbols.org/v2#',
-        'xmlns:xsd': 'http://www.w3.org/2001/XMLSchema#dateTime/'
-
-    }, attribs || {})
-
-    var nodes = []
-
-    var xmlAttribsRef = {
-        namespaces: xmlAttribs,
-        lastNamespaceNum: 0
-    } 
-
-    sbolDocument.collections.forEach(function(collection) {
-        nodes.push(serializeCollection(sbolDocument, xmlAttribsRef, collection));
-    });
-
-    sbolDocument.moduleDefinitions.forEach(function(moduleDefinition) {
-        nodes.push(serializeModuleDefinition(sbolDocument, xmlAttribsRef, moduleDefinition));
-    });
-
-    sbolDocument.componentDefinitions.forEach(function(componentDefinition) {
-        nodes.push(serializeComponentDefinition(sbolDocument, xmlAttribsRef, componentDefinition));
-    });
-
-    sbolDocument.models.forEach(function(model) {
-        nodes.push(serializeModel(sbolDocument, xmlAttribsRef, model));
-    });
-
-	sbolDocument.attachments.forEach(function(attachment) {
-        nodes.push(serializeAttachment(sbolDocument, xmlAttribsRef, attachment));
-    });
-
-    sbolDocument.implementations.forEach(function(implementation) {
-        nodes.push(serializeImplementation(sbolDocument, xmlAttribsRef, implementation));
-    });
-
-    sbolDocument.sequences.forEach(function(sequence) {
-        nodes.push(serializeSequence(sbolDocument, xmlAttribsRef, sequence));
-    });
-
-    sbolDocument.provActivities.forEach(function(activity) {
-        nodes.push(serializeProvActivity(sbolDocument, xmlAttribsRef, activity));
-    });
-
-    sbolDocument.provAgents.forEach(function(agent) {
-        nodes.push(serializeProvAgent(sbolDocument, xmlAttribsRef, agent));
-    });
-
-    sbolDocument.provPlans.forEach(function(plan) {
-        nodes.push(serializeProvPlan(sbolDocument, xmlAttribsRef, plan));
-    });
-
-    sbolDocument.genericTopLevels.forEach(function(genericTopLevel) {
-	if (genericTopLevel.displayId) {
-            nodes.push(serializeGenericTopLevel(sbolDocument, xmlAttribsRef, genericTopLevel));
-	}
-    });
-
-    sbolDocument.combinatorialDerivations.forEach(function(derivation) {
-        nodes.push(serializeCombinatorialDerivation(sbolDocument, xmlAttribsRef, derivation));
-    });
-
-    nodes.push({
-        _attr: xmlAttribsRef.namespaces
-    })
-
-    return xml({
-        'rdf:RDF': nodes
-    }, {
-        declaration: true,
-        indent: '  '
-    });
-}
-
-
-
-},{"./serializeAttachment":302,"./serializeCollection":303,"./serializeCombinatorialDerivation":304,"./serializeComponentDefinition":306,"./serializeGenericTopLevel":308,"./serializeImplementation":310,"./serializeModel":314,"./serializeModuleDefinition":316,"./serializeProvActivity":318,"./serializeProvAgent":319,"./serializeProvPlan":321,"./serializeSequence":323,"./serializeVariableComponent":326,"extend":333,"xml":377}],328:[function(require,module,exports){
-
-var so = 'http://identifiers.org/so/'
-var sbo = 'http://identifiers.org/biomodels.sbo/'
-
-module.exports = {
-
-    promoter: 'http://identifiers.org/so/SO:0000167',
-    operator: 'http://identifiers.org/so/SO:0000057',
-    cds: 'http://identifiers.org/so/SO:0000316',
-    fivePrimeUtr: 'http://identifiers.org/so/SO:0000204',
-    terminator: 'http://identifiers.org/so/SO:0000141',
-    insulator: 'http://identifiers.org/so/SO:0000627',
-    originOfReplication: 'http://identifiers.org/so/SO:0000296',
-    primerBindingSite: 'http://identifiers.org/so/SO:0005850',
-    ribosomeBindingSite: 'http://identifiers.org/so/SO:0000139',
-    gene: 'http://identifiers.org/so/SO:0000704',
-    rna: 'http://identifiers.org/so/SO:0000234',
-    restrictionSite: 'http://identifiers.org/so/SO:0001687',
-    bluntRestrictionSite: 'http://identifiers.org/so/SO:0001691',
-    assemblyScar: 'http://identifiers.org/so/SO:0001953',
-    engineeredGene: 'http://identifiers.org/so/SO:0000280',
-    engineeredRegion: 'http://identifiers.org/so/SO:0000804',
-    conservedRegion: 'http://identifiers.org/so/SO:0000330',
-
-    dnaRegion: 'http://www.biopax.org/release/biopax-level3.owl#DnaRegion',
-    rnaRegion: 'http://www.biopax.org/release/biopax-level3.owl#RnaRegion',
-    protein: 'http://www.biopax.org/release/biopax-level3.owl#Protein',
-    smallMolecule: 'http://www.biopax.org/release/biopax-level3.owl#SmallMolecule',
-    effector: 'http://identifiers.org/chebi/CHEBI:35224',
-
-    dnaSequence: 'http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html',
-    rnaSequence: 'http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html',
-    proteinSequence: 'http://www.chem.qmul.ac.uk/iupac/AminoAcid/',
-
-    complex: 'http://www.biopax.org/release/biopax-level3.owl#Complex',
-
-    sbo: {
-        modelingFramework: sbo + 'SBO:0000004',
-        continuousFramework: sbo + 'SBO:0000062',
-        nonSpatialContinuousFramework: sbo + 'SBO:0000293',
-        spatialContinuousFramework: sbo + 'SBO:0000292',
-        discreteFramework: sbo + 'SBO:0000063',
-        nonSpatialDiscreteFramework: sbo + 'SBO:0000295',
-        spatialDiscreteFramework: sbo + 'SBO:0000294',
-        fluxBalanceFramework: sbo + 'SBO:0000624',
-        logicalFramework: sbo + 'SBO:0000234',
-        booleanLogicalFramework: sbo + 'SBO:0000547',
-        occurringEntityRepresentation: sbo + 'SBO:0000231',
-        biologicalActivity: sbo + 'SBO:0000412',
-        process: sbo + 'SBO:0000375',
-        biochemicalOrTransportReaction: sbo + 'SBO:0000167',
-        biochemicalReaction: sbo + 'SBO:0000176',
-        acidBaseReaction: sbo + 'SBO:0000208',
-        deprotonation: sbo + 'SBO:0000213',
-        protonation: sbo + 'SBO:0000212',
-        conformationalTransition: sbo + 'SBO:0000181',
-        conversion: sbo + 'SBO:0000182',
-        additionOfAChemicalGroup: sbo + 'SBO:0000210',
-        acetylation: sbo + 'SBO:0000215',
-        glycosylation: sbo + 'SBO:0000217',
-        hydroxylation: sbo + 'SBO:0000233',
-        methylation: sbo + 'SBO:0000214',
-        myristoylation: sbo + 'SBO:0000219',
-        palmitoylation: sbo + 'SBO:0000218',
-        phosphorylation: sbo + 'SBO:0000216',
-        prenylation: sbo + 'SBO:0000221',
-        farnesylation: sbo + 'SBO:0000222',
-        geranylgeranylation: sbo + 'SBO:0000223',
-        sulfation: sbo + 'SBO:0000220',
-        ubiquitination: sbo + 'SBO:0000224',
-        cleavage: sbo + 'SBO:0000178',
-        removalOfAChemicalGroup: sbo + 'SBO:0000211',
-        deamination: sbo + 'SBO:0000401',
-        decarbonylation: sbo + 'SBO:0000400',
-        decarboxylation: sbo + 'SBO:0000399',
-        dephosphorylation: sbo + 'SBO:0000330',
-        transferOfAChemicalGroup: sbo + 'SBO:0000402',
-        transamination: sbo + 'SBO:0000403',
-        degradation: sbo + 'SBO:0000179',
-        dissociation: sbo + 'SBO:0000180',
-        hydrolysis: sbo + 'SBO:0000376',
-        ionisation: sbo + 'SBO:0000209',
-        isomerisation: sbo + 'SBO:0000377',
-        nonCovalentBinding: sbo + 'SBO:0000177',
-        redoxReaction: sbo + 'SBO:0000200',
-        oxidation: sbo + 'SBO:0000201',
-        reduction: sbo + 'SBO:0000202',
-        transportReaction: sbo + 'SBO:0000185',
-        transcellularMembraneEffluxReaction: sbo + 'SBO:0000588',
-        transcellularMembraneInfluxReaction: sbo + 'SBO:0000587',
-        biologicalEffectOfAPerturbation: sbo + 'SBO:0000357',
-        compositeBiochemicalProcess: sbo + 'SBO:0000205',
-        dnaReplication: sbo + 'SBO:0000204',
-        geneticProduction: sbo + 'SBO:0000589',
-        transcription: sbo + 'SBO:0000183',
-        translation: sbo + 'SBO:0000184',
-        encapsulatingProcess: sbo + 'SBO:0000395',
-        molecularOrGeneticInteraction: sbo + 'SBO:0000342',
-        geneticInteraction: sbo + 'SBO:0000343',
-        geneticEnhancement: sbo + 'SBO:0000501',
-        geneticSuppression: sbo + 'SBO:0000500',
-        syntheticLethality: sbo + 'SBO:0000502',
-        molecularInteraction: sbo + 'SBO:0000344',
-        proteinComplexFormation: sbo + 'SBO:0000526',
-        omittedProcess: sbo + 'SBO:0000397',
-        phenotype: sbo + 'SBO:0000358',
-        stateVariableAssignment: sbo + 'SBO:0000464',
-        petriNetTransition: sbo + 'SBO:0000591',
-        uncertainProcess: sbo + 'SBO:0000396',
-        relationship: sbo + 'SBO:0000374',
-        control: sbo + 'SBO:0000168',
-        allostericControl: sbo + 'SBO:0000239',
-        consumption: sbo + 'SBO:0000394',
-        inhibition: sbo + 'SBO:0000169',
-        absoluteInhibition: sbo + 'SBO:0000407',
-        production: sbo + 'SBO:0000393',
-        stimulation: sbo + 'SBO:0000170',
-        absoluteStimulation: sbo + 'SBO:0000411',
-        catalysis: sbo + 'SBO:0000172',
-        necessaryStimulation: sbo + 'SBO:0000171',
-        equivalence: sbo + 'SBO:0000392',
-        logicalCombination: sbo + 'SBO:0000237',
-        and: sbo + 'SBO:0000173',
-        not: sbo + 'SBO:0000238',
-        or: sbo + 'SBO:0000174',
-        xor: sbo + 'SBO:0000175',
-        logicalRelationship: sbo + 'SBO:0000398',
-        positionalRelationship: sbo + 'SBO:0000413',
-        cis: sbo + 'SBO:0000414',
-        containment: sbo + 'SBO:0000469',
-        trans: sbo + 'SBO:0000415',
-        participantRole: sbo + 'SBO:0000003',
-        functionalCompartment: sbo + 'SBO:0000289',
-        modifier: sbo + 'SBO:0000019',
-        dualActivityModifier: sbo + 'SBO:0000595',
-        inhibitor: sbo + 'SBO:0000020',
-        competitiveInhibitor: sbo + 'SBO:0000206',
-        nonCompetitiveInhibitor: sbo + 'SBO:0000207',
-        silencer: sbo + 'SBO:0000597',
-        modifierOfUnknownActivity: sbo + 'SBO:0000596',
-        stimulator: sbo + 'SBO:0000459',
-        catalyst: sbo + 'SBO:0000013',
-        enzymaticCatalyst: sbo + 'SBO:0000460',
-        essentialActivator: sbo + 'SBO:0000461',
-        bindingActivator: sbo + 'SBO:0000535',
-        catalyticActivator: sbo + 'SBO:0000534',
-        specificActivator: sbo + 'SBO:0000533',
-        nonEssentialActivator: sbo + 'SBO:0000462',
-        potentiator: sbo + 'SBO:0000021',
-        neutralParticipant: sbo + 'SBO:0000594',
-        product: sbo + 'SBO:0000011',
-        sideProduct: sbo + 'SBO:0000603',
-        promoter: sbo + 'SBO:0000598',
-        reactant: sbo + 'SBO:0000010',
-        interactor: sbo + 'SBO:0000336',
-        substrate: sbo + 'SBO:0000015',
-        sideSubstrate: sbo + 'SBO:0000604',
-    },
-
-    so: {
-        promoter: so + 'SO:0000167',
-        operator: so + 'SO:0000057',
-        cds: so + 'SO:0000316',
-        fivePrimeUtr: so + 'SO:0000204',
-        terminator: so + 'SO:0000141',
-        insulator: so + 'SO:0000627',
-        originOfReplication: so + 'SO:0000296',
-        primerBindingSite: so + 'SO:0005850',
-        ribosomeEntrySite: so + 'SO:0000139',
-        gene: so + 'SO:0000704',
-        mRNA: so + 'SO:0000234',
-        restrictionEnzymeRecognitionSite: so + 'SO:0001687',
-        engineeredGene: so + 'SO:0000280',
-        engineeredRegion: so + 'SO:0000804',
-        sequenceFeature: so + 'SO:0000110',
-        SGRNA: so + 'SO:0001998',
-    }
-}
-
-
-},{}],329:[function(require,module,exports){
-
-/*
- * Copyright (C) 2015 ICOS Group, Newcastle University.  All rights reserved.
- * Contact:  James Alastair McLaughlin <j.a.mclaughlin@ncl.ac.uk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-"use strict";
-
-var URI = require('urijs');
-
-exports.uriOrObject = function uriOrObject(obj) {
-
-    if(obj instanceof URI)
-        return obj;
-
-    if(typeof(obj) === 'string')
-        return URI(obj);
-
-    if(!obj)
-        return URI();
-
-    return obj;
-}
-
-
-},{"urijs":374}],330:[function(require,module,exports){
-(function (global){
+},{"./lib/_stream_duplex.js":325,"./lib/_stream_passthrough.js":326,"./lib/_stream_readable.js":327,"./lib/_stream_transform.js":328,"./lib/_stream_writable.js":329}],334:[function(require,module,exports){
 'use strict';
 
-var buffer = require('buffer');
-var Buffer = buffer.Buffer;
-var SlowBuffer = buffer.SlowBuffer;
-var MAX_LEN = buffer.kMaxLength || 2147483647;
-exports.alloc = function alloc(size, fill, encoding) {
-  if (typeof Buffer.alloc === 'function') {
-    return Buffer.alloc(size, fill, encoding);
+var Buffer = require('safe-buffer').Buffer;
+
+var isEncoding = Buffer.isEncoding || function (encoding) {
+  encoding = '' + encoding;
+  switch (encoding && encoding.toLowerCase()) {
+    case 'hex':case 'utf8':case 'utf-8':case 'ascii':case 'binary':case 'base64':case 'ucs2':case 'ucs-2':case 'utf16le':case 'utf-16le':case 'raw':
+      return true;
+    default:
+      return false;
   }
-  if (typeof encoding === 'number') {
-    throw new TypeError('encoding must not be number');
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  var enc = encoding;
-  var _fill = fill;
-  if (_fill === undefined) {
-    enc = undefined;
-    _fill = 0;
-  }
-  var buf = new Buffer(size);
-  if (typeof _fill === 'string') {
-    var fillBuf = new Buffer(_fill, enc);
-    var flen = fillBuf.length;
-    var i = -1;
-    while (++i < size) {
-      buf[i] = fillBuf[i % flen];
-    }
-  } else {
-    buf.fill(_fill);
-  }
-  return buf;
-}
-exports.allocUnsafe = function allocUnsafe(size) {
-  if (typeof Buffer.allocUnsafe === 'function') {
-    return Buffer.allocUnsafe(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new Buffer(size);
-}
-exports.from = function from(value, encodingOrOffset, length) {
-  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
-    return Buffer.from(value, encodingOrOffset, length);
-  }
-  if (typeof value === 'number') {
-    throw new TypeError('"value" argument must not be a number');
-  }
-  if (typeof value === 'string') {
-    return new Buffer(value, encodingOrOffset);
-  }
-  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    var offset = encodingOrOffset;
-    if (arguments.length === 1) {
-      return new Buffer(value);
-    }
-    if (typeof offset === 'undefined') {
-      offset = 0;
-    }
-    var len = length;
-    if (typeof len === 'undefined') {
-      len = value.byteLength - offset;
-    }
-    if (offset >= value.byteLength) {
-      throw new RangeError('\'offset\' is out of bounds');
-    }
-    if (len > value.byteLength - offset) {
-      throw new RangeError('\'length\' is out of bounds');
-    }
-    return new Buffer(value.slice(offset, offset + len));
-  }
-  if (Buffer.isBuffer(value)) {
-    var out = new Buffer(value.length);
-    value.copy(out, 0, 0, value.length);
-    return out;
-  }
-  if (value) {
-    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
-      return new Buffer(value);
-    }
-    if (value.type === 'Buffer' && Array.isArray(value.data)) {
-      return new Buffer(value.data);
-    }
-  }
-
-  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
-}
-exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
-  if (typeof Buffer.allocUnsafeSlow === 'function') {
-    return Buffer.allocUnsafeSlow(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size >= MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new SlowBuffer(size);
-}
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"buffer":433}],331:[function(require,module,exports){
-(function (Buffer){
-var Writable = require('readable-stream').Writable
-var inherits = require('inherits')
-
-if (typeof Uint8Array === 'undefined') {
-  var U8 = require('typedarray').Uint8Array
-} else {
-  var U8 = Uint8Array
-}
-
-function ConcatStream(opts, cb) {
-  if (!(this instanceof ConcatStream)) return new ConcatStream(opts, cb)
-
-  if (typeof opts === 'function') {
-    cb = opts
-    opts = {}
-  }
-  if (!opts) opts = {}
-
-  var encoding = opts.encoding
-  var shouldInferEncoding = false
-
-  if (!encoding) {
-    shouldInferEncoding = true
-  } else {
-    encoding =  String(encoding).toLowerCase()
-    if (encoding === 'u8' || encoding === 'uint8') {
-      encoding = 'uint8array'
-    }
-  }
-
-  Writable.call(this, { objectMode: true })
-
-  this.encoding = encoding
-  this.shouldInferEncoding = shouldInferEncoding
-
-  if (cb) this.on('finish', function () { cb(this.getBody()) })
-  this.body = []
-}
-
-module.exports = ConcatStream
-inherits(ConcatStream, Writable)
-
-ConcatStream.prototype._write = function(chunk, enc, next) {
-  this.body.push(chunk)
-  next()
-}
-
-ConcatStream.prototype.inferEncoding = function (buff) {
-  var firstBuffer = buff === undefined ? this.body[0] : buff;
-  if (Buffer.isBuffer(firstBuffer)) return 'buffer'
-  if (typeof Uint8Array !== 'undefined' && firstBuffer instanceof Uint8Array) return 'uint8array'
-  if (Array.isArray(firstBuffer)) return 'array'
-  if (typeof firstBuffer === 'string') return 'string'
-  if (Object.prototype.toString.call(firstBuffer) === "[object Object]") return 'object'
-  return 'buffer'
-}
-
-ConcatStream.prototype.getBody = function () {
-  if (!this.encoding && this.body.length === 0) return []
-  if (this.shouldInferEncoding) this.encoding = this.inferEncoding()
-  if (this.encoding === 'array') return arrayConcat(this.body)
-  if (this.encoding === 'string') return stringConcat(this.body)
-  if (this.encoding === 'buffer') return bufferConcat(this.body)
-  if (this.encoding === 'uint8array') return u8Concat(this.body)
-  return this.body
-}
-
-var isArray = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]'
-}
-
-function isArrayish (arr) {
-  return /Array\]$/.test(Object.prototype.toString.call(arr))
-}
-
-function isBufferish (p) {
-  return typeof p === 'string' || isArrayish(p) || (p && typeof p.subarray === 'function')
-}
-
-function stringConcat (parts) {
-  var strings = []
-  var needsToString = false
-  for (var i = 0; i < parts.length; i++) {
-    var p = parts[i]
-    if (typeof p === 'string') {
-      strings.push(p)
-    } else if (Buffer.isBuffer(p)) {
-      strings.push(p)
-    } else if (isBufferish(p)) {
-      strings.push(new Buffer(p))
-    } else {
-      strings.push(new Buffer(String(p)))
-    }
-  }
-  if (Buffer.isBuffer(parts[0])) {
-    strings = Buffer.concat(strings)
-    strings = strings.toString('utf8')
-  } else {
-    strings = strings.join('')
-  }
-  return strings
-}
-
-function bufferConcat (parts) {
-  var bufs = []
-  for (var i = 0; i < parts.length; i++) {
-    var p = parts[i]
-    if (Buffer.isBuffer(p)) {
-      bufs.push(p)
-    } else if (isBufferish(p)) {
-      bufs.push(new Buffer(p))
-    } else {
-      bufs.push(new Buffer(String(p)))
-    }
-  }
-  return Buffer.concat(bufs)
-}
-
-function arrayConcat (parts) {
-  var res = []
-  for (var i = 0; i < parts.length; i++) {
-    res.push.apply(res, parts[i])
-  }
-  return res
-}
-
-function u8Concat (parts) {
-  var len = 0
-  for (var i = 0; i < parts.length; i++) {
-    if (typeof parts[i] === 'string') {
-      parts[i] = new Buffer(parts[i])
-    }
-    len += parts[i].length
-  }
-  var u8 = new U8(len)
-  for (var i = 0, offset = 0; i < parts.length; i++) {
-    var part = parts[i]
-    for (var j = 0; j < part.length; j++) {
-      u8[offset++] = part[j]
-    }
-  }
-  return u8
-}
-
-}).call(this,require("buffer").Buffer)
-},{"buffer":433,"inherits":334,"readable-stream":369,"typedarray":371}],332:[function(require,module,exports){
-(function (Buffer){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
-  }
-  return objectToString(arg) === '[object Array]';
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-}).call(this,{"isBuffer":require("../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":490}],333:[function(require,module,exports){
-'use strict';
-
-var hasOwn = Object.prototype.hasOwnProperty;
-var toStr = Object.prototype.toString;
-
-var isArray = function isArray(arr) {
-	if (typeof Array.isArray === 'function') {
-		return Array.isArray(arr);
-	}
-
-	return toStr.call(arr) === '[object Array]';
 };
 
-var isPlainObject = function isPlainObject(obj) {
-	if (!obj || toStr.call(obj) !== '[object Object]') {
-		return false;
-	}
-
-	var hasOwnConstructor = hasOwn.call(obj, 'constructor');
-	var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-	// Not own constructor property must be Object
-	if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
-		return false;
-	}
-
-	// Own properties are enumerated firstly, so to speed up,
-	// if last one is own, then all properties are own.
-	var key;
-	for (key in obj) {/**/}
-
-	return typeof key === 'undefined' || hasOwn.call(obj, key);
+function _normalizeEncoding(enc) {
+  if (!enc) return 'utf8';
+  var retried;
+  while (true) {
+    switch (enc) {
+      case 'utf8':
+      case 'utf-8':
+        return 'utf8';
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return 'utf16le';
+      case 'latin1':
+      case 'binary':
+        return 'latin1';
+      case 'base64':
+      case 'ascii':
+      case 'hex':
+        return enc;
+      default:
+        if (retried) return; // undefined
+        enc = ('' + enc).toLowerCase();
+        retried = true;
+    }
+  }
 };
 
-module.exports = function extend() {
-	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[0],
-		i = 1,
-		length = arguments.length,
-		deep = false;
+// Do not cache `Buffer.isEncoding` when checking encoding names as some
+// modules monkey-patch it to support additional encodings
+function normalizeEncoding(enc) {
+  var nenc = _normalizeEncoding(enc);
+  if (typeof nenc !== 'string' && (Buffer.isEncoding === isEncoding || !isEncoding(enc))) throw new Error('Unknown encoding: ' + enc);
+  return nenc || enc;
+}
 
-	// Handle a deep copy situation
-	if (typeof target === 'boolean') {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
-		target = {};
-	}
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters.
+exports.StringDecoder = StringDecoder;
+function StringDecoder(encoding) {
+  this.encoding = normalizeEncoding(encoding);
+  var nb;
+  switch (this.encoding) {
+    case 'utf16le':
+      this.text = utf16Text;
+      this.end = utf16End;
+      nb = 4;
+      break;
+    case 'utf8':
+      this.fillLast = utf8FillLast;
+      nb = 4;
+      break;
+    case 'base64':
+      this.text = base64Text;
+      this.end = base64End;
+      nb = 3;
+      break;
+    default:
+      this.write = simpleWrite;
+      this.end = simpleEnd;
+      return;
+  }
+  this.lastNeed = 0;
+  this.lastTotal = 0;
+  this.lastChar = Buffer.allocUnsafe(nb);
+}
 
-	for (; i < length; ++i) {
-		options = arguments[i];
-		// Only deal with non-null/undefined values
-		if (options != null) {
-			// Extend the base object
-			for (name in options) {
-				src = target[name];
-				copy = options[name];
-
-				// Prevent never-ending loop
-				if (target !== copy) {
-					// Recurse if we're merging plain objects or arrays
-					if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-						if (copyIsArray) {
-							copyIsArray = false;
-							clone = src && isArray(src) ? src : [];
-						} else {
-							clone = src && isPlainObject(src) ? src : {};
-						}
-
-						// Never move original objects, clone them
-						target[name] = extend(deep, clone, copy);
-
-					// Don't bring in undefined values
-					} else if (typeof copy !== 'undefined') {
-						target[name] = copy;
-					}
-				}
-			}
-		}
-	}
-
-	// Return the modified object
-	return target;
+StringDecoder.prototype.write = function (buf) {
+  if (buf.length === 0) return '';
+  var r;
+  var i;
+  if (this.lastNeed) {
+    r = this.fillLast(buf);
+    if (r === undefined) return '';
+    i = this.lastNeed;
+    this.lastNeed = 0;
+  } else {
+    i = 0;
+  }
+  if (i < buf.length) return r ? r + this.text(buf, i) : this.text(buf, i);
+  return r || '';
 };
 
+StringDecoder.prototype.end = utf8End;
 
-},{}],334:[function(require,module,exports){
-arguments[4][188][0].apply(exports,arguments)
-},{"dup":188}],335:[function(require,module,exports){
+// Returns only complete characters in a Buffer
+StringDecoder.prototype.text = utf8Text;
+
+// Attempts to complete a partial non-UTF-8 character using bytes from a Buffer
+StringDecoder.prototype.fillLast = function (buf) {
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, buf.length);
+  this.lastNeed -= buf.length;
+};
+
+// Checks the type of a UTF-8 byte, whether it's ASCII, a leading byte, or a
+// continuation byte.
+function utf8CheckByte(byte) {
+  if (byte <= 0x7F) return 0;else if (byte >> 5 === 0x06) return 2;else if (byte >> 4 === 0x0E) return 3;else if (byte >> 3 === 0x1E) return 4;
+  return -1;
+}
+
+// Checks at most 3 bytes at the end of a Buffer in order to detect an
+// incomplete multi-byte UTF-8 character. The total number of bytes (2, 3, or 4)
+// needed to complete the UTF-8 character (if applicable) are returned.
+function utf8CheckIncomplete(self, buf, i) {
+  var j = buf.length - 1;
+  if (j < i) return 0;
+  var nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 1;
+    return nb;
+  }
+  if (--j < i) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 2;
+    return nb;
+  }
+  if (--j < i) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) {
+      if (nb === 2) nb = 0;else self.lastNeed = nb - 3;
+    }
+    return nb;
+  }
+  return 0;
+}
+
+// Validates as many continuation bytes for a multi-byte UTF-8 character as
+// needed or are available. If we see a non-continuation byte where we expect
+// one, we "replace" the validated continuation bytes we've seen so far with
+// UTF-8 replacement characters ('\ufffd'), to match v8's UTF-8 decoding
+// behavior. The continuation byte check is included three times in the case
+// where all of the continuation bytes for a character exist in the same buffer.
+// It is also done this way as a slight performance increase instead of using a
+// loop.
+function utf8CheckExtraBytes(self, buf, p) {
+  if ((buf[0] & 0xC0) !== 0x80) {
+    self.lastNeed = 0;
+    return '\ufffd'.repeat(p);
+  }
+  if (self.lastNeed > 1 && buf.length > 1) {
+    if ((buf[1] & 0xC0) !== 0x80) {
+      self.lastNeed = 1;
+      return '\ufffd'.repeat(p + 1);
+    }
+    if (self.lastNeed > 2 && buf.length > 2) {
+      if ((buf[2] & 0xC0) !== 0x80) {
+        self.lastNeed = 2;
+        return '\ufffd'.repeat(p + 2);
+      }
+    }
+  }
+}
+
+// Attempts to complete a multi-byte UTF-8 character using bytes from a Buffer.
+function utf8FillLast(buf) {
+  var p = this.lastTotal - this.lastNeed;
+  var r = utf8CheckExtraBytes(this, buf, p);
+  if (r !== undefined) return r;
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, p, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, p, 0, buf.length);
+  this.lastNeed -= buf.length;
+}
+
+// Returns all complete UTF-8 characters in a Buffer. If the Buffer ended on a
+// partial character, the character's bytes are buffered until the required
+// number of bytes are available.
+function utf8Text(buf, i) {
+  var total = utf8CheckIncomplete(this, buf, i);
+  if (!this.lastNeed) return buf.toString('utf8', i);
+  this.lastTotal = total;
+  var end = buf.length - (total - this.lastNeed);
+  buf.copy(this.lastChar, 0, end);
+  return buf.toString('utf8', i, end);
+}
+
+// For UTF-8, a replacement character for each buffered byte of a (partial)
+// character needs to be added to the output.
+function utf8End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + '\ufffd'.repeat(this.lastTotal - this.lastNeed);
+  return r;
+}
+
+// UTF-16LE typically needs two bytes per character, but even if we have an even
+// number of bytes available, we need to check if we end on a leading/high
+// surrogate. In that case, we need to wait for the next two bytes in order to
+// decode the last character properly.
+function utf16Text(buf, i) {
+  if ((buf.length - i) % 2 === 0) {
+    var r = buf.toString('utf16le', i);
+    if (r) {
+      var c = r.charCodeAt(r.length - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) {
+        this.lastNeed = 2;
+        this.lastTotal = 4;
+        this.lastChar[0] = buf[buf.length - 2];
+        this.lastChar[1] = buf[buf.length - 1];
+        return r.slice(0, -1);
+      }
+    }
+    return r;
+  }
+  this.lastNeed = 1;
+  this.lastTotal = 2;
+  this.lastChar[0] = buf[buf.length - 1];
+  return buf.toString('utf16le', i, buf.length - 1);
+}
+
+// For UTF-16LE we do not explicitly append special replacement characters if we
+// end on a partial character, we simply let v8 handle that.
+function utf16End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) {
+    var end = this.lastTotal - this.lastNeed;
+    return r + this.lastChar.toString('utf16le', 0, end);
+  }
+  return r;
+}
+
+function base64Text(buf, i) {
+  var n = (buf.length - i) % 3;
+  if (n === 0) return buf.toString('base64', i);
+  this.lastNeed = 3 - n;
+  this.lastTotal = 3;
+  if (n === 1) {
+    this.lastChar[0] = buf[buf.length - 1];
+  } else {
+    this.lastChar[0] = buf[buf.length - 2];
+    this.lastChar[1] = buf[buf.length - 1];
+  }
+  return buf.toString('base64', i, buf.length - n);
+}
+
+function base64End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + this.lastChar.toString('base64', 0, 3 - this.lastNeed);
+  return r;
+}
+
+// Pass bytes on through for single-byte encodings (e.g. ascii, latin1, hex)
+function simpleWrite(buf) {
+  return buf.toString(this.encoding);
+}
+
+function simpleEnd(buf) {
+  return buf && buf.length ? this.write(buf) : '';
+}
+},{"safe-buffer":373}],335:[function(require,module,exports){
 const streams = require('./lib/streams')
 const Parsers = require('./lib/parsers')
 const Serializers = require('./lib/serializers')
@@ -71724,7 +71865,7 @@ class BlankNodeExt extends BlankNode {
 
 module.exports = BlankNodeExt
 
-},{"rdf-data-model/lib/blank-node":194}],337:[function(require,module,exports){
+},{"rdf-data-model/lib/blank-node":317}],337:[function(require,module,exports){
 'use strict'
 
 const BlankNode = require('./BlankNode')
@@ -71827,7 +71968,7 @@ Dataset.factory = DataFactoryExt
 
 module.exports = DataFactoryExt
 
-},{"./BlankNode":336,"./Dataset":338,"./DefaultGraph":339,"./Literal":340,"./NamedNode":341,"./PrefixMap":342,"./Quad":343,"./Variable":344,"rdf-data-model":193}],338:[function(require,module,exports){
+},{"./BlankNode":336,"./Dataset":338,"./DefaultGraph":339,"./Literal":340,"./NamedNode":341,"./PrefixMap":342,"./Quad":343,"./Variable":344,"rdf-data-model":316}],338:[function(require,module,exports){
 const normalize = require('rdf-normalize')
 const Dataset = require('rdf-dataset-simple')
 const Quad = require('./Quad')
@@ -71858,7 +71999,7 @@ class DatasetExt extends Dataset {
 
 module.exports = DatasetExt
 
-},{"./Quad":343,"rdf-dataset-simple":201,"rdf-normalize":349}],339:[function(require,module,exports){
+},{"./Quad":343,"rdf-dataset-simple":324,"rdf-normalize":348}],339:[function(require,module,exports){
 const DefaultGraph = require('rdf-data-model/lib/default-graph')
 
 class DefaultGraphExt extends DefaultGraph {
@@ -71880,7 +72021,7 @@ class DefaultGraphExt extends DefaultGraph {
 
 module.exports = DefaultGraphExt
 
-},{"rdf-data-model/lib/default-graph":196}],340:[function(require,module,exports){
+},{"rdf-data-model/lib/default-graph":319}],340:[function(require,module,exports){
 const Literal = require('rdf-data-model/lib/literal')
 const NamedNode = require('./NamedNode')
 
@@ -71937,7 +72078,7 @@ class LiteralExt extends Literal {
 
 module.exports = LiteralExt
 
-},{"./NamedNode":341,"rdf-data-model/lib/literal":197}],341:[function(require,module,exports){
+},{"./NamedNode":341,"rdf-data-model/lib/literal":320}],341:[function(require,module,exports){
 const NamedNode = require('rdf-data-model/lib/named-node')
 
 class NamedNodeExt extends NamedNode {
@@ -71959,7 +72100,7 @@ class NamedNodeExt extends NamedNode {
 
 module.exports = NamedNodeExt
 
-},{"rdf-data-model/lib/named-node":198}],342:[function(require,module,exports){
+},{"rdf-data-model/lib/named-node":321}],342:[function(require,module,exports){
 const streams = require('./streams')
 
 class PrefixMap {
@@ -72072,7 +72213,7 @@ class QuadExt extends Quad {
 
 module.exports = QuadExt
 
-},{"rdf-data-model/lib/quad":199}],344:[function(require,module,exports){
+},{"rdf-data-model/lib/quad":322}],344:[function(require,module,exports){
 const Variable = require('rdf-data-model/lib/variable')
 
 class VariableExt extends Variable {
@@ -72094,7 +72235,7 @@ class VariableExt extends Variable {
 
 module.exports = VariableExt
 
-},{"rdf-data-model/lib/variable":200}],345:[function(require,module,exports){
+},{"rdf-data-model/lib/variable":323}],345:[function(require,module,exports){
 class Parsers {
   constructor (parsers) {
     if (parsers) {
@@ -72201,7 +72342,71 @@ module.exports = {
   waitFor: waitFor
 }
 
-},{"events":470}],348:[function(require,module,exports){
+},{"events":473}],348:[function(require,module,exports){
+const jsonldNormalize = require('./jsonld-normalize')
+
+function createPlainNode (node) {
+  if (!node) {
+    return null
+  }
+
+  let plain = {}
+
+  if (node.termType === 'NamedNode') {
+    plain.type = 'IRI'
+    plain.value = node.value
+  } else if (node.termType === 'BlankNode') {
+    plain.type = 'blank node'
+    plain.value = '_:' + node.value
+  } else if (node.termType === 'Literal') {
+    plain.type = 'literal'
+    plain.value = node.value
+    plain.datatype = node.datatype.value
+    plain.language = node.language
+  }
+
+  return plain
+}
+
+function createPlainTriple (triple) {
+  return {
+    subject: createPlainNode(triple.subject),
+    predicate: createPlainNode(triple.predicate),
+    object: createPlainNode(triple.object)
+  }
+}
+
+function createPlainDataset (graph) {
+  let dataset = {}
+
+  graph.forEach((quad) => {
+    let name = '@default'
+
+    if ('graph' in quad && quad.graph.value) {
+      name = quad.graph.value
+    }
+
+    if (!(name in dataset)) {
+      dataset[name] = []
+    }
+
+    dataset[name].push(createPlainTriple(quad))
+  })
+
+  return dataset
+}
+
+function normalize (graph) {
+  return jsonldNormalize(createPlainDataset(graph))
+}
+
+module.exports = normalize
+
+},{"./jsonld-normalize":349}],349:[function(require,module,exports){
+arguments[4][201][0].apply(exports,arguments)
+},{"crypto":446,"dup":201}],350:[function(require,module,exports){
+arguments[4][198][0].apply(exports,arguments)
+},{"dup":198,"rdf-normalize":352}],351:[function(require,module,exports){
 var rdf = require('rdf-graph-abstract')
 var util = require('util')
 
@@ -72588,69 +72793,11 @@ rdf.Graph.prototype.match = function (subject, predicate, object, graph) {
 }
 module.exports = rdf
 
-},{"rdf-graph-abstract":209,"util":556}],349:[function(require,module,exports){
-const jsonldNormalize = require('./jsonld-normalize')
-
-function createPlainNode (node) {
-  if (!node) {
-    return null
-  }
-
-  let plain = {}
-
-  if (node.termType === 'NamedNode') {
-    plain.type = 'IRI'
-    plain.value = node.value
-  } else if (node.termType === 'BlankNode') {
-    plain.type = 'blank node'
-    plain.value = '_:' + node.value
-  } else if (node.termType === 'Literal') {
-    plain.type = 'literal'
-    plain.value = node.value
-    plain.datatype = node.datatype.value
-    plain.language = node.language
-  }
-
-  return plain
-}
-
-function createPlainTriple (triple) {
-  return {
-    subject: createPlainNode(triple.subject),
-    predicate: createPlainNode(triple.predicate),
-    object: createPlainNode(triple.object)
-  }
-}
-
-function createPlainDataset (graph) {
-  let dataset = {}
-
-  graph.forEach((quad) => {
-    let name = '@default'
-
-    if ('graph' in quad && quad.graph.value) {
-      name = quad.graph.value
-    }
-
-    if (!(name in dataset)) {
-      dataset[name] = []
-    }
-
-    dataset[name].push(createPlainTriple(quad))
-  })
-
-  return dataset
-}
-
-function normalize (graph) {
-  return jsonldNormalize(createPlainDataset(graph))
-}
-
-module.exports = normalize
-
-},{"./jsonld-normalize":350}],350:[function(require,module,exports){
-arguments[4][212][0].apply(exports,arguments)
-},{"crypto":443,"dup":212}],351:[function(require,module,exports){
+},{"rdf-graph-abstract":350,"util":559}],352:[function(require,module,exports){
+arguments[4][200][0].apply(exports,arguments)
+},{"./jsonld-normalize":353,"dup":200}],353:[function(require,module,exports){
+arguments[4][201][0].apply(exports,arguments)
+},{"crypto":446,"dup":201}],354:[function(require,module,exports){
 /**
  * @fileoverview
  *  RDF/XML PARSER
@@ -73294,21 +73441,21 @@ for (var property in instance) {
 
 module.exports = RdfXmlParser
 
-},{"rdf-ext":358,"rdf-parser-dom":360,"util":556}],352:[function(require,module,exports){
-arguments[4][202][0].apply(exports,arguments)
-},{"dup":202}],353:[function(require,module,exports){
-arguments[4][203][0].apply(exports,arguments)
-},{"dup":203}],354:[function(require,module,exports){
-arguments[4][204][0].apply(exports,arguments)
-},{"dup":204}],355:[function(require,module,exports){
-arguments[4][205][0].apply(exports,arguments)
-},{"dup":205}],356:[function(require,module,exports){
-arguments[4][206][0].apply(exports,arguments)
-},{"dup":206,"http":545,"https":486,"url":551}],357:[function(require,module,exports){
-arguments[4][207][0].apply(exports,arguments)
-},{"dup":207}],358:[function(require,module,exports){
-arguments[4][208][0].apply(exports,arguments)
-},{"./lib/environment":352,"./lib/parsers":353,"./lib/serializers":354,"./lib/utils":357,"./lib/utils-browser":355,"./lib/utils-node":356,"_process":508,"dup":208,"rdf-graph-array":348,"rdf-store-inmemory":214}],359:[function(require,module,exports){
+},{"rdf-ext":361,"rdf-parser-dom":363,"util":559}],355:[function(require,module,exports){
+arguments[4][191][0].apply(exports,arguments)
+},{"dup":191}],356:[function(require,module,exports){
+arguments[4][192][0].apply(exports,arguments)
+},{"dup":192}],357:[function(require,module,exports){
+arguments[4][193][0].apply(exports,arguments)
+},{"dup":193}],358:[function(require,module,exports){
+arguments[4][194][0].apply(exports,arguments)
+},{"dup":194}],359:[function(require,module,exports){
+arguments[4][195][0].apply(exports,arguments)
+},{"dup":195,"http":548,"https":489,"url":554}],360:[function(require,module,exports){
+arguments[4][196][0].apply(exports,arguments)
+},{"dup":196}],361:[function(require,module,exports){
+arguments[4][197][0].apply(exports,arguments)
+},{"./lib/environment":355,"./lib/parsers":356,"./lib/serializers":357,"./lib/utils":360,"./lib/utils-browser":358,"./lib/utils-node":359,"_process":511,"dup":197,"rdf-graph-array":351,"rdf-store-inmemory":203}],362:[function(require,module,exports){
 /* global DOMParser */
 var util = require('util')
 var AbstractParser = require('rdf-parser-abstract')
@@ -73333,7 +73480,7 @@ DomParser.prototype.parseXmlDom = function (toparse, base) {
 
 module.exports = DomParser
 
-},{"rdf-parser-abstract":362,"util":556}],360:[function(require,module,exports){
+},{"rdf-parser-abstract":365,"util":559}],363:[function(require,module,exports){
 (function (process){
 if (process.browser) {
   module.exports = require('./browser')
@@ -73342,7 +73489,7 @@ if (process.browser) {
 }
 
 }).call(this,require('_process'))
-},{"./browser":359,"./node":361,"_process":508}],361:[function(require,module,exports){
+},{"./browser":362,"./node":364,"_process":511}],364:[function(require,module,exports){
 var util = require('util')
 var xmldom = require('xmldom')
 var AbstractParser = require('rdf-parser-abstract')
@@ -73379,7 +73526,7 @@ DomParser.prototype.parseXmlDom = function (toparse, base) {
 
 module.exports = DomParser
 
-},{"rdf-parser-abstract":362,"util":556,"xmldom":378}],362:[function(require,module,exports){
+},{"rdf-parser-abstract":365,"util":559,"xmldom":383}],365:[function(require,module,exports){
 (function (process){
 var concatStream = require('concat-stream')
 var util = require('util')
@@ -73472,7 +73619,7 @@ util.inherits(AbstractParser.TripleReadStream, Readable)
 module.exports = AbstractParser
 
 }).call(this,require('_process'))
-},{"_process":508,"concat-stream":331,"stream":544,"util":556}],363:[function(require,module,exports){
+},{"_process":511,"concat-stream":310,"stream":547,"util":559}],366:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -73548,7 +73695,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":365,"./_stream_writable":367,"core-util-is":332,"inherits":334,"process-nextick-args":192}],364:[function(require,module,exports){
+},{"./_stream_readable":368,"./_stream_writable":370,"core-util-is":311,"inherits":313,"process-nextick-args":315}],367:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -73575,7 +73722,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":366,"core-util-is":332,"inherits":334}],365:[function(require,module,exports){
+},{"./_stream_transform":369,"core-util-is":311,"inherits":313}],368:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -74519,7 +74666,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":363,"./internal/streams/BufferList":368,"_process":508,"buffer":433,"buffer-shims":330,"core-util-is":332,"events":470,"inherits":334,"isarray":189,"process-nextick-args":192,"string_decoder/":370,"util":404}],366:[function(require,module,exports){
+},{"./_stream_duplex":366,"./internal/streams/BufferList":371,"_process":511,"buffer":436,"buffer-shims":309,"core-util-is":311,"events":473,"inherits":313,"isarray":314,"process-nextick-args":315,"string_decoder/":374,"util":407}],369:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -74702,7 +74849,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":363,"core-util-is":332,"inherits":334}],367:[function(require,module,exports){
+},{"./_stream_duplex":366,"core-util-is":311,"inherits":313}],370:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -75259,7 +75406,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":363,"_process":508,"buffer":433,"buffer-shims":330,"core-util-is":332,"events":470,"inherits":334,"process-nextick-args":192,"util-deprecate":382}],368:[function(require,module,exports){
+},{"./_stream_duplex":366,"_process":511,"buffer":436,"buffer-shims":309,"core-util-is":311,"events":473,"inherits":313,"process-nextick-args":315,"util-deprecate":380}],371:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -75324,7 +75471,7 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":433,"buffer-shims":330}],369:[function(require,module,exports){
+},{"buffer":436,"buffer-shims":309}],372:[function(require,module,exports){
 (function (process){
 var Stream = (function (){
   try {
@@ -75344,7 +75491,71 @@ if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
 }
 
 }).call(this,require('_process'))
-},{"./lib/_stream_duplex.js":363,"./lib/_stream_passthrough.js":364,"./lib/_stream_readable.js":365,"./lib/_stream_transform.js":366,"./lib/_stream_writable.js":367,"_process":508}],370:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":366,"./lib/_stream_passthrough.js":367,"./lib/_stream_readable.js":368,"./lib/_stream_transform.js":369,"./lib/_stream_writable.js":370,"_process":511}],373:[function(require,module,exports){
+/* eslint-disable node/no-deprecated-api */
+var buffer = require('buffer')
+var Buffer = buffer.Buffer
+
+// alternative to using Object.keys for old browsers
+function copyProps (src, dst) {
+  for (var key in src) {
+    dst[key] = src[key]
+  }
+}
+if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+  module.exports = buffer
+} else {
+  // Copy properties from require('buffer')
+  copyProps(buffer, exports)
+  exports.Buffer = SafeBuffer
+}
+
+function SafeBuffer (arg, encodingOrOffset, length) {
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+// Copy static methods from Buffer
+copyProps(Buffer, SafeBuffer)
+
+SafeBuffer.from = function (arg, encodingOrOffset, length) {
+  if (typeof arg === 'number') {
+    throw new TypeError('Argument must not be a number')
+  }
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+SafeBuffer.alloc = function (size, fill, encoding) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  var buf = Buffer(size)
+  if (fill !== undefined) {
+    if (typeof encoding === 'string') {
+      buf.fill(fill, encoding)
+    } else {
+      buf.fill(fill)
+    }
+  } else {
+    buf.fill(0)
+  }
+  return buf
+}
+
+SafeBuffer.allocUnsafe = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return Buffer(size)
+}
+
+SafeBuffer.allocUnsafeSlow = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return buffer.SlowBuffer(size)
+}
+
+},{"buffer":436}],374:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -75567,7 +75778,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":433}],371:[function(require,module,exports){
+},{"buffer":436}],375:[function(require,module,exports){
 var undefined = (void 0); // Paranoia
 
 // Beyond this value, index getters/setters (i.e. array[0], array[1]) are so slow to
@@ -76199,7 +76410,7 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
 
 }());
 
-},{}],372:[function(require,module,exports){
+},{}],376:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  * IPv6 Support
@@ -76386,7 +76597,7 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
   };
 }));
 
-},{}],373:[function(require,module,exports){
+},{}],377:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
@@ -76628,7 +76839,7 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
   return SLD;
 }));
 
-},{}],374:[function(require,module,exports){
+},{}],378:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  *
@@ -78881,7 +79092,7 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
   return URI;
 }));
 
-},{"./IPv6":372,"./SecondLevelDomains":373,"./punycode":375}],375:[function(require,module,exports){
+},{"./IPv6":376,"./SecondLevelDomains":377,"./punycode":379}],379:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.0 by @mathias */
 ;(function(root) {
@@ -79418,7 +79629,78 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],376:[function(require,module,exports){
+},{}],380:[function(require,module,exports){
+(function (global){
+
+/**
+ * Module exports.
+ */
+
+module.exports = deprecate;
+
+/**
+ * Mark that a method should not be used.
+ * Returns a modified function which warns once by default.
+ *
+ * If `localStorage.noDeprecation = true` is set, then it is a no-op.
+ *
+ * If `localStorage.throwDeprecation = true` is set, then deprecated functions
+ * will throw an Error when invoked.
+ *
+ * If `localStorage.traceDeprecation = true` is set, then deprecated functions
+ * will invoke `console.trace()` instead of `console.error()`.
+ *
+ * @param {Function} fn - the function to deprecate
+ * @param {String} msg - the string to print to the console when `fn` is invoked
+ * @returns {Function} a new "deprecated" version of `fn`
+ * @api public
+ */
+
+function deprecate (fn, msg) {
+  if (config('noDeprecation')) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (config('throwDeprecation')) {
+        throw new Error(msg);
+      } else if (config('traceDeprecation')) {
+        console.trace(msg);
+      } else {
+        console.warn(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+}
+
+/**
+ * Checks `localStorage` for boolean values for the given `name`.
+ *
+ * @param {String} name
+ * @returns {Boolean}
+ * @api private
+ */
+
+function config (name) {
+  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
+  try {
+    if (!global.localStorage) return false;
+  } catch (_) {
+    return false;
+  }
+  var val = global.localStorage[name];
+  if (null == val) return false;
+  return String(val).toLowerCase() === 'true';
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],381:[function(require,module,exports){
 
 var XML_CHARACTER_MAP = {
     '&': '&amp;',
@@ -79438,7 +79720,7 @@ function escapeForXML(string) {
 
 module.exports = escapeForXML;
 
-},{}],377:[function(require,module,exports){
+},{}],382:[function(require,module,exports){
 (function (process){
 var escapeForXML = require('./escapeForXML');
 var Stream = require('stream').Stream;
@@ -79724,7 +80006,7 @@ module.exports = xml;
 module.exports.element = module.exports.Element = element;
 
 }).call(this,require('_process'))
-},{"./escapeForXML":376,"_process":508,"stream":544}],378:[function(require,module,exports){
+},{"./escapeForXML":381,"_process":511,"stream":547}],383:[function(require,module,exports){
 function DOMParser(options){
 	this.options = options ||{locator:{}};
 	
@@ -79977,7 +80259,7 @@ function appendElement (hander,node) {
 	exports.DOMParser = DOMParser;
 //}
 
-},{"./dom":379,"./sax":380}],379:[function(require,module,exports){
+},{"./dom":384,"./sax":385}],384:[function(require,module,exports){
 /*
  * DOM Level 2
  * Object DOMException
@@ -81223,7 +81505,7 @@ try{
 	exports.XMLSerializer = XMLSerializer;
 //}
 
-},{}],380:[function(require,module,exports){
+},{}],385:[function(require,module,exports){
 //[4]   	NameStartChar	   ::=   	":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
 //[4a]   	NameChar	   ::=   	NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
 //[5]   	Name	   ::=   	NameStartChar (NameChar)*
@@ -81858,351 +82140,7 @@ function split(source,start){
 exports.XMLReader = XMLReader;
 
 
-},{}],381:[function(require,module,exports){
-'use strict';
-
-var Buffer = require('safe-buffer').Buffer;
-
-var isEncoding = Buffer.isEncoding || function (encoding) {
-  encoding = '' + encoding;
-  switch (encoding && encoding.toLowerCase()) {
-    case 'hex':case 'utf8':case 'utf-8':case 'ascii':case 'binary':case 'base64':case 'ucs2':case 'ucs-2':case 'utf16le':case 'utf-16le':case 'raw':
-      return true;
-    default:
-      return false;
-  }
-};
-
-function _normalizeEncoding(enc) {
-  if (!enc) return 'utf8';
-  var retried;
-  while (true) {
-    switch (enc) {
-      case 'utf8':
-      case 'utf-8':
-        return 'utf8';
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return 'utf16le';
-      case 'latin1':
-      case 'binary':
-        return 'latin1';
-      case 'base64':
-      case 'ascii':
-      case 'hex':
-        return enc;
-      default:
-        if (retried) return; // undefined
-        enc = ('' + enc).toLowerCase();
-        retried = true;
-    }
-  }
-};
-
-// Do not cache `Buffer.isEncoding` when checking encoding names as some
-// modules monkey-patch it to support additional encodings
-function normalizeEncoding(enc) {
-  var nenc = _normalizeEncoding(enc);
-  if (typeof nenc !== 'string' && (Buffer.isEncoding === isEncoding || !isEncoding(enc))) throw new Error('Unknown encoding: ' + enc);
-  return nenc || enc;
-}
-
-// StringDecoder provides an interface for efficiently splitting a series of
-// buffers into a series of JS strings without breaking apart multi-byte
-// characters.
-exports.StringDecoder = StringDecoder;
-function StringDecoder(encoding) {
-  this.encoding = normalizeEncoding(encoding);
-  var nb;
-  switch (this.encoding) {
-    case 'utf16le':
-      this.text = utf16Text;
-      this.end = utf16End;
-      nb = 4;
-      break;
-    case 'utf8':
-      this.fillLast = utf8FillLast;
-      nb = 4;
-      break;
-    case 'base64':
-      this.text = base64Text;
-      this.end = base64End;
-      nb = 3;
-      break;
-    default:
-      this.write = simpleWrite;
-      this.end = simpleEnd;
-      return;
-  }
-  this.lastNeed = 0;
-  this.lastTotal = 0;
-  this.lastChar = Buffer.allocUnsafe(nb);
-}
-
-StringDecoder.prototype.write = function (buf) {
-  if (buf.length === 0) return '';
-  var r;
-  var i;
-  if (this.lastNeed) {
-    r = this.fillLast(buf);
-    if (r === undefined) return '';
-    i = this.lastNeed;
-    this.lastNeed = 0;
-  } else {
-    i = 0;
-  }
-  if (i < buf.length) return r ? r + this.text(buf, i) : this.text(buf, i);
-  return r || '';
-};
-
-StringDecoder.prototype.end = utf8End;
-
-// Returns only complete characters in a Buffer
-StringDecoder.prototype.text = utf8Text;
-
-// Attempts to complete a partial non-UTF-8 character using bytes from a Buffer
-StringDecoder.prototype.fillLast = function (buf) {
-  if (this.lastNeed <= buf.length) {
-    buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, this.lastNeed);
-    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
-  }
-  buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, buf.length);
-  this.lastNeed -= buf.length;
-};
-
-// Checks the type of a UTF-8 byte, whether it's ASCII, a leading byte, or a
-// continuation byte.
-function utf8CheckByte(byte) {
-  if (byte <= 0x7F) return 0;else if (byte >> 5 === 0x06) return 2;else if (byte >> 4 === 0x0E) return 3;else if (byte >> 3 === 0x1E) return 4;
-  return -1;
-}
-
-// Checks at most 3 bytes at the end of a Buffer in order to detect an
-// incomplete multi-byte UTF-8 character. The total number of bytes (2, 3, or 4)
-// needed to complete the UTF-8 character (if applicable) are returned.
-function utf8CheckIncomplete(self, buf, i) {
-  var j = buf.length - 1;
-  if (j < i) return 0;
-  var nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) self.lastNeed = nb - 1;
-    return nb;
-  }
-  if (--j < i) return 0;
-  nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) self.lastNeed = nb - 2;
-    return nb;
-  }
-  if (--j < i) return 0;
-  nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) {
-      if (nb === 2) nb = 0;else self.lastNeed = nb - 3;
-    }
-    return nb;
-  }
-  return 0;
-}
-
-// Validates as many continuation bytes for a multi-byte UTF-8 character as
-// needed or are available. If we see a non-continuation byte where we expect
-// one, we "replace" the validated continuation bytes we've seen so far with
-// UTF-8 replacement characters ('\ufffd'), to match v8's UTF-8 decoding
-// behavior. The continuation byte check is included three times in the case
-// where all of the continuation bytes for a character exist in the same buffer.
-// It is also done this way as a slight performance increase instead of using a
-// loop.
-function utf8CheckExtraBytes(self, buf, p) {
-  if ((buf[0] & 0xC0) !== 0x80) {
-    self.lastNeed = 0;
-    return '\ufffd'.repeat(p);
-  }
-  if (self.lastNeed > 1 && buf.length > 1) {
-    if ((buf[1] & 0xC0) !== 0x80) {
-      self.lastNeed = 1;
-      return '\ufffd'.repeat(p + 1);
-    }
-    if (self.lastNeed > 2 && buf.length > 2) {
-      if ((buf[2] & 0xC0) !== 0x80) {
-        self.lastNeed = 2;
-        return '\ufffd'.repeat(p + 2);
-      }
-    }
-  }
-}
-
-// Attempts to complete a multi-byte UTF-8 character using bytes from a Buffer.
-function utf8FillLast(buf) {
-  var p = this.lastTotal - this.lastNeed;
-  var r = utf8CheckExtraBytes(this, buf, p);
-  if (r !== undefined) return r;
-  if (this.lastNeed <= buf.length) {
-    buf.copy(this.lastChar, p, 0, this.lastNeed);
-    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
-  }
-  buf.copy(this.lastChar, p, 0, buf.length);
-  this.lastNeed -= buf.length;
-}
-
-// Returns all complete UTF-8 characters in a Buffer. If the Buffer ended on a
-// partial character, the character's bytes are buffered until the required
-// number of bytes are available.
-function utf8Text(buf, i) {
-  var total = utf8CheckIncomplete(this, buf, i);
-  if (!this.lastNeed) return buf.toString('utf8', i);
-  this.lastTotal = total;
-  var end = buf.length - (total - this.lastNeed);
-  buf.copy(this.lastChar, 0, end);
-  return buf.toString('utf8', i, end);
-}
-
-// For UTF-8, a replacement character for each buffered byte of a (partial)
-// character needs to be added to the output.
-function utf8End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) return r + '\ufffd'.repeat(this.lastTotal - this.lastNeed);
-  return r;
-}
-
-// UTF-16LE typically needs two bytes per character, but even if we have an even
-// number of bytes available, we need to check if we end on a leading/high
-// surrogate. In that case, we need to wait for the next two bytes in order to
-// decode the last character properly.
-function utf16Text(buf, i) {
-  if ((buf.length - i) % 2 === 0) {
-    var r = buf.toString('utf16le', i);
-    if (r) {
-      var c = r.charCodeAt(r.length - 1);
-      if (c >= 0xD800 && c <= 0xDBFF) {
-        this.lastNeed = 2;
-        this.lastTotal = 4;
-        this.lastChar[0] = buf[buf.length - 2];
-        this.lastChar[1] = buf[buf.length - 1];
-        return r.slice(0, -1);
-      }
-    }
-    return r;
-  }
-  this.lastNeed = 1;
-  this.lastTotal = 2;
-  this.lastChar[0] = buf[buf.length - 1];
-  return buf.toString('utf16le', i, buf.length - 1);
-}
-
-// For UTF-16LE we do not explicitly append special replacement characters if we
-// end on a partial character, we simply let v8 handle that.
-function utf16End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) {
-    var end = this.lastTotal - this.lastNeed;
-    return r + this.lastChar.toString('utf16le', 0, end);
-  }
-  return r;
-}
-
-function base64Text(buf, i) {
-  var n = (buf.length - i) % 3;
-  if (n === 0) return buf.toString('base64', i);
-  this.lastNeed = 3 - n;
-  this.lastTotal = 3;
-  if (n === 1) {
-    this.lastChar[0] = buf[buf.length - 1];
-  } else {
-    this.lastChar[0] = buf[buf.length - 2];
-    this.lastChar[1] = buf[buf.length - 1];
-  }
-  return buf.toString('base64', i, buf.length - n);
-}
-
-function base64End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) return r + this.lastChar.toString('base64', 0, 3 - this.lastNeed);
-  return r;
-}
-
-// Pass bytes on through for single-byte encodings (e.g. ascii, latin1, hex)
-function simpleWrite(buf) {
-  return buf.toString(this.encoding);
-}
-
-function simpleEnd(buf) {
-  return buf && buf.length ? this.write(buf) : '';
-}
-},{"safe-buffer":224}],382:[function(require,module,exports){
-(function (global){
-
-/**
- * Module exports.
- */
-
-module.exports = deprecate;
-
-/**
- * Mark that a method should not be used.
- * Returns a modified function which warns once by default.
- *
- * If `localStorage.noDeprecation = true` is set, then it is a no-op.
- *
- * If `localStorage.throwDeprecation = true` is set, then deprecated functions
- * will throw an Error when invoked.
- *
- * If `localStorage.traceDeprecation = true` is set, then deprecated functions
- * will invoke `console.trace()` instead of `console.error()`.
- *
- * @param {Function} fn - the function to deprecate
- * @param {String} msg - the string to print to the console when `fn` is invoked
- * @returns {Function} a new "deprecated" version of `fn`
- * @api public
- */
-
-function deprecate (fn, msg) {
-  if (config('noDeprecation')) {
-    return fn;
-  }
-
-  var warned = false;
-  function deprecated() {
-    if (!warned) {
-      if (config('throwDeprecation')) {
-        throw new Error(msg);
-      } else if (config('traceDeprecation')) {
-        console.trace(msg);
-      } else {
-        console.warn(msg);
-      }
-      warned = true;
-    }
-    return fn.apply(this, arguments);
-  }
-
-  return deprecated;
-}
-
-/**
- * Checks `localStorage` for boolean values for the given `name`.
- *
- * @param {String} name
- * @returns {Boolean}
- * @api private
- */
-
-function config (name) {
-  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
-  try {
-    if (!global.localStorage) return false;
-  } catch (_) {
-    return false;
-  }
-  var val = global.localStorage[name];
-  if (null == val) return false;
-  return String(val).toLowerCase() === 'true';
-}
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],383:[function(require,module,exports){
+},{}],386:[function(require,module,exports){
 var $ = require('jquery');
 
 module.exports = function(chapter, callback){
@@ -82219,7 +82157,7 @@ module.exports = function(chapter, callback){
 
 }
 
-},{"jquery":191}],384:[function(require,module,exports){
+},{"jquery":190}],387:[function(require,module,exports){
 var CodeMirror = require("./codemirror-5.33.0/lib/codemirror");
 
 var javascript = require("./codemirror-5.33.0/mode/javascript/javascript")
@@ -82261,9 +82199,9 @@ module.exports = {
 
 };
 
-},{"./codemirror-5.33.0/addon/display/fullscreen":2,"./codemirror-5.33.0/addon/display/placeholder":3,"./codemirror-5.33.0/addon/selection/active-line.js":4,"./codemirror-5.33.0/lib/codemirror":5,"./codemirror-5.33.0/mode/javascript/javascript":6,"./codemirror-5.33.0/mode/xml/xml":7}],385:[function(require,module,exports){
+},{"./codemirror-5.33.0/addon/display/fullscreen":2,"./codemirror-5.33.0/addon/display/placeholder":3,"./codemirror-5.33.0/addon/selection/active-line.js":4,"./codemirror-5.33.0/lib/codemirror":5,"./codemirror-5.33.0/mode/javascript/javascript":6,"./codemirror-5.33.0/mode/xml/xml":7}],388:[function(require,module,exports){
 
-},{}],386:[function(require,module,exports){
+},{}],389:[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -82274,7 +82212,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":387,"./asn1/base":389,"./asn1/constants":393,"./asn1/decoders":395,"./asn1/encoders":398,"bn.js":402}],387:[function(require,module,exports){
+},{"./asn1/api":390,"./asn1/base":392,"./asn1/constants":396,"./asn1/decoders":398,"./asn1/encoders":401,"bn.js":405}],390:[function(require,module,exports){
 var asn1 = require('../asn1');
 var inherits = require('inherits');
 
@@ -82337,7 +82275,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":386,"inherits":489,"vm":557}],388:[function(require,module,exports){
+},{"../asn1":389,"inherits":492,"vm":560}],391:[function(require,module,exports){
 var inherits = require('inherits');
 var Reporter = require('../base').Reporter;
 var Buffer = require('buffer').Buffer;
@@ -82455,7 +82393,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":389,"buffer":433,"inherits":489}],389:[function(require,module,exports){
+},{"../base":392,"buffer":436,"inherits":492}],392:[function(require,module,exports){
 var base = exports;
 
 base.Reporter = require('./reporter').Reporter;
@@ -82463,7 +82401,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":388,"./node":390,"./reporter":391}],390:[function(require,module,exports){
+},{"./buffer":391,"./node":393,"./reporter":394}],393:[function(require,module,exports){
 var Reporter = require('../base').Reporter;
 var EncoderBuffer = require('../base').EncoderBuffer;
 var DecoderBuffer = require('../base').DecoderBuffer;
@@ -83099,7 +83037,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   return /^[A-Za-z0-9 '\(\)\+,\-\.\/:=\?]*$/.test(str);
 };
 
-},{"../base":389,"minimalistic-assert":495}],391:[function(require,module,exports){
+},{"../base":392,"minimalistic-assert":498}],394:[function(require,module,exports){
 var inherits = require('inherits');
 
 function Reporter(options) {
@@ -83222,7 +83160,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":489}],392:[function(require,module,exports){
+},{"inherits":492}],395:[function(require,module,exports){
 var constants = require('../constants');
 
 exports.tagClass = {
@@ -83266,7 +83204,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":393}],393:[function(require,module,exports){
+},{"../constants":396}],396:[function(require,module,exports){
 var constants = exports;
 
 // Helper
@@ -83287,7 +83225,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":392}],394:[function(require,module,exports){
+},{"./der":395}],397:[function(require,module,exports){
 var inherits = require('inherits');
 
 var asn1 = require('../../asn1');
@@ -83613,13 +83551,13 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":386,"inherits":489}],395:[function(require,module,exports){
+},{"../../asn1":389,"inherits":492}],398:[function(require,module,exports){
 var decoders = exports;
 
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":394,"./pem":396}],396:[function(require,module,exports){
+},{"./der":397,"./pem":399}],399:[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -83670,7 +83608,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":394,"buffer":433,"inherits":489}],397:[function(require,module,exports){
+},{"./der":397,"buffer":436,"inherits":492}],400:[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -83967,13 +83905,13 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":386,"buffer":433,"inherits":489}],398:[function(require,module,exports){
+},{"../../asn1":389,"buffer":436,"inherits":492}],401:[function(require,module,exports){
 var encoders = exports;
 
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":397,"./pem":399}],399:[function(require,module,exports){
+},{"./der":400,"./pem":402}],402:[function(require,module,exports){
 var inherits = require('inherits');
 
 var DEREncoder = require('./der');
@@ -83996,7 +83934,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":397,"inherits":489}],400:[function(require,module,exports){
+},{"./der":400,"inherits":492}],403:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -84490,7 +84428,7 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"util/":556}],401:[function(require,module,exports){
+},{"util/":559}],404:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -84606,7 +84544,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],402:[function(require,module,exports){
+},{}],405:[function(require,module,exports){
 (function (module, exports) {
   'use strict';
 
@@ -88035,7 +87973,7 @@ function fromByteArray (uint8) {
   };
 })(typeof module === 'undefined' || module, this);
 
-},{"buffer":404}],403:[function(require,module,exports){
+},{"buffer":407}],406:[function(require,module,exports){
 var r;
 
 module.exports = function rand(len) {
@@ -88102,9 +88040,9 @@ if (typeof self === 'object') {
   }
 }
 
-},{"crypto":404}],404:[function(require,module,exports){
-arguments[4][385][0].apply(exports,arguments)
-},{"dup":385}],405:[function(require,module,exports){
+},{"crypto":407}],407:[function(require,module,exports){
+arguments[4][388][0].apply(exports,arguments)
+},{"dup":388}],408:[function(require,module,exports){
 // based on the aes implimentation in triple sec
 // https://github.com/keybase/triplesec
 // which is in turn based on the one from crypto-js
@@ -88334,7 +88272,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES
 
-},{"safe-buffer":535}],406:[function(require,module,exports){
+},{"safe-buffer":538}],409:[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -88453,7 +88391,7 @@ StreamCipher.prototype.setAAD = function setAAD (buf) {
 
 module.exports = StreamCipher
 
-},{"./aes":405,"./ghash":410,"./incr32":411,"buffer-xor":432,"cipher-base":435,"inherits":489,"safe-buffer":535}],407:[function(require,module,exports){
+},{"./aes":408,"./ghash":413,"./incr32":414,"buffer-xor":435,"cipher-base":438,"inherits":492,"safe-buffer":538}],410:[function(require,module,exports){
 var ciphers = require('./encrypter')
 var deciphers = require('./decrypter')
 var modes = require('./modes/list.json')
@@ -88468,7 +88406,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"./decrypter":408,"./encrypter":409,"./modes/list.json":419}],408:[function(require,module,exports){
+},{"./decrypter":411,"./encrypter":412,"./modes/list.json":422}],411:[function(require,module,exports){
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
 var MODES = require('./modes')
@@ -88591,7 +88529,7 @@ function createDecipher (suite, password) {
 exports.createDecipher = createDecipher
 exports.createDecipheriv = createDecipheriv
 
-},{"./aes":405,"./authCipher":406,"./modes":418,"./streamCipher":421,"cipher-base":435,"evp_bytestokey":471,"inherits":489,"safe-buffer":535}],409:[function(require,module,exports){
+},{"./aes":408,"./authCipher":409,"./modes":421,"./streamCipher":424,"cipher-base":438,"evp_bytestokey":474,"inherits":492,"safe-buffer":538}],412:[function(require,module,exports){
 var MODES = require('./modes')
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
@@ -88707,7 +88645,7 @@ function createCipher (suite, password) {
 exports.createCipheriv = createCipheriv
 exports.createCipher = createCipher
 
-},{"./aes":405,"./authCipher":406,"./modes":418,"./streamCipher":421,"cipher-base":435,"evp_bytestokey":471,"inherits":489,"safe-buffer":535}],410:[function(require,module,exports){
+},{"./aes":408,"./authCipher":409,"./modes":421,"./streamCipher":424,"cipher-base":438,"evp_bytestokey":474,"inherits":492,"safe-buffer":538}],413:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var ZEROES = Buffer.alloc(16, 0)
 
@@ -88798,7 +88736,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH
 
-},{"safe-buffer":535}],411:[function(require,module,exports){
+},{"safe-buffer":538}],414:[function(require,module,exports){
 function incr32 (iv) {
   var len = iv.length
   var item
@@ -88815,7 +88753,7 @@ function incr32 (iv) {
 }
 module.exports = incr32
 
-},{}],412:[function(require,module,exports){
+},{}],415:[function(require,module,exports){
 var xor = require('buffer-xor')
 
 exports.encrypt = function (self, block) {
@@ -88834,7 +88772,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad)
 }
 
-},{"buffer-xor":432}],413:[function(require,module,exports){
+},{"buffer-xor":435}],416:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var xor = require('buffer-xor')
 
@@ -88869,7 +88807,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out
 }
 
-},{"buffer-xor":432,"safe-buffer":535}],414:[function(require,module,exports){
+},{"buffer-xor":435,"safe-buffer":538}],417:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -88913,7 +88851,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":535}],415:[function(require,module,exports){
+},{"safe-buffer":538}],418:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -88940,7 +88878,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":535}],416:[function(require,module,exports){
+},{"safe-buffer":538}],419:[function(require,module,exports){
 var xor = require('buffer-xor')
 var Buffer = require('safe-buffer').Buffer
 var incr32 = require('../incr32')
@@ -88972,7 +88910,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad)
 }
 
-},{"../incr32":411,"buffer-xor":432,"safe-buffer":535}],417:[function(require,module,exports){
+},{"../incr32":414,"buffer-xor":435,"safe-buffer":538}],420:[function(require,module,exports){
 exports.encrypt = function (self, block) {
   return self._cipher.encryptBlock(block)
 }
@@ -88981,7 +88919,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block)
 }
 
-},{}],418:[function(require,module,exports){
+},{}],421:[function(require,module,exports){
 var modeModules = {
   ECB: require('./ecb'),
   CBC: require('./cbc'),
@@ -89001,7 +88939,7 @@ for (var key in modes) {
 
 module.exports = modes
 
-},{"./cbc":412,"./cfb":413,"./cfb1":414,"./cfb8":415,"./ctr":416,"./ecb":417,"./list.json":419,"./ofb":420}],419:[function(require,module,exports){
+},{"./cbc":415,"./cfb":416,"./cfb1":417,"./cfb8":418,"./ctr":419,"./ecb":420,"./list.json":422,"./ofb":423}],422:[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -89194,7 +89132,7 @@ module.exports={
   }
 }
 
-},{}],420:[function(require,module,exports){
+},{}],423:[function(require,module,exports){
 (function (Buffer){
 var xor = require('buffer-xor')
 
@@ -89214,7 +89152,7 @@ exports.encrypt = function (self, chunk) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"buffer-xor":432}],421:[function(require,module,exports){
+},{"buffer":436,"buffer-xor":435}],424:[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -89243,7 +89181,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher
 
-},{"./aes":405,"cipher-base":435,"inherits":489,"safe-buffer":535}],422:[function(require,module,exports){
+},{"./aes":408,"cipher-base":438,"inherits":492,"safe-buffer":538}],425:[function(require,module,exports){
 var ebtk = require('evp_bytestokey')
 var aes = require('browserify-aes/browser')
 var DES = require('browserify-des')
@@ -89318,7 +89256,7 @@ function getCiphers () {
 }
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"browserify-aes/browser":407,"browserify-aes/modes":418,"browserify-des":423,"browserify-des/modes":424,"evp_bytestokey":471}],423:[function(require,module,exports){
+},{"browserify-aes/browser":410,"browserify-aes/modes":421,"browserify-des":426,"browserify-des/modes":427,"evp_bytestokey":474}],426:[function(require,module,exports){
 (function (Buffer){
 var CipherBase = require('cipher-base')
 var des = require('des.js')
@@ -89365,7 +89303,7 @@ DES.prototype._final = function () {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"cipher-base":435,"des.js":444,"inherits":489}],424:[function(require,module,exports){
+},{"buffer":436,"cipher-base":438,"des.js":447,"inherits":492}],427:[function(require,module,exports){
 exports['des-ecb'] = {
   key: 8,
   iv: 0
@@ -89391,7 +89329,7 @@ exports['des-ede'] = {
   iv: 0
 }
 
-},{}],425:[function(require,module,exports){
+},{}],428:[function(require,module,exports){
 (function (Buffer){
 var bn = require('bn.js');
 var randomBytes = require('randombytes');
@@ -89435,10 +89373,10 @@ function getr(priv) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":402,"buffer":433,"randombytes":519}],426:[function(require,module,exports){
+},{"bn.js":405,"buffer":436,"randombytes":522}],429:[function(require,module,exports){
 module.exports = require('./browser/algorithms.json')
 
-},{"./browser/algorithms.json":427}],427:[function(require,module,exports){
+},{"./browser/algorithms.json":430}],430:[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -89592,7 +89530,7 @@ module.exports={
   }
 }
 
-},{}],428:[function(require,module,exports){
+},{}],431:[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -89602,7 +89540,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],429:[function(require,module,exports){
+},{}],432:[function(require,module,exports){
 (function (Buffer){
 var createHash = require('create-hash')
 var stream = require('stream')
@@ -89697,7 +89635,7 @@ module.exports = {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./algorithms.json":427,"./sign":430,"./verify":431,"buffer":433,"create-hash":438,"inherits":489,"stream":544}],430:[function(require,module,exports){
+},{"./algorithms.json":430,"./sign":433,"./verify":434,"buffer":436,"create-hash":441,"inherits":492,"stream":547}],433:[function(require,module,exports){
 (function (Buffer){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var createHmac = require('create-hmac')
@@ -89846,7 +89784,7 @@ module.exports.getKey = getKey
 module.exports.makeKey = makeKey
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":428,"bn.js":402,"browserify-rsa":425,"buffer":433,"create-hmac":441,"elliptic":454,"parse-asn1":501}],431:[function(require,module,exports){
+},{"./curves.json":431,"bn.js":405,"browserify-rsa":428,"buffer":436,"create-hmac":444,"elliptic":457,"parse-asn1":504}],434:[function(require,module,exports){
 (function (Buffer){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var BN = require('bn.js')
@@ -89933,7 +89871,7 @@ function checkValue (b, q) {
 module.exports = verify
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":428,"bn.js":402,"buffer":433,"elliptic":454,"parse-asn1":501}],432:[function(require,module,exports){
+},{"./curves.json":431,"bn.js":405,"buffer":436,"elliptic":457,"parse-asn1":504}],435:[function(require,module,exports){
 (function (Buffer){
 module.exports = function xor (a, b) {
   var length = Math.min(a.length, b.length)
@@ -89947,7 +89885,7 @@ module.exports = function xor (a, b) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433}],433:[function(require,module,exports){
+},{"buffer":436}],436:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -91663,7 +91601,7 @@ function numberIsNaN (obj) {
   return obj !== obj // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":401,"ieee754":487}],434:[function(require,module,exports){
+},{"base64-js":404,"ieee754":490}],437:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -91729,7 +91667,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],435:[function(require,module,exports){
+},{}],438:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
 var StringDecoder = require('string_decoder').StringDecoder
@@ -91830,7 +91768,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase
 
-},{"inherits":489,"safe-buffer":535,"stream":544,"string_decoder":549}],436:[function(require,module,exports){
+},{"inherits":492,"safe-buffer":538,"stream":547,"string_decoder":552}],439:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -91941,7 +91879,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":490}],437:[function(require,module,exports){
+},{"../../is-buffer/index.js":493}],440:[function(require,module,exports){
 (function (Buffer){
 var elliptic = require('elliptic');
 var BN = require('bn.js');
@@ -92067,7 +92005,7 @@ function formatReturnValue(bn, enc, len) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":402,"buffer":433,"elliptic":454}],438:[function(require,module,exports){
+},{"bn.js":405,"buffer":436,"elliptic":457}],441:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var inherits = require('inherits')
@@ -92123,7 +92061,7 @@ module.exports = function createHash (alg) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./md5":440,"buffer":433,"cipher-base":435,"inherits":489,"ripemd160":534,"sha.js":537}],439:[function(require,module,exports){
+},{"./md5":443,"buffer":436,"cipher-base":438,"inherits":492,"ripemd160":537,"sha.js":540}],442:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var intSize = 4
@@ -92157,7 +92095,7 @@ module.exports = function hash (buf, fn) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433}],440:[function(require,module,exports){
+},{"buffer":436}],443:[function(require,module,exports){
 'use strict'
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
@@ -92310,7 +92248,7 @@ module.exports = function md5 (buf) {
   return makeHash(buf, core_md5)
 }
 
-},{"./make-hash":439}],441:[function(require,module,exports){
+},{"./make-hash":442}],444:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Legacy = require('./legacy')
@@ -92374,7 +92312,7 @@ module.exports = function createHmac (alg, key) {
   return new Hmac(alg, key)
 }
 
-},{"./legacy":442,"cipher-base":435,"create-hash/md5":440,"inherits":489,"ripemd160":534,"safe-buffer":535,"sha.js":537}],442:[function(require,module,exports){
+},{"./legacy":445,"cipher-base":438,"create-hash/md5":443,"inherits":492,"ripemd160":537,"safe-buffer":538,"sha.js":540}],445:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Buffer = require('safe-buffer').Buffer
@@ -92422,7 +92360,7 @@ Hmac.prototype._final = function () {
 }
 module.exports = Hmac
 
-},{"cipher-base":435,"inherits":489,"safe-buffer":535}],443:[function(require,module,exports){
+},{"cipher-base":438,"inherits":492,"safe-buffer":538}],446:[function(require,module,exports){
 'use strict'
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes')
@@ -92521,7 +92459,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 }
 
-},{"browserify-cipher":422,"browserify-sign":429,"browserify-sign/algos":426,"create-ecdh":437,"create-hash":438,"create-hmac":441,"diffie-hellman":450,"pbkdf2":502,"public-encrypt":509,"randombytes":519,"randomfill":520}],444:[function(require,module,exports){
+},{"browserify-cipher":425,"browserify-sign":432,"browserify-sign/algos":429,"create-ecdh":440,"create-hash":441,"create-hmac":444,"diffie-hellman":453,"pbkdf2":505,"public-encrypt":512,"randombytes":522,"randomfill":523}],447:[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -92530,7 +92468,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":445,"./des/cipher":446,"./des/des":447,"./des/ede":448,"./des/utils":449}],445:[function(require,module,exports){
+},{"./des/cbc":448,"./des/cipher":449,"./des/des":450,"./des/ede":451,"./des/utils":452}],448:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -92597,7 +92535,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":489,"minimalistic-assert":495}],446:[function(require,module,exports){
+},{"inherits":492,"minimalistic-assert":498}],449:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -92740,7 +92678,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":495}],447:[function(require,module,exports){
+},{"minimalistic-assert":498}],450:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -92885,7 +92823,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"../des":444,"inherits":489,"minimalistic-assert":495}],448:[function(require,module,exports){
+},{"../des":447,"inherits":492,"minimalistic-assert":498}],451:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -92942,7 +92880,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"../des":444,"inherits":489,"minimalistic-assert":495}],449:[function(require,module,exports){
+},{"../des":447,"inherits":492,"minimalistic-assert":498}],452:[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -93200,7 +93138,7 @@ exports.padSplit = function padSplit(num, size, group) {
   return out.join(' ');
 };
 
-},{}],450:[function(require,module,exports){
+},{}],453:[function(require,module,exports){
 (function (Buffer){
 var generatePrime = require('./lib/generatePrime')
 var primes = require('./lib/primes.json')
@@ -93246,7 +93184,7 @@ exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffi
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 
 }).call(this,require("buffer").Buffer)
-},{"./lib/dh":451,"./lib/generatePrime":452,"./lib/primes.json":453,"buffer":433}],451:[function(require,module,exports){
+},{"./lib/dh":454,"./lib/generatePrime":455,"./lib/primes.json":456,"buffer":436}],454:[function(require,module,exports){
 (function (Buffer){
 var BN = require('bn.js');
 var MillerRabin = require('miller-rabin');
@@ -93414,7 +93352,7 @@ function formatReturnValue(bn, enc) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./generatePrime":452,"bn.js":402,"buffer":433,"miller-rabin":494,"randombytes":519}],452:[function(require,module,exports){
+},{"./generatePrime":455,"bn.js":405,"buffer":436,"miller-rabin":497,"randombytes":522}],455:[function(require,module,exports){
 var randomBytes = require('randombytes');
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
@@ -93521,7 +93459,7 @@ function findPrime(bits, gen) {
 
 }
 
-},{"bn.js":402,"miller-rabin":494,"randombytes":519}],453:[function(require,module,exports){
+},{"bn.js":405,"miller-rabin":497,"randombytes":522}],456:[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -93556,7 +93494,7 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],454:[function(require,module,exports){
+},{}],457:[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -93571,7 +93509,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":469,"./elliptic/curve":457,"./elliptic/curves":460,"./elliptic/ec":461,"./elliptic/eddsa":464,"./elliptic/utils":468,"brorand":403}],455:[function(require,module,exports){
+},{"../package.json":472,"./elliptic/curve":460,"./elliptic/curves":463,"./elliptic/ec":464,"./elliptic/eddsa":467,"./elliptic/utils":471,"brorand":406}],458:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -93948,7 +93886,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   return r;
 };
 
-},{"../../elliptic":454,"bn.js":402}],456:[function(require,module,exports){
+},{"../../elliptic":457,"bn.js":405}],459:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -94383,7 +94321,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../../elliptic":454,"../curve":457,"bn.js":402,"inherits":489}],457:[function(require,module,exports){
+},{"../../elliptic":457,"../curve":460,"bn.js":405,"inherits":492}],460:[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -94393,7 +94331,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":455,"./edwards":456,"./mont":458,"./short":459}],458:[function(require,module,exports){
+},{"./base":458,"./edwards":459,"./mont":461,"./short":462}],461:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -94575,7 +94513,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../../elliptic":454,"../curve":457,"bn.js":402,"inherits":489}],459:[function(require,module,exports){
+},{"../../elliptic":457,"../curve":460,"bn.js":405,"inherits":492}],462:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -95515,7 +95453,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../../elliptic":454,"../curve":457,"bn.js":402,"inherits":489}],460:[function(require,module,exports){
+},{"../../elliptic":457,"../curve":460,"bn.js":405,"inherits":492}],463:[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -95722,7 +95660,7 @@ defineCurve('secp256k1', {
   ]
 });
 
-},{"../elliptic":454,"./precomputed/secp256k1":467,"hash.js":473}],461:[function(require,module,exports){
+},{"../elliptic":457,"./precomputed/secp256k1":470,"hash.js":476}],464:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -95964,7 +95902,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../../elliptic":454,"./key":462,"./signature":463,"bn.js":402,"hmac-drbg":485}],462:[function(require,module,exports){
+},{"../../elliptic":457,"./key":465,"./signature":466,"bn.js":405,"hmac-drbg":488}],465:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -96085,7 +96023,7 @@ KeyPair.prototype.inspect = function inspect() {
          ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../../elliptic":454,"bn.js":402}],463:[function(require,module,exports){
+},{"../../elliptic":457,"bn.js":405}],466:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -96222,7 +96160,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../../elliptic":454,"bn.js":402}],464:[function(require,module,exports){
+},{"../../elliptic":457,"bn.js":405}],467:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -96342,7 +96280,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../../elliptic":454,"./key":465,"./signature":466,"hash.js":473}],465:[function(require,module,exports){
+},{"../../elliptic":457,"./key":468,"./signature":469,"hash.js":476}],468:[function(require,module,exports){
 'use strict';
 
 var elliptic = require('../../elliptic');
@@ -96440,7 +96378,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../../elliptic":454}],466:[function(require,module,exports){
+},{"../../elliptic":457}],469:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -96508,7 +96446,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../../elliptic":454,"bn.js":402}],467:[function(require,module,exports){
+},{"../../elliptic":457,"bn.js":405}],470:[function(require,module,exports){
 module.exports = {
   doubles: {
     step: 4,
@@ -97290,7 +97228,7 @@ module.exports = {
   }
 };
 
-},{}],468:[function(require,module,exports){
+},{}],471:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -97412,7 +97350,7 @@ function intFromLE(bytes) {
 utils.intFromLE = intFromLE;
 
 
-},{"bn.js":402,"minimalistic-assert":495,"minimalistic-crypto-utils":496}],469:[function(require,module,exports){
+},{"bn.js":405,"minimalistic-assert":498,"minimalistic-crypto-utils":499}],472:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -97528,7 +97466,7 @@ module.exports={
   "version": "6.4.0"
 }
 
-},{}],470:[function(require,module,exports){
+},{}],473:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -97832,7 +97770,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],471:[function(require,module,exports){
+},{}],474:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var MD5 = require('md5.js')
 
@@ -97879,7 +97817,7 @@ function EVP_BytesToKey (password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey
 
-},{"md5.js":492,"safe-buffer":535}],472:[function(require,module,exports){
+},{"md5.js":495,"safe-buffer":538}],475:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var Transform = require('stream').Transform
@@ -97966,7 +97904,7 @@ HashBase.prototype._digest = function () {
 module.exports = HashBase
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"inherits":489,"stream":544}],473:[function(require,module,exports){
+},{"buffer":436,"inherits":492,"stream":547}],476:[function(require,module,exports){
 var hash = exports;
 
 hash.utils = require('./hash/utils');
@@ -97983,7 +97921,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":474,"./hash/hmac":475,"./hash/ripemd":476,"./hash/sha":477,"./hash/utils":484}],474:[function(require,module,exports){
+},{"./hash/common":477,"./hash/hmac":478,"./hash/ripemd":479,"./hash/sha":480,"./hash/utils":487}],477:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -98077,7 +98015,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":484,"minimalistic-assert":495}],475:[function(require,module,exports){
+},{"./utils":487,"minimalistic-assert":498}],478:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -98126,7 +98064,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":484,"minimalistic-assert":495}],476:[function(require,module,exports){
+},{"./utils":487,"minimalistic-assert":498}],479:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -98274,7 +98212,7 @@ var sh = [
   8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
 ];
 
-},{"./common":474,"./utils":484}],477:[function(require,module,exports){
+},{"./common":477,"./utils":487}],480:[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -98283,7 +98221,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":478,"./sha/224":479,"./sha/256":480,"./sha/384":481,"./sha/512":482}],478:[function(require,module,exports){
+},{"./sha/1":481,"./sha/224":482,"./sha/256":483,"./sha/384":484,"./sha/512":485}],481:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98359,7 +98297,7 @@ SHA1.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":474,"../utils":484,"./common":483}],479:[function(require,module,exports){
+},{"../common":477,"../utils":487,"./common":486}],482:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98391,7 +98329,7 @@ SHA224.prototype._digest = function digest(enc) {
 };
 
 
-},{"../utils":484,"./256":480}],480:[function(require,module,exports){
+},{"../utils":487,"./256":483}],483:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98498,7 +98436,7 @@ SHA256.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":474,"../utils":484,"./common":483,"minimalistic-assert":495}],481:[function(require,module,exports){
+},{"../common":477,"../utils":487,"./common":486,"minimalistic-assert":498}],484:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98535,7 +98473,7 @@ SHA384.prototype._digest = function digest(enc) {
     return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":484,"./512":482}],482:[function(require,module,exports){
+},{"../utils":487,"./512":485}],485:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98867,7 +98805,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":474,"../utils":484,"minimalistic-assert":495}],483:[function(require,module,exports){
+},{"../common":477,"../utils":487,"minimalistic-assert":498}],486:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -98918,7 +98856,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":484}],484:[function(require,module,exports){
+},{"../utils":487}],487:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -99173,7 +99111,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":489,"minimalistic-assert":495}],485:[function(require,module,exports){
+},{"inherits":492,"minimalistic-assert":498}],488:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -99288,7 +99226,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":473,"minimalistic-assert":495,"minimalistic-crypto-utils":496}],486:[function(require,module,exports){
+},{"hash.js":476,"minimalistic-assert":498,"minimalistic-crypto-utils":499}],489:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -99321,7 +99259,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":545,"url":551}],487:[function(require,module,exports){
+},{"http":548,"url":554}],490:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -99407,7 +99345,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],488:[function(require,module,exports){
+},{}],491:[function(require,module,exports){
 
 var indexOf = [].indexOf;
 
@@ -99418,9 +99356,9 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],489:[function(require,module,exports){
-arguments[4][188][0].apply(exports,arguments)
-},{"dup":188}],490:[function(require,module,exports){
+},{}],492:[function(require,module,exports){
+arguments[4][313][0].apply(exports,arguments)
+},{"dup":313}],493:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -99443,9 +99381,9 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],491:[function(require,module,exports){
-arguments[4][189][0].apply(exports,arguments)
-},{"dup":189}],492:[function(require,module,exports){
+},{}],494:[function(require,module,exports){
+arguments[4][314][0].apply(exports,arguments)
+},{"dup":314}],495:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var inherits = require('inherits')
@@ -99594,7 +99532,7 @@ function fnI (a, b, c, d, m, k, s) {
 module.exports = MD5
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"hash-base":493,"inherits":489}],493:[function(require,module,exports){
+},{"buffer":436,"hash-base":496,"inherits":492}],496:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
@@ -99691,7 +99629,7 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase
 
-},{"inherits":489,"safe-buffer":535,"stream":544}],494:[function(require,module,exports){
+},{"inherits":492,"safe-buffer":538,"stream":547}],497:[function(require,module,exports){
 var bn = require('bn.js');
 var brorand = require('brorand');
 
@@ -99808,7 +99746,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":402,"brorand":403}],495:[function(require,module,exports){
+},{"bn.js":405,"brorand":406}],498:[function(require,module,exports){
 module.exports = assert;
 
 function assert(val, msg) {
@@ -99821,7 +99759,7 @@ assert.equal = function assertEqual(l, r, msg) {
     throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
 };
 
-},{}],496:[function(require,module,exports){
+},{}],499:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -99881,7 +99819,7 @@ utils.encode = function encode(arr, enc) {
     return arr;
 };
 
-},{}],497:[function(require,module,exports){
+},{}],500:[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -99895,7 +99833,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],498:[function(require,module,exports){
+},{}],501:[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict'
@@ -100019,7 +99957,7 @@ exports.signature = asn1.define('signature', function () {
   )
 })
 
-},{"./certificate":499,"asn1.js":386}],499:[function(require,module,exports){
+},{"./certificate":502,"asn1.js":389}],502:[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -100109,7 +100047,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate
 
-},{"asn1.js":386}],500:[function(require,module,exports){
+},{"asn1.js":389}],503:[function(require,module,exports){
 (function (Buffer){
 // adapted from https://github.com/apatil/pemstrip
 var findProc = /Proc-Type: 4,ENCRYPTED\n\r?DEK-Info: AES-((?:128)|(?:192)|(?:256))-CBC,([0-9A-H]+)\n\r?\n\r?([0-9A-z\n\r\+\/\=]+)\n\r?/m
@@ -100143,7 +100081,7 @@ module.exports = function (okey, password) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"browserify-aes":407,"buffer":433,"evp_bytestokey":471}],501:[function(require,module,exports){
+},{"browserify-aes":410,"buffer":436,"evp_bytestokey":474}],504:[function(require,module,exports){
 (function (Buffer){
 var asn1 = require('./asn1')
 var aesid = require('./aesid.json')
@@ -100253,13 +100191,13 @@ function decrypt (data, password) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./aesid.json":497,"./asn1":498,"./fixProc":500,"browserify-aes":407,"buffer":433,"pbkdf2":502}],502:[function(require,module,exports){
+},{"./aesid.json":500,"./asn1":501,"./fixProc":503,"browserify-aes":410,"buffer":436,"pbkdf2":505}],505:[function(require,module,exports){
 
 exports.pbkdf2 = require('./lib/async')
 
 exports.pbkdf2Sync = require('./lib/sync')
 
-},{"./lib/async":503,"./lib/sync":506}],503:[function(require,module,exports){
+},{"./lib/async":506,"./lib/sync":509}],506:[function(require,module,exports){
 (function (process,global){
 var checkParameters = require('./precondition')
 var defaultEncoding = require('./default-encoding')
@@ -100361,7 +100299,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./default-encoding":504,"./precondition":505,"./sync":506,"_process":508,"safe-buffer":535}],504:[function(require,module,exports){
+},{"./default-encoding":507,"./precondition":508,"./sync":509,"_process":511,"safe-buffer":538}],507:[function(require,module,exports){
 (function (process){
 var defaultEncoding
 /* istanbul ignore next */
@@ -100375,7 +100313,7 @@ if (process.browser) {
 module.exports = defaultEncoding
 
 }).call(this,require('_process'))
-},{"_process":508}],505:[function(require,module,exports){
+},{"_process":511}],508:[function(require,module,exports){
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
 module.exports = function (iterations, keylen) {
   if (typeof iterations !== 'number') {
@@ -100395,7 +100333,7 @@ module.exports = function (iterations, keylen) {
   }
 }
 
-},{}],506:[function(require,module,exports){
+},{}],509:[function(require,module,exports){
 var md5 = require('create-hash/md5')
 var rmd160 = require('ripemd160')
 var sha = require('sha.js')
@@ -100498,9 +100436,9 @@ function pbkdf2 (password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2
 
-},{"./default-encoding":504,"./precondition":505,"create-hash/md5":440,"ripemd160":534,"safe-buffer":535,"sha.js":537}],507:[function(require,module,exports){
-arguments[4][192][0].apply(exports,arguments)
-},{"_process":508,"dup":192}],508:[function(require,module,exports){
+},{"./default-encoding":507,"./precondition":508,"create-hash/md5":443,"ripemd160":537,"safe-buffer":538,"sha.js":540}],510:[function(require,module,exports){
+arguments[4][315][0].apply(exports,arguments)
+},{"_process":511,"dup":315}],511:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -100686,7 +100624,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],509:[function(require,module,exports){
+},{}],512:[function(require,module,exports){
 exports.publicEncrypt = require('./publicEncrypt');
 exports.privateDecrypt = require('./privateDecrypt');
 
@@ -100697,7 +100635,7 @@ exports.privateEncrypt = function privateEncrypt(key, buf) {
 exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
-},{"./privateDecrypt":511,"./publicEncrypt":512}],510:[function(require,module,exports){
+},{"./privateDecrypt":514,"./publicEncrypt":515}],513:[function(require,module,exports){
 (function (Buffer){
 var createHash = require('create-hash');
 module.exports = function (seed, len) {
@@ -100716,7 +100654,7 @@ function i2ops(c) {
   return out;
 }
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"create-hash":438}],511:[function(require,module,exports){
+},{"buffer":436,"create-hash":441}],514:[function(require,module,exports){
 (function (Buffer){
 var parseKeys = require('parse-asn1');
 var mgf = require('./mgf');
@@ -100827,7 +100765,7 @@ function compare(a, b){
   return dif;
 }
 }).call(this,require("buffer").Buffer)
-},{"./mgf":510,"./withPublic":513,"./xor":514,"bn.js":402,"browserify-rsa":425,"buffer":433,"create-hash":438,"parse-asn1":501}],512:[function(require,module,exports){
+},{"./mgf":513,"./withPublic":516,"./xor":517,"bn.js":405,"browserify-rsa":428,"buffer":436,"create-hash":441,"parse-asn1":504}],515:[function(require,module,exports){
 (function (Buffer){
 var parseKeys = require('parse-asn1');
 var randomBytes = require('randombytes');
@@ -100925,7 +100863,7 @@ function nonZero(len, crypto) {
   return out;
 }
 }).call(this,require("buffer").Buffer)
-},{"./mgf":510,"./withPublic":513,"./xor":514,"bn.js":402,"browserify-rsa":425,"buffer":433,"create-hash":438,"parse-asn1":501,"randombytes":519}],513:[function(require,module,exports){
+},{"./mgf":513,"./withPublic":516,"./xor":517,"bn.js":405,"browserify-rsa":428,"buffer":436,"create-hash":441,"parse-asn1":504,"randombytes":522}],516:[function(require,module,exports){
 (function (Buffer){
 var bn = require('bn.js');
 function withPublic(paddedMsg, key) {
@@ -100938,7 +100876,7 @@ function withPublic(paddedMsg, key) {
 
 module.exports = withPublic;
 }).call(this,require("buffer").Buffer)
-},{"bn.js":402,"buffer":433}],514:[function(require,module,exports){
+},{"bn.js":405,"buffer":436}],517:[function(require,module,exports){
 module.exports = function xor(a, b) {
   var len = a.length;
   var i = -1;
@@ -100947,7 +100885,7 @@ module.exports = function xor(a, b) {
   }
   return a
 };
-},{}],515:[function(require,module,exports){
+},{}],518:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -101484,7 +101422,7 @@ module.exports = function xor(a, b) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],516:[function(require,module,exports){
+},{}],519:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -101570,7 +101508,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],517:[function(require,module,exports){
+},{}],520:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -101657,13 +101595,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],518:[function(require,module,exports){
+},{}],521:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":516,"./encode":517}],519:[function(require,module,exports){
+},{"./decode":519,"./encode":520}],522:[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -101705,7 +101643,7 @@ function randomBytes (size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":508,"safe-buffer":535}],520:[function(require,module,exports){
+},{"_process":511,"safe-buffer":538}],523:[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -101817,37 +101755,37 @@ function randomFillSync (buf, offset, size) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":508,"randombytes":519,"safe-buffer":535}],521:[function(require,module,exports){
+},{"_process":511,"randombytes":522,"safe-buffer":538}],524:[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":522}],522:[function(require,module,exports){
-arguments[4][215][0].apply(exports,arguments)
-},{"./_stream_readable":524,"./_stream_writable":526,"core-util-is":436,"dup":215,"inherits":489,"process-nextick-args":507}],523:[function(require,module,exports){
-arguments[4][216][0].apply(exports,arguments)
-},{"./_stream_transform":525,"core-util-is":436,"dup":216,"inherits":489}],524:[function(require,module,exports){
-arguments[4][217][0].apply(exports,arguments)
-},{"./_stream_duplex":522,"./internal/streams/BufferList":527,"./internal/streams/destroy":528,"./internal/streams/stream":529,"_process":508,"core-util-is":436,"dup":217,"events":470,"inherits":489,"isarray":491,"process-nextick-args":507,"safe-buffer":535,"string_decoder/":549,"util":404}],525:[function(require,module,exports){
-arguments[4][218][0].apply(exports,arguments)
-},{"./_stream_duplex":522,"core-util-is":436,"dup":218,"inherits":489}],526:[function(require,module,exports){
-arguments[4][219][0].apply(exports,arguments)
-},{"./_stream_duplex":522,"./internal/streams/destroy":528,"./internal/streams/stream":529,"_process":508,"core-util-is":436,"dup":219,"inherits":489,"process-nextick-args":507,"safe-buffer":535,"util-deprecate":553}],527:[function(require,module,exports){
-arguments[4][220][0].apply(exports,arguments)
-},{"dup":220,"safe-buffer":535}],528:[function(require,module,exports){
-arguments[4][221][0].apply(exports,arguments)
-},{"dup":221,"process-nextick-args":507}],529:[function(require,module,exports){
-arguments[4][222][0].apply(exports,arguments)
-},{"dup":222,"events":470}],530:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":525}],525:[function(require,module,exports){
+arguments[4][325][0].apply(exports,arguments)
+},{"./_stream_readable":527,"./_stream_writable":529,"core-util-is":439,"dup":325,"inherits":492,"process-nextick-args":510}],526:[function(require,module,exports){
+arguments[4][326][0].apply(exports,arguments)
+},{"./_stream_transform":528,"core-util-is":439,"dup":326,"inherits":492}],527:[function(require,module,exports){
+arguments[4][327][0].apply(exports,arguments)
+},{"./_stream_duplex":525,"./internal/streams/BufferList":530,"./internal/streams/destroy":531,"./internal/streams/stream":532,"_process":511,"core-util-is":439,"dup":327,"events":473,"inherits":492,"isarray":494,"process-nextick-args":510,"safe-buffer":538,"string_decoder/":552,"util":407}],528:[function(require,module,exports){
+arguments[4][328][0].apply(exports,arguments)
+},{"./_stream_duplex":525,"core-util-is":439,"dup":328,"inherits":492}],529:[function(require,module,exports){
+arguments[4][329][0].apply(exports,arguments)
+},{"./_stream_duplex":525,"./internal/streams/destroy":531,"./internal/streams/stream":532,"_process":511,"core-util-is":439,"dup":329,"inherits":492,"process-nextick-args":510,"safe-buffer":538,"util-deprecate":556}],530:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330,"safe-buffer":538}],531:[function(require,module,exports){
+arguments[4][331][0].apply(exports,arguments)
+},{"dup":331,"process-nextick-args":510}],532:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332,"events":473}],533:[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":531}],531:[function(require,module,exports){
-arguments[4][223][0].apply(exports,arguments)
-},{"./lib/_stream_duplex.js":522,"./lib/_stream_passthrough.js":523,"./lib/_stream_readable.js":524,"./lib/_stream_transform.js":525,"./lib/_stream_writable.js":526,"dup":223}],532:[function(require,module,exports){
+},{"./readable":534}],534:[function(require,module,exports){
+arguments[4][333][0].apply(exports,arguments)
+},{"./lib/_stream_duplex.js":525,"./lib/_stream_passthrough.js":526,"./lib/_stream_readable.js":527,"./lib/_stream_transform.js":528,"./lib/_stream_writable.js":529,"dup":333}],535:[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":531}],533:[function(require,module,exports){
+},{"./readable":534}],536:[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":526}],534:[function(require,module,exports){
+},{"./lib/_stream_writable.js":529}],537:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var inherits = require('inherits')
@@ -102142,9 +102080,9 @@ function fn5 (a, b, c, d, e, m, k, s) {
 module.exports = RIPEMD160
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":433,"hash-base":472,"inherits":489}],535:[function(require,module,exports){
-arguments[4][224][0].apply(exports,arguments)
-},{"buffer":433,"dup":224}],536:[function(require,module,exports){
+},{"buffer":436,"hash-base":475,"inherits":492}],538:[function(require,module,exports){
+arguments[4][373][0].apply(exports,arguments)
+},{"buffer":436,"dup":373}],539:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 // prototype class for hash functions
@@ -102227,7 +102165,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash
 
-},{"safe-buffer":535}],537:[function(require,module,exports){
+},{"safe-buffer":538}],540:[function(require,module,exports){
 var exports = module.exports = function SHA (algorithm) {
   algorithm = algorithm.toLowerCase()
 
@@ -102244,7 +102182,7 @@ exports.sha256 = require('./sha256')
 exports.sha384 = require('./sha384')
 exports.sha512 = require('./sha512')
 
-},{"./sha":538,"./sha1":539,"./sha224":540,"./sha256":541,"./sha384":542,"./sha512":543}],538:[function(require,module,exports){
+},{"./sha":541,"./sha1":542,"./sha224":543,"./sha256":544,"./sha384":545,"./sha512":546}],541:[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-0, as defined
  * in FIPS PUB 180-1
@@ -102340,7 +102278,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha
 
-},{"./hash":536,"inherits":489,"safe-buffer":535}],539:[function(require,module,exports){
+},{"./hash":539,"inherits":492,"safe-buffer":538}],542:[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
  * in FIPS PUB 180-1
@@ -102441,7 +102379,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1
 
-},{"./hash":536,"inherits":489,"safe-buffer":535}],540:[function(require,module,exports){
+},{"./hash":539,"inherits":492,"safe-buffer":538}],543:[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -102496,7 +102434,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224
 
-},{"./hash":536,"./sha256":541,"inherits":489,"safe-buffer":535}],541:[function(require,module,exports){
+},{"./hash":539,"./sha256":544,"inherits":492,"safe-buffer":538}],544:[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -102633,7 +102571,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256
 
-},{"./hash":536,"inherits":489,"safe-buffer":535}],542:[function(require,module,exports){
+},{"./hash":539,"inherits":492,"safe-buffer":538}],545:[function(require,module,exports){
 var inherits = require('inherits')
 var SHA512 = require('./sha512')
 var Hash = require('./hash')
@@ -102692,7 +102630,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384
 
-},{"./hash":536,"./sha512":543,"inherits":489,"safe-buffer":535}],543:[function(require,module,exports){
+},{"./hash":539,"./sha512":546,"inherits":492,"safe-buffer":538}],546:[function(require,module,exports){
 var inherits = require('inherits')
 var Hash = require('./hash')
 var Buffer = require('safe-buffer').Buffer
@@ -102954,7 +102892,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512
 
-},{"./hash":536,"inherits":489,"safe-buffer":535}],544:[function(require,module,exports){
+},{"./hash":539,"inherits":492,"safe-buffer":538}],547:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -103083,7 +103021,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":470,"inherits":489,"readable-stream/duplex.js":521,"readable-stream/passthrough.js":530,"readable-stream/readable.js":531,"readable-stream/transform.js":532,"readable-stream/writable.js":533}],545:[function(require,module,exports){
+},{"events":473,"inherits":492,"readable-stream/duplex.js":524,"readable-stream/passthrough.js":533,"readable-stream/readable.js":534,"readable-stream/transform.js":535,"readable-stream/writable.js":536}],548:[function(require,module,exports){
 (function (global){
 var ClientRequest = require('./lib/request')
 var IncomingMessage = require('./lib/response')
@@ -103169,7 +103107,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":547,"./lib/response":548,"builtin-status-codes":434,"url":551,"xtend":558}],546:[function(require,module,exports){
+},{"./lib/request":550,"./lib/response":551,"builtin-status-codes":437,"url":554,"xtend":561}],549:[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -103246,7 +103184,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],547:[function(require,module,exports){
+},{}],550:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -103573,7 +103511,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":546,"./response":548,"_process":508,"buffer":433,"inherits":489,"readable-stream":531,"to-arraybuffer":550}],548:[function(require,module,exports){
+},{"./capability":549,"./response":551,"_process":511,"buffer":436,"inherits":492,"readable-stream":534,"to-arraybuffer":553}],551:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -103794,9 +103732,9 @@ IncomingMessage.prototype._onXHRProgress = function () {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":546,"_process":508,"buffer":433,"inherits":489,"readable-stream":531}],549:[function(require,module,exports){
-arguments[4][381][0].apply(exports,arguments)
-},{"dup":381,"safe-buffer":535}],550:[function(require,module,exports){
+},{"./capability":549,"_process":511,"buffer":436,"inherits":492,"readable-stream":534}],552:[function(require,module,exports){
+arguments[4][334][0].apply(exports,arguments)
+},{"dup":334,"safe-buffer":538}],553:[function(require,module,exports){
 var Buffer = require('buffer').Buffer
 
 module.exports = function (buf) {
@@ -103825,7 +103763,7 @@ module.exports = function (buf) {
 	}
 }
 
-},{"buffer":433}],551:[function(require,module,exports){
+},{"buffer":436}],554:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -104559,7 +104497,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":552,"punycode":515,"querystring":518}],552:[function(require,module,exports){
+},{"./util":555,"punycode":518,"querystring":521}],555:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -104577,18 +104515,18 @@ module.exports = {
   }
 };
 
-},{}],553:[function(require,module,exports){
-arguments[4][382][0].apply(exports,arguments)
-},{"dup":382}],554:[function(require,module,exports){
-arguments[4][188][0].apply(exports,arguments)
-},{"dup":188}],555:[function(require,module,exports){
+},{}],556:[function(require,module,exports){
+arguments[4][380][0].apply(exports,arguments)
+},{"dup":380}],557:[function(require,module,exports){
+arguments[4][313][0].apply(exports,arguments)
+},{"dup":313}],558:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],556:[function(require,module,exports){
+},{}],559:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -105178,7 +105116,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":555,"_process":508,"inherits":554}],557:[function(require,module,exports){
+},{"./support/isBuffer":558,"_process":511,"inherits":557}],560:[function(require,module,exports){
 var indexOf = require('indexof');
 
 var Object_keys = function (obj) {
@@ -105318,7 +105256,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{"indexof":488}],558:[function(require,module,exports){
+},{"indexof":491}],561:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -105339,4 +105277,4 @@ function extend() {
     return target
 }
 
-},{}]},{},[8]);
+},{}]},{},[10]);

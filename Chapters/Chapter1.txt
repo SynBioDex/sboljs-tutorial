@@ -20,11 +20,11 @@ URI = "ABCD1234";
 
 
 // Add top-level Component Definitions
-cas9_generic_cd = document.componentDefinition(URI);
-grna_generic_cd = document.componentDefinition(URI);
-cas9_grna_complex_cd = document.componentDefinition(URI);
-target_gene_cd = document.componentDefinition(URI);
-target_cd = document.componentDefinition(URI);
+cas9_generic_cd = document.componentDefinition(createUri(uriPrefix, "cas9_generic", version));
+grna_generic_cd = document.componentDefinition(createUri(uriPrefix, "gRNA_generic", version));
+cas9_grna_complex_cd = document.componentDefinition(createUri(uriPrefix, "cas9_gRNA_complex", version));
+target_gene_cd = document.componentDefinition(createUri(uriPrefix, "target_gene", version));
+target_cd = document.componentDefinition(createUri(uriPrefix, "target", version));
 
 // Add Display IDs to component definitions
 cas9_generic_cd.displayId = "cas9_generic";
@@ -35,11 +35,11 @@ target_cd.displayId = "target";
 
 
 // Add persistent identities to component definitions
-cas9_generic_cd.persistentIdentity = URI;
-grna_generic_cd.persistentIdentity = URI;
-cas9_grna_complex_cd.persistentIdentity = URI;
-target_gene_cd.persistentIdentity = URI;
-target_cd.persistentIdentity = URI;
+cas9_generic_cd.persistentIdentity = createUri(uriPrefix, "cas9_generic");
+grna_generic_cd.persistentIdentity = createUri(uriPrefix, "gRNA_generic");
+cas9_grna_complex_cd.persistentIdentity = createUri(uriPrefix, "cas9_gRNA_complex");
+target_gene_cd.persistentIdentity = createUri(uriPrefix, "target_gene");
+target_cd.persistentIdentity = createUri(uriPrefix, "target");
 
 
 // Add versions to component definitions
@@ -50,11 +50,11 @@ target_gene_cd.version = version;
 target_cd.version = version;
 
 // Add types to component definitions
-cas9_generic_cd.addType("PROTEIN");
-grna_generic_cd.addType("RNA");
-cas9_grna_complex_cd.addType("COMPLEX");
-target_gene_cd.addType("DNA");
-target_cd.addType("PROTEIN");
+cas9_generic_cd.addType(cdTypes.PROTEIN);
+grna_generic_cd.addType(cdTypes.RNA);
+cas9_grna_complex_cd.addType(cdTypes.COMPLEX);
+target_gene_cd.addType(cdTypes.DNA);
+target_cd.addType(cdTypes.PROTEIN);
 
 // Add roles to component definitions
 grna_generic_cd.addRole("SGRNA");

@@ -1,6 +1,7 @@
 SBOLDocument = require('sboljs');
 createUri = require('./createUri');
 cdTypes = require('./componentDefinitionTypes');
+so = require('./sequenceOntology');
 var $ = require('jquery');
 jQuery = require('jquery');
 require('jquery-ui-bundle');

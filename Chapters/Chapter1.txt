@@ -57,17 +57,17 @@ target_gene_cd.addType(cdTypes.DNA);
 target_cd.addType(cdTypes.PROTEIN);
 
 // Add roles to component definitions
-grna_generic_cd.addRole("SGRNA");
-target_gene_cd.addRole("PROMOTER");
+grna_generic_cd.addRole(so.SGRNA);
+target_gene_cd.addRole(so.PROMOTER);
 
 // Add top-level module definition
-crispr_template_module = document.moduleDefinition(URI);
+crispr_template_module = document.moduleDefinition(createUri(uriPrefix, "CRISPR_Template", version));
 
 // Add module definition display ID
 crispr_template_module.displayId = "CRISPR_Template";
 
 // Add module definition persistent identity
-crispr_template_module.persistentIdentity = URI;
+crispr_template_module.persistentIdentity = createUri(uriPrefix, "CRISPR_Template");
 
 // Add module definition version
 crispr_template_module.version = version;

@@ -54,10 +54,10 @@ crp_b_seq_elements = "GCTCCGAATTTCTCGACAGATCTCATGTGATTACGCCAAGCTACG" +
 "ATCCAATTCGACC";
 
 // Create the sequences
-cra_u6_seq_sequence = document.sequence(URI);
-grna_b_seq_sequence = document.sequence(URI)
-mkate_seq_sequence = document.sequence(URI);
-crp_b_seq_sequence = document.sequence(URI);
+cra_u6_seq_sequence = document.sequence(createUri(uriPrefix, "CRa_U6_seq", version));
+grna_b_seq_sequence = document.sequence(createUri(uriPrefix, "gRNA_b_seq", version))
+mkate_seq_sequence = document.sequence(createUri(uriPrefix, "mKate_seq", version));
+crp_b_seq_sequence = document.sequence(createUri(uriPrefix, "CRP_b_seq", version));
 
 // Set the sequence display IDs
 cra_u6_seq_sequence.displayId = "CRa_U6_seq";
@@ -66,10 +66,10 @@ mkate_seq_sequence.displayId = "mKate_seq";
 crp_b_seq_sequence.displayId = "CRP_b_seq";
 
 // Set the sequence persistentIdentities
-cra_u6_seq_sequence.persistentIdentity = URI;
-grna_b_seq_sequence.persistentIdentity = URI;
-mkate_seq_sequence.persistentIdentity = URI;
-crp_b_seq_sequence.persistentIdentity = URI;
+cra_u6_seq_sequence.persistentIdentity = createUri(uriPrefix, "CRa_U6_seq");
+grna_b_seq_sequence.persistentIdentity = createUri(uriPrefix, "gRNA_b_seq");
+mkate_seq_sequence.persistentIdentity =  createUri(uriPrefix, "mKate_seq");
+crp_b_seq_sequence.persistentIdentity = createUri(uriPrefix, "CRP_b_seq");
 
 
 // Set the sequence display IDs
@@ -80,18 +80,19 @@ crp_b_seq_sequence.version = version;
 
 
 // Create ComponentDefinition for CRP_b promoter
-crp_b_cd = document.componentDefinition(URI);
+crp_b_cd = document.componentDefinition(createUri(uriPrefix, "CRP_b", version));
 
 // Create ComponentDefintiion for EYFP coding sequence
-eyfp_cd = document.componentDefinition(URI);
+eyfp_cd = document.componentDefinition(createUri(uriPrefix, "EYFP", version));
 
 // Create ComponentDefinition for EYFP gene
-eyfp_gene_cd = document.componentDefinition(URI);
+eyfp_gene_cd = document.componentDefinition(createUri(uriPrefix, "EYFP_gene",version));
 
-crp_b_cd = document.componentDefinition(URI);
+crp_b_cd = document.componentDefinition(createUri(uriPrefix, "CRP_b", version));
 
-eyfp_cds_cd = document.componentDefinition(URI);
-eyfp_gene_constraint_sequence_constraint = document.sequenceConstraint(URI);
+eyfp_cds_cd = document.componentDefinition(createUri(uriPrefix, "EYFP_cds",version));
+
+eyfp_gene_constraint_sequence_constraint = document.sequenceConstraint(createUri(uriPrefix, "EYFP_gene/EYFP_gene_constraint", version));
 
 // Create ModuleDefinition for CRISPR Repression
-crpb_circuit = document.moduleDefinition(URI);
+crpb_circuit = document.moduleDefinition(createUri(uriPrefix, "CRPb_characterization_circuit", version));

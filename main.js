@@ -2,6 +2,7 @@ SBOLDocument = require('sboljs');
 createUri = require('./createUri');
 cdTypes = require('./componentDefinitionTypes');
 so = require('./sequenceOntology');
+sbo = require('./systemsBiologyOntology')
 var $ = require('jquery');
 jQuery = require('jquery');
 require('jquery-ui-bundle');

@@ -11,6 +11,5 @@ module.exports = function(prefix, entity, version = ""){
 
   }
 
-  console.log(str);
   return str;
 };

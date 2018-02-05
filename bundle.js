@@ -12,16 +12,11 @@ module.exports = function() {
 
     try {
         eval(terminals.myCodeMirror1.getValue())
-        // eval()
+
     } catch(e) {
         str = e.name+" at line "+(e.lineNumber-56)+": "+e.message;
         alert(str)
     }
-
-
-// ok but probably dont just dump the X+ML there, instead go through doc and print it nicely ok :-D
-
-      // document.getElementById("JSoutput").value = doc.serializeXML()
 
       terminals.myCodeMirror2.setValue(doc.serializeXML());
 
@@ -11178,7 +11173,6 @@ jQuery = require('jquery');
 require('jquery-ui-bundle');
 var terminals = require('./terminals');
 var readChapter = require('./readChapter')
-
 var hljs = require('highlight.js');
 
 window.doc = new SBOLDocument();
@@ -11186,8 +11180,6 @@ window.doc = new SBOLDocument();
 console.log(window.doc);
 
 var JSrun = require('./JSrun.js');
-
-
 
 document.getElementById('run').addEventListener('click', function() {
   console.log('clicked run')
@@ -11241,15 +11233,6 @@ $("#closebutton").click(function(){
 })
 
 
-function highlight(){
-
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
-
-}
-
-
 $("#toggleimg").click(function(){
 
   if ($("#hovercrisprimg").css('display') == "none"){
@@ -11266,6 +11249,14 @@ $("#toggleimg").click(function(){
   }
 
 })
+
+function highlight(){
+
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+
+}
 
 highlight();
 
@@ -82155,7 +82146,6 @@ module.exports = function(chapter, callback){
     callback()
   });
 
-
 }
 
 },{"jquery":190}],387:[function(require,module,exports){
@@ -82236,25 +82226,20 @@ require("./codemirror-5.33.0/addon/display/placeholder")
 require("./codemirror-5.33.0/addon/selection/active-line.js")
 
 var myCodeMirror1 = CodeMirror.fromTextArea(document.getElementById("JSprogram"), {
+
   mode: "javascript",
   theme: "monokai",
   lineNumbers: true,
-  styleActiveLine: true,
-  extraKeys: {
-    "F11": function(cm) {
-      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-    },
-    "Esc": function(cm) {
-      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-    }
-  }
+  styleActiveLine: true
 
 });
 
 var myCodeMirror2 = CodeMirror.fromTextArea(document.getElementById("JSoutput"), {
+
   mode:  "xml",
   theme: "monokai",
   readOnly: true
+
 });
 
 

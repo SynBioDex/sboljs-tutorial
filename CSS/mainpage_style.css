@@ -101,6 +101,25 @@
 
 }
 
+#JSprogram{
+
+  width:100%;
+  font-family: monospace;
+  font-size: 16;
+  font-weight: bold;
+
+}
+
+#JSoutput{
+
+  height:5in;
+  width:100%;
+  font-family: monospace;
+  font-size: 16;
+  font-weight: bold;
+
+}
+
 #hovercrisprimg{
 
   position: absolute;

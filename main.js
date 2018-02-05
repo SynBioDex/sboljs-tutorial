@@ -8,16 +8,12 @@ jQuery = require('jquery');
 require('jquery-ui-bundle');
 var terminals = require('./terminals');
 var readChapter = require('./readChapter')
-
 var hljs = require('highlight.js');
+var JSrun = require('./JSrun.js');
 
 window.doc = new SBOLDocument();
 
 console.log(window.doc);
-
-var JSrun = require('./JSrun.js');
-
-
 
 document.getElementById('run').addEventListener('click', function() {
   console.log('clicked run')
@@ -71,15 +67,6 @@ $("#closebutton").click(function(){
 })
 
 
-function highlight(){
-
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
-
-}
-
-
 $("#toggleimg").click(function(){
 
   if ($("#hovercrisprimg").css('display') == "none"){
@@ -96,6 +83,14 @@ $("#toggleimg").click(function(){
   }
 
 })
+
+function highlight(){
+
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+
+}
 
 highlight();
 

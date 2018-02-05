@@ -184,6 +184,10 @@ body {
 textarea {
   font-family:Lucida console
 }
+
+a{
+  color : cyan;
+}
 /*
 .sidenav {
     height: 5%;

@@ -78,9 +78,15 @@ grna_b_seq_sequence.version = version;
 mkate_seq_sequence.version = version;
 crp_b_seq_sequence.version = version;
 
+// Add the actual sequence element to the Sequence objects
+cra_u6_seq_sequence.elements = cra_u6_seq_elements;
+grna_b_seq_sequence.elements = grna_b_elements;
+mkate_seq_sequence.elements = mkate_seq_elements;
+crp_b_seq_sequence.elements = crp_b_seq_elements;
 
-// Create ComponentDefinition for CRP_b promoter
+// Create ComponentDefinition for CRP_b promoter and add its Sequence object
 crp_b_cd = document.componentDefinition(createUri(uriPrefix, "CRP_b", version));
+crp_b_cd.addSequence(crp_b_seq_sequence);
 
 // Create ComponentDefintiion for EYFP coding sequence
 eyfp_cd = document.componentDefinition(createUri(uriPrefix, "EYFP", version));

@@ -57,6 +57,8 @@ cas9complex_formation_interaction.version = version;
 // Add type to complex formation interaction
 cas9complex_formation_interaction.addType(sbo.NON_COVALENT_BINDING);
 
+crispr_template_module.addInteraction(cas9complex_formation_interaction)
+
 // Create complex formation interaction participations
 cas9_generic_participation = document.participation(createUri(uriPrefix, "CRISPR_Template/cas9_complex_formation/cas9_generic", version))
 grna_generic_participation = document.participation(createUri(uriPrefix, "CRISPR_Template/cas9_complex_formation/gRNA_generic", version))
@@ -97,3 +99,5 @@ eyfp_production_interaction = document.interaction(createUri(uriPrefix, "CRISPR_
 
 // Add target production interation display ID
 eyfp_production_interaction.displayId = "target_production";
+
+crispr_template_module.addInteraction(eyfp_production_interaction)

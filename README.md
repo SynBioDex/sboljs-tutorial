@@ -11,6 +11,7 @@ Then, install the dependencies:
 
 ```
 npm install
+npm install -g browserify
 ```
 
 After that, create the required bundle.js file using browserify:

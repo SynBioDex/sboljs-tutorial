@@ -1,13 +1,24 @@
 ## How to install
 
-First, clone the repository:
+First, clone the repository and move into the directory:
 
-`git clone git@github.com:chrisAta/sboljs-tutorial.git`
+```
+git clone git@github.com:chrisAta/sboljs-tutorial.git
+cd sboljs-tutorial
+```
 
+Then, install the dependencies:
 
-The single html file for this tutorial interface loads a bundle.js file that was created by using browserify on the main.js file. You therefore don't need to install any dependencies to use the tutorial, although they are listed in the package.json file just in case.
+```
+npm install
+```
 
-You then have to put the tutorial on something like nginx. First, install nginx:
+After that, create the required bundle.js file using browserify:
+```
+browserify main.js -o bundle.js
+```
+
+Finally, you then have to put the tutorial on something like nginx. To do this, install nginx:
 
 `sudo apt install nginx`
 
@@ -21,15 +32,10 @@ server {
 }
 ```
 
+And then restart nginx:
+
+```
+systemctl restart nginx
+```
+
 With the above .conf file, you should then be able to access and use the tutorial at localhost:81/sboljstutorial.html.
-
-## How to make changes
-
-
-If you want to make changes to the tutorial after installing, go into the sboljs-tutorial directory and install the dependencies located in package.json:
-
-```
-cd sboljs-tutorial
-npm install
-```
-Given that the html file loads a bundle.js file, it's recommended you keep it updated with browserify while making your changes.
